@@ -2,7 +2,7 @@
 
 NeXa RoVe is being developed around Raspberry Pi hardware and connected components. The hardware work is used to explore how a local-first assistant can connect to voice, display, sensing and movement in a controlled way.
 
-This page stays high-level. It does not include exact wiring, private configuration, device-specific secrets, calibration details, logs, diagnostics or sensitive build notes.
+These notes explain the main hardware groups and how they fit into the project.
 
 ## Compute
 
@@ -12,7 +12,7 @@ Additional local hardware is being explored for AI and vision-related work, but 
 
 ## Voice input
 
-Microphone hardware is used for voice interaction experiments. The public repository does not include real voice pipeline code, wake word code, prompts, recordings or transcripts.
+Microphone hardware is used for voice interaction experiments.
 
 ## Display and UI
 

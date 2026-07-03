@@ -24,7 +24,7 @@ I am currently working on local voice interaction, a visual interface for assist
 
 The project explores how a local-first assistant could support learning, routines, memory, and practical everyday help. It is still an active personal project, so I am sharing it carefully and honestly as it develops.
 
-The public repo does not include the private runtime or any sensitive data. It is there to explain the project clearly, keep selected progress notes, and make it easier to show what I am currently working on.
+The public repo explains the project clearly, keeps selected progress notes, and makes it easier to show what I am currently working on.
 
 ## Optional hashtags
 

@@ -11,7 +11,7 @@ A personal local-first AI and robotics project exploring voice interaction, Rasp
   <img src="media/images/Presentation/nexa-rove-main-photo.jpg" alt="NeXa RoVe current setup" width="720">
 </p>
 
-<p align="center"><sub>Current public-safe view of the NeXa RoVe setup.</sub></p>
+<p align="center"><sub>Current view of the NeXa RoVe setup.</sub></p>
 
 NeXa RoVe is my personal AI and robotics project. I am building it step by step to explore how a local-first assistant could work on real hardware, with voice interaction, a visual interface, sensors and careful physical control.
 
@@ -50,7 +50,7 @@ More images are available in [media/images/gallery.md](media/images/gallery.md).
 
 ## Hardware used
 
-These are the public hardware parts shown in this repository. The notes are high-level and do not describe private wiring, configuration or runtime details.
+These are the hardware parts shown in this repository. The notes explain how the hardware fits into the project.
 
 <table>
   <tr>
@@ -144,7 +144,7 @@ These are the public hardware parts shown in this repository. The notes are high
 
 [Watch the 26-second NeXa RoVe demo](media/videos/nexa-rove-26s-demo.mp4)
 
-A short public-safe video showing the current NeXa RoVe setup.
+A short video showing the current NeXa RoVe setup.
 
 ## Current work
 
@@ -161,9 +161,25 @@ I am currently working on:
 
 More detail is available in [docs/current-work.md](docs/current-work.md) and [docs/current-stage.md](docs/current-stage.md).
 
-## Safe example code
+## Engineering journey
 
-Safe simplified code examples are available in [examples/public_demo](examples/public_demo). They show public concepts only and do not include private NeXa runtime code.
+This repository includes notes about the build process, challenges, runtime direction, Visual Shell, hardware work, testing and engineering decisions.
+
+- [Engineering story](docs/engineering-story.md)
+- [Build map](docs/build-map.md)
+- [Challenges and solutions](docs/challenges-and-solutions.md)
+- [Runtime pipeline overview](docs/runtime-pipeline-overview.md)
+- [System diagrams](docs/system-diagrams.md)
+- [Visual Shell and Godot](docs/visual-shell-and-godot.md)
+- [Local AI and models](docs/local-ai-and-models.md)
+- [Hardware and sensing journey](docs/hardware-and-sensing-journey.md)
+- [Testing and debugging journey](docs/testing-and-debugging-journey.md)
+- [Recruiter technical brief](docs/recruiter-technical-brief.md)
+- [Public engineering log](reports/public-engineering-log.md)
+
+## Example code
+
+Simplified code examples are available in [examples/public_demo](examples/public_demo). They show the main concepts in small, readable Python files.
 
 The examples cover:
 
@@ -181,11 +197,12 @@ More detail is available in [docs/code-examples.md](docs/code-examples.md).
 
 - project overview notes
 - current development direction
+- engineering journey notes
 - selected public photos and video
 - hardware summaries
-- safe demo plans
+- demo plans
 - simplified public example code
-- public/private sharing boundaries
+- sharing boundaries
 
 ## Public boundaries
 

@@ -14,12 +14,18 @@ The work brings together several areas:
 - sensors, camera experiments, displays, and robotics hardware
 - safety checks around anything that can affect physical movement
 
-This public repository explains the project without exposing the private working system.
+This repository explains the project as a public engineering portfolio.
 
-The public media and hardware pages show selected project photos, hardware images and high-level notes:
+It documents selected build stages, problems, decisions and lessons learned so the project can be understood by recruiters, university contacts and technical readers.
+
+The media and hardware pages show selected project photos, hardware images and project notes:
 
 - [Image gallery](../media/images/gallery.md)
 - [Hardware overview](../hardware/hardware-overview.md)
+- [Engineering story](engineering-story.md)
+- [Build map](build-map.md)
+- [Challenges and solutions](challenges-and-solutions.md)
+- [System diagrams](system-diagrams.md)
 
 ## What I am developing now
 
@@ -29,4 +35,4 @@ I am also exploring how a system like this could support learning, routines, mem
 
 ## What is intentionally kept private
 
-The private development repository contains the working implementation and development notes. This public repository does not include private source code, exact runtime architecture, model routing logic, prompts, memory behaviour, raw data, logs, diagnostics, secrets, configuration files, or business-sensitive planning.
+The engineering notes focus on the design direction, integration work and lessons learned from building the project.

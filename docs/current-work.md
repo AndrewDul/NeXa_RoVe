@@ -1,6 +1,6 @@
 # Current work
 
-This page explains what I am working on now at a public-safe level. It does not describe the private implementation, internal architecture, prompts, memory logic, logs, diagnostics, or configuration.
+This page explains what I am working on now.
 
 ## Voice interaction
 

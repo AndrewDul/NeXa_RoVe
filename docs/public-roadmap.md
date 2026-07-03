@@ -24,4 +24,4 @@ This roadmap is deliberately broad. It is intended to show the public direction 
 - Continue developing NeXa RoVe as a local-first physical assistant
 - Improve reliability on real hardware
 - Keep privacy and safety as core project constraints
-- Share selected progress publicly without exposing the private runtime
+- Share selected progress publicly through photos, notes, examples and short demos

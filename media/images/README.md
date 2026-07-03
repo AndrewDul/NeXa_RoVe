@@ -1,6 +1,6 @@
 # Images
 
-This folder is for public-safe images only.
+This folder is for project images.
 
 Use the folders like this:
 
@@ -17,25 +17,14 @@ Suitable images include:
 - edited images where private details have been removed
 - selected stills from short public demo clips
 
-Do not add:
-
-- private logs
-- sensitive screens
-- user data
-- secrets or tokens
-- private configuration
-- `.env` files
-- diagnostics
-- memory files
-- raw media
-- raw camera captures that include people or private spaces without review
+Do not add unreviewed screenshots, personal data, secrets, private screens or raw captures.
 
 ## Before adding an image
 
-Check the whole image, including the background. Make sure it does not show private code, terminal output, `.env` files, tokens, memory data, diagnostics, raw recordings, raw camera captures, private configs, or user data.
+Check the whole image, including the background, before publishing it.
 
 Use edited or cropped versions where needed. Do not copy images automatically from the private development repository.
 
-Keep captions simple and factual. Avoid private details, exact implementation notes, logs, diagnostics, configuration, user data or raw media.
+Keep captions simple and factual.
 
 The gallery page is here: [gallery.md](gallery.md).

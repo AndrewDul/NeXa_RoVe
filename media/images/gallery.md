@@ -1,6 +1,6 @@
 # Image gallery
 
-Selected public-safe images for NeXa RoVe. The gallery is split between project presentation photos and hardware photos.
+Selected images for NeXa RoVe. The gallery is split between project presentation photos and hardware photos.
 
 ## NeXa RoVe presentation gallery
 
@@ -8,7 +8,7 @@ Selected public-safe images for NeXa RoVe. The gallery is split between project 
   <tr>
     <td width="50%">
       <img src="Presentation/nexa-rove-main-photo.jpg" alt="NeXa RoVe current setup" width="320"><br>
-      <sub>Current public-safe view of the NeXa RoVe setup.</sub>
+      <sub>Current view of the NeXa RoVe setup.</sub>
     </td>
     <td width="50%">
       <img src="Presentation/nexa-ui-preview.png" alt="NeXa RoVe interface preview" width="320"><br>
