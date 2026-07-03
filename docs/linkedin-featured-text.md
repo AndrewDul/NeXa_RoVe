@@ -6,11 +6,13 @@ NeXa RoVe - local-first AI and robotics project
 
 ## Short description
 
-A public page for my personal AI and robotics project, exploring local voice interaction, Raspberry Pi hardware, sensors, UI work, and safe robotics control.
+A public page for my personal AI and robotics project. I am currently working on local voice interaction, Raspberry Pi hardware, sensors, UI feedback, and safe robotics control.
 
 ## Slightly longer description
 
-NeXa RoVe is my personal AI and robotics project. I am using it to explore how a local-first assistant can run on real hardware, with voice interaction, a visual interface, Raspberry Pi integration, sensors, and careful handling around physical movement.
+NeXa RoVe is my personal AI and robotics project. I am currently working on local voice interaction, Raspberry Pi hardware, sensors, UI feedback, and safe robotics control.
+
+The project explores how a local-first assistant could support learning, routines, memory, and practical everyday help while giving the user more control over what runs locally.
 
 This public repository shares the project at a high level, including safe documentation, progress notes, demo plans, and simplified examples.
 
@@ -18,6 +20,12 @@ This public repository shares the project at a high level, including safe docume
 
 I have started a public GitHub page for NeXa RoVe, my personal AI and robotics project.
 
-The project is about exploring a local-first assistant that can run on real hardware, using voice interaction, a visual interface, Raspberry Pi hardware, sensors, and robotics components.
+I am currently working on local voice interaction, a visual interface for assistant feedback, Raspberry Pi hardware integration, sensors, and safe robotics control.
 
-The public repo does not include the private runtime or any sensitive data. It is there to explain the project clearly, keep selected progress notes, and make it easier to show what I am working on.
+The project explores how a local-first assistant could support learning, routines, memory, and practical everyday help. It is still an active personal project, so I am sharing it carefully and honestly as it develops.
+
+The public repo does not include the private runtime or any sensitive data. It is there to explain the project clearly, keep selected progress notes, and make it easier to show what I am currently working on.
+
+## Optional hashtags
+
+#AI #Robotics #RaspberryPi #LocalAI #VoiceInteraction #PersonalProject

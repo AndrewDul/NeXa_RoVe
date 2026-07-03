@@ -13,5 +13,6 @@ Public-safe areas currently being developed include:
 - display and interface testing
 - testing and debugging on real hardware
 - safety thinking around physical movement
+- learning support and personal assistance ideas
 
-The project is still changing as hardware, software, and interface work are tested together. Public updates in this repository will focus on broad progress, lessons learned, safe demo material, and simplified examples.
+The project is still changing as hardware, software, voice, interface, and safety work are tested together. Public updates in this repository will focus on broad progress, lessons learned, safe demo material, and simplified examples.

@@ -16,6 +16,12 @@ The work brings together several areas:
 
 This public repository explains the project without exposing the private working system.
 
+## What I am developing now
+
+The current work is focused on the parts that make the assistant feel practical and safe: local AI direction, voice interaction, visual feedback, Raspberry Pi hardware, sensors, robotics exploration, testing, and movement safety.
+
+I am also exploring how a system like this could support learning, routines, memory, and personal assistance in a more local-first way. These are active development areas, not finished product claims.
+
 ## What is intentionally kept private
 
 The private development repository contains the working implementation and development notes. This public repository does not include private source code, exact runtime architecture, model routing logic, prompts, memory behaviour, raw data, logs, diagnostics, secrets, configuration files, or business-sensitive planning.
