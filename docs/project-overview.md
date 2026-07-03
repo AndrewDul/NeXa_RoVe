@@ -16,6 +16,11 @@ The work brings together several areas:
 
 This public repository explains the project without exposing the private working system.
 
+The public media and hardware pages show selected project photos, hardware images and high-level notes:
+
+- [Image gallery](../media/images/gallery.md)
+- [Hardware overview](../hardware/hardware-overview.md)
+
 ## What I am developing now
 
 The current work is focused on the parts that make the assistant feel practical and safe: local AI direction, voice interaction, visual feedback, Raspberry Pi hardware, sensors, robotics exploration, testing, and movement safety.

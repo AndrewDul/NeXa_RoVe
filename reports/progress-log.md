@@ -2,6 +2,28 @@
 
 This log is for public-safe progress updates. It should stay broad and avoid private implementation details.
 
+## 2026-07-04
+
+### Area
+
+README and public presentation.
+
+### What changed
+
+Improved the main README so the project is clearer and easier to read on GitHub.
+
+Added a cleaner top section, a centred project image, compact photo grids, hardware thumbnails with short explanations, links to the public demo video, safe example code and public boundary documents.
+
+The image gallery was cleaned up with presentation and hardware sections, and the hardware overview was expanded with high-level descriptions of compute, voice input, display, camera, sensors, robotics, power and storage.
+
+### What was learned
+
+The repository works better as a public project page when the README stays focused and the detailed media is kept in the gallery and hardware pages.
+
+### Public notes
+
+Public/private boundaries remain in place. The README and gallery avoid private implementation details, logs, diagnostics, prompts, configuration, raw media and sensitive data.
+
 ## 2026-07-03
 
 ### Area
