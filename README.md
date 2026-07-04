@@ -15,6 +15,21 @@ This README is the guided tour for NeXa RoVe. It is designed to help a recruiter
 
 <table>
   <tr>
+    <td>
+      <h3>Open the visual project tour</h3>
+      <p>A static dark-mode project experience with the NeXa face controller, animated panels, gallery, video, hardware tour, code lab, calendar and mini game.</p>
+      <p>
+        <a href="index.html">
+          <img src="media/readme/buttons/open-visual-tour.svg" alt="Open visual project tour">
+        </a>
+      </p>
+      <sub>For the live hosted version, enable GitHub Pages from the repository root. The same <code>index.html</code> becomes the visual tour entry point.</sub>
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
     <td width="25%">
       <h3>System design</h3>
       <p>Understand the runtime shape, command flow and assistant pipeline.</p>

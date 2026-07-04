@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NeXa RoVe Visual Tour</title>
+    <meta name="description" content="Interactive visual tour for the NeXa RoVe public project repository.">
+    <link rel="stylesheet" href="site/styles.css">
+  </head>
+  <body>
+    <div class="ambient" aria-hidden="true">
+      <span class="glow glow-one"></span>
+      <span class="glow glow-two"></span>
+      <span class="glow glow-three"></span>
+    </div>
+
+    <header class="top-bar" id="topBar">
+      <strong class="devdul">DevDul</strong>
+    </header>
+
+    <button class="edge-control edge-left" type="button" data-panel="left" aria-label="Open project map">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+    </button>
+    <button class="edge-control edge-right" type="button" data-panel="right" aria-label="Open clock and calendar">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+    </button>
+    <button class="edge-control edge-top" type="button" data-panel="top" aria-label="Open quick actions">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9l7 7 7-7" /></svg>
+    </button>
+    <button class="edge-control edge-bottom" type="button" data-panel="bottom" aria-label="Open code lab and game">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15l7-7 7 7" /></svg>
+    </button>
+
+    <main>
+      <section class="hero" id="home" aria-label="Intro">
+        <button class="nexa-face" id="nexaFace" type="button" aria-label="Open NeXa tour menu">
+          <span class="face-core">
+            <span class="eye eye-left"></span>
+            <span class="eye eye-right"></span>
+            <svg class="smile" viewBox="0 0 150 70" aria-hidden="true">
+              <path d="M34 24 C48 50, 102 50, 116 24" />
+            </svg>
+          </span>
+        </button>
+
+        <div class="home-hint" aria-hidden="true">
+          <span>click the face to explore</span>
+        </div>
+
+        <div class="orbital-menu" id="orbitalMenu" aria-label="NeXa tour menu">
+          <button class="orbital-tile tile-gallery" type="button" data-action="gallery">
+            <b>Gallery</b><span>Photos and media</span>
+          </button>
+          <button class="orbital-tile tile-system" type="button" data-action="system">
+            <b>System</b><span>Runtime flow</span>
+          </button>
+          <button class="orbital-tile tile-hardware" type="button" data-action="hardware">
+            <b>Hardware</b><span>Physical build</span>
+          </button>
+          <button class="orbital-tile tile-code" type="button" data-action="code">
+            <b>Code</b><span>Examples</span>
+          </button>
+          <button class="orbital-tile tile-story" type="button" data-action="story">
+            <b>Story</b><span>Build journey</span>
+          </button>
+          <button class="orbital-tile tile-docs" type="button" data-action="docs">
+            <b>Docs</b><span>Project files</span>
+          </button>
+          <button class="orbital-tile tile-video" type="button" data-action="video">
+            <b>Video</b><span>Short demo</span>
+          </button>
+          <button class="orbital-tile tile-play" type="button" data-action="play">
+            <b>Play</b><span>Mini game</span>
+          </button>
+        </div>
+
+      </section>
+
+      <div class="guide-shell" id="guide">
+        <section class="section reveal" id="about">
+          <p class="eyebrow">What it is</p>
+          <h2>NeXa RoVe is an active AI and robotics learning project.</h2>
+          <p>
+            The project combines a local assistant direction, a visual interface, Raspberry Pi hardware,
+            sensors, cameras and robotics experiments. It is not a finished commercial product; it is a
+            serious build shaped through testing, iteration and documentation.
+          </p>
+          <div class="summary-grid">
+            <article class="glass-card"><b>Voice and text</b><span>Exploring how input becomes a useful assistant response.</span></article>
+            <article class="glass-card"><b>Visual feedback</b><span>Using a screen so the assistant can show state and intent.</span></article>
+            <article class="glass-card"><b>Real hardware</b><span>Learning from sensors, cameras, power, display and movement constraints.</span></article>
+          </div>
+        </section>
+
+        <section class="section reveal" id="system">
+        <p class="eyebrow">System tour</p>
+        <h2>From input to response, then back into testing.</h2>
+        <div class="flow-grid" id="systemCards"></div>
+        </section>
+
+        <section class="section reveal" id="hardware">
+        <p class="eyebrow">Hardware tour</p>
+        <h2>The physical build gives the project real constraints.</h2>
+        <div class="hardware-grid" id="hardwareGrid"></div>
+        </section>
+
+        <section class="section reveal" id="gallery">
+        <p class="eyebrow">Gallery</p>
+        <h2>Current build, interface and hardware images.</h2>
+        <figure class="featured-media">
+          <button type="button" class="image-button" data-gallery-index="0" aria-label="Open featured image">
+            <img src="media/images/Presentation/nexa-rove-main-photo.jpg" alt="Current NeXa RoVe setup">
+          </button>
+          <figcaption>Current NeXa RoVe setup.</figcaption>
+        </figure>
+        <div class="gallery-grid" id="galleryGrid"></div>
+        </section>
+
+        <section class="section reveal" id="code">
+        <p class="eyebrow">Code Lab</p>
+        <h2>Small runnable examples that explain the main design ideas.</h2>
+        <p>
+          These examples use fake input and standard-library Python so they can be read, run and tested without
+          the full hardware setup.
+        </p>
+        <div class="code-grid" id="codeGrid"></div>
+        </section>
+
+        <section class="section reveal" id="story">
+        <p class="eyebrow">Build story</p>
+        <h2>A project built through small iterations.</h2>
+        <div class="timeline" id="timeline"></div>
+        </section>
+
+        <section class="section reveal" id="video">
+        <p class="eyebrow">Demo video</p>
+        <h2>A short look at the physical setup.</h2>
+        <div class="video-shell">
+          <video controls preload="metadata" poster="media/images/Presentation/front.jpeg">
+            <source src="media/videos/nexa-rove-26s-demo.mp4" type="video/mp4">
+            Your browser does not support the video element.
+          </video>
+          <p>Short project demo showing the current NeXa RoVe setup and display direction.</p>
+        </div>
+        </section>
+
+        <section class="section reveal" id="docs">
+        <p class="eyebrow">Docs</p>
+        <h2>Project notes, diagrams and technical guides.</h2>
+        <div class="docs-grid" id="docsGrid"></div>
+        </section>
+
+        <section class="section reveal boundary" id="boundaries">
+        <p class="eyebrow">Public boundaries</p>
+        <h2>What this visual tour is showing.</h2>
+        <p>
+          This visual tour is part of the public NeXa RoVe repository. It shows the project, hardware,
+          selected media, design thinking, diagrams, simplified examples and selected progress.
+        </p>
+        <p>
+          The main working repository remains private for now. This public version does not include private
+          source code, prompts, memory files, logs, diagnostics, raw recordings, private configuration or the
+          full internal runtime.
+        </p>
+        </section>
+      </div>
+    </main>
+
+    <aside class="panel panel-left" id="panel-left" aria-label="Project map" aria-hidden="true">
+      <button class="panel-close" type="button" aria-label="Close project map">×</button>
+      <p class="eyebrow">Project map</p>
+      <h2>Jump through the tour.</h2>
+      <div class="map-list" id="projectMap"></div>
+    </aside>
+
+    <aside class="panel panel-right" id="panel-right" aria-label="Clock and calendar" aria-hidden="true">
+      <button class="panel-close" type="button" aria-label="Close clock and calendar">×</button>
+      <p class="eyebrow">Clock and calendar</p>
+      <div class="clock" id="clock">--:--:--</div>
+      <div class="date-line" id="dateLine">Loading date</div>
+      <div class="calendar-card">
+        <div class="calendar-head">
+          <button type="button" id="prevMonth" aria-label="Previous month">‹</button>
+          <strong id="monthLabel">Month</strong>
+          <button type="button" id="nextMonth" aria-label="Next month">›</button>
+        </div>
+        <div class="calendar-grid weekdays" aria-hidden="true">
+          <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+        </div>
+        <div class="calendar-grid days" id="calendarDays"></div>
+      </div>
+    </aside>
+
+    <aside class="panel panel-top" id="panel-top" aria-label="Quick actions" aria-hidden="true">
+      <button class="panel-close" type="button" aria-label="Close quick actions">×</button>
+      <p class="eyebrow">Quick actions</p>
+      <h2>Project status and shortcuts.</h2>
+      <div class="intro-panel-copy">
+        <p class="eyebrow">Interactive project tour</p>
+        <h3>Explore NeXa RoVe through the face, panels, media and code.</h3>
+        <p>
+          NeXa RoVe is a personal local-first AI and robotics project exploring voice interaction,
+          visual feedback, hardware, sensing, safety and learning support.
+        </p>
+      </div>
+      <div class="status-grid">
+        <article><b>Stage</b><span>Active development</span></article>
+        <article><b>Focus</b><span>Voice, UI, hardware and examples</span></article>
+        <article><b>Format</b><span>Public portfolio tour</span></article>
+      </div>
+      <p class="panel-summary">
+        NeXa RoVe is a personal local-first AI and robotics project exploring voice interaction, visual feedback,
+        hardware, sensing, safety and learning support.
+      </p>
+      <div class="quick-actions" id="quickActions"></div>
+    </aside>
+
+    <aside class="panel panel-bottom" id="panel-bottom" aria-label="Code Lab and mini game" aria-hidden="true">
+      <button class="panel-close" type="button" aria-label="Close Code Lab and game">×</button>
+      <div class="tabs" role="tablist" aria-label="Bottom panel tabs">
+        <button type="button" class="tab active" data-tab="lab" role="tab" aria-selected="true">Code Lab</button>
+        <button type="button" class="tab" data-tab="play" role="tab" aria-selected="false">Play</button>
+      </div>
+      <div class="tab-panel active" id="tab-lab" role="tabpanel">
+        <p class="eyebrow">Code Lab</p>
+        <h2>Run the public examples.</h2>
+        <div class="code-grid compact" id="panelCodeGrid"></div>
+      </div>
+      <div class="tab-panel" id="tab-play" role="tabpanel">
+        <p class="eyebrow">Mini game</p>
+        <h2>NeXa grid.</h2>
+        <div class="game-shell">
+          <p id="gameStatus">Your turn: X</p>
+          <div class="game-board" id="gameBoard" aria-label="Tic Tac Toe board"></div>
+          <button type="button" class="glass-button" id="resetGame">Reset game</button>
+        </div>
+      </div>
+    </aside>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image lightbox">
+      <button class="lightbox-close" type="button" aria-label="Close image">×</button>
+      <button class="lightbox-nav lightbox-prev" type="button" aria-label="Previous image">‹</button>
+      <figure>
+        <img id="lightboxImage" src="" alt="">
+        <figcaption id="lightboxCaption"></figcaption>
+      </figure>
+      <button class="lightbox-nav lightbox-next" type="button" aria-label="Next image">›</button>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="site/app.js"></script>
+  </body>
+</html>
