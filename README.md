@@ -2,60 +2,76 @@
 
 A personal local-first AI and robotics project exploring voice interaction, visual feedback, Raspberry Pi hardware, sensors and robotics experiments.
 
-![Python](https://img.shields.io/badge/Python-examples-3776AB?style=flat-square&logo=python&logoColor=white)
-![Raspberry Pi](https://img.shields.io/badge/Raspberry%20Pi-hardware-C51A4A?style=flat-square&logo=raspberrypi&logoColor=white)
-![Godot](https://img.shields.io/badge/Godot-Visual%20Shell-478CBF?style=flat-square&logo=godotengine&logoColor=white)
-![Local AI](https://img.shields.io/badge/Local%20AI-exploration-555555?style=flat-square)
-![Robotics](https://img.shields.io/badge/Robotics-experiments-555555?style=flat-square)
-![Tests](https://img.shields.io/badge/Tests-unittest-2E7D32?style=flat-square)
+![Python](https://img.shields.io/badge/Python-examples-1F2937?style=flat-square&logo=python&logoColor=white)
+![Raspberry Pi](https://img.shields.io/badge/Raspberry%20Pi-hardware-1F2937?style=flat-square&logo=raspberrypi&logoColor=white)
+![Godot](https://img.shields.io/badge/Godot-Visual%20Shell-1F2937?style=flat-square&logo=godotengine&logoColor=white)
+![Local AI](https://img.shields.io/badge/Local%20AI-exploration-1F2937?style=flat-square)
+![Robotics](https://img.shields.io/badge/Robotics-experiments-1F2937?style=flat-square)
+![Tests](https://img.shields.io/badge/Tests-unittest-1F2937?style=flat-square)
 
-## Explore NeXa RoVe
+## Start here
 
-This README is the main tour of the project. Start with the area you care about, then follow the links into the diagrams, hardware notes, demo examples and engineering write-ups.
+This README is the guided tour for NeXa RoVe. It is designed to help a recruiter, engineer or project reviewer move through the project in a clear order: what it is, what I am building, what I have learned, what hardware is involved, how the system works and which examples can be explored.
 
 <table>
   <tr>
     <td width="25%">
-      <h3>🧠 System design</h3>
+      <h3>System design</h3>
       <p>Understand the runtime shape, command flow and assistant pipeline.</p>
-      <a href="docs/system-design-overview.md"><b>Explore system design →</b></a>
+      <a href="docs/system-design-overview.md">
+        <img src="media/readme/buttons/explore-system-design.svg" alt="Explore system design">
+      </a>
     </td>
     <td width="25%">
-      <h3>🎙️ Voice and command flow</h3>
+      <h3>Command flow</h3>
       <p>See how spoken or typed input becomes an assistant response.</p>
-      <a href="diagrams/command-understanding.md"><b>Open command flow →</b></a>
+      <a href="diagrams/command-understanding.md">
+        <img src="media/readme/buttons/open-command-flow.svg" alt="Command flow">
+      </a>
     </td>
     <td width="25%">
-      <h3>🖥️ Visual Shell</h3>
-      <p>Follow the Godot interface direction and UI feedback loop.</p>
-      <a href="docs/visual-shell-and-godot.md"><b>Explore Visual Shell →</b></a>
+      <h3>Physical build</h3>
+      <p>Review the Raspberry Pi, display, sensors, cameras and mobile base.</p>
+      <a href="hardware/hardware-overview.md">
+        <img src="media/readme/buttons/explore-hardware.svg" alt="Explore hardware">
+      </a>
     </td>
     <td width="25%">
-      <h3>📷 Vision and sensing</h3>
-      <p>Look at the camera, detection and sensor ideas behind the build.</p>
-      <a href="diagrams/vision-flow.md"><b>Open vision flow →</b></a>
+      <h3>Example code</h3>
+      <p>Run small Python files that explain the main design ideas.</p>
+      <a href="examples/public_demo/">
+        <img src="media/readme/buttons/view-examples.svg" alt="View examples">
+      </a>
     </td>
   </tr>
   <tr>
     <td width="25%">
-      <h3>🤖 Hardware safety</h3>
-      <p>See how movement ideas are guarded by checks and conservative defaults.</p>
-      <a href="diagrams/hardware-safety-loop.md"><b>Open safety loop →</b></a>
+      <h3>Gallery</h3>
+      <p>See the current physical setup and selected build images.</p>
+      <a href="media/images/gallery.md">
+        <img src="media/readme/buttons/open-gallery.svg" alt="Open gallery">
+      </a>
     </td>
     <td width="25%">
-      <h3>🔌 Hardware used</h3>
-      <p>Review the Raspberry Pi, sensors, cameras, display and mobile base.</p>
-      <a href="hardware/hardware-overview.md"><b>Explore hardware →</b></a>
+      <h3>Diagrams</h3>
+      <p>Follow the runtime, vision, model and hardware safety diagrams.</p>
+      <a href="diagrams/README.md">
+        <img src="media/readme/buttons/open-diagrams.svg" alt="Open diagrams">
+      </a>
     </td>
     <td width="25%">
-      <h3>🧪 Example code</h3>
-      <p>Run small Python examples that explain the main ideas.</p>
-      <a href="examples/public_demo/"><b>View examples →</b></a>
+      <h3>Engineering story</h3>
+      <p>Read the build journey, decisions, challenges and progress notes.</p>
+      <a href="docs/engineering-story.md">
+        <img src="media/readme/buttons/read-engineering-story.svg" alt="Read engineering story">
+      </a>
     </td>
     <td width="25%">
-      <h3>📝 Engineering journey</h3>
-      <p>Read the build story, decisions, challenges and progress logs.</p>
-      <a href="docs/engineering-story.md"><b>Read the journey →</b></a>
+      <h3>Demo</h3>
+      <p>Watch a short video of the current NeXa RoVe setup.</p>
+      <a href="media/videos/nexa-rove-26s-demo.mp4">
+        <img src="media/readme/buttons/watch-demo.svg" alt="Watch demo">
+      </a>
     </td>
   </tr>
 </table>
@@ -80,6 +96,8 @@ NeXa RoVe also includes learning support ideas: study help, explanations, quizze
 
 ## What I am learning
 
+The project touches several areas at once, which is what makes it useful as a learning project. Each part has taught me something different about building software that has to interact with people and real hardware.
+
 - System design for assistant-style applications
 - Python runtime structure and small testable modules
 - Local AI trade-offs and model routing ideas
@@ -93,7 +111,9 @@ NeXa RoVe also includes learning support ideas: study help, explanations, quizze
 - Testing, debugging and live verification
 - Technical documentation that explains design decisions clearly
 
-## NeXa RoVe gallery
+## See the physical build
+
+The gallery is the first visual stop in the tour. It shows the current NeXa RoVe setup, the front display and the internal hardware layout without putting a huge image at the top of the README.
 
 <p align="center">
   <img src="media/images/Presentation/nexa-rove-main-photo.jpg" alt="NeXa RoVe setup" width="680">
@@ -124,7 +144,9 @@ NeXa RoVe also includes learning support ideas: study help, explanations, quizze
 </table>
 
 <p align="center">
-  <a href="media/images/gallery.md"><b>Open full gallery →</b></a>
+  <a href="media/images/gallery.md">
+    <img src="media/readme/buttons/open-gallery.svg" alt="Open gallery">
+  </a>
 </p>
 
 ## Hardware used
@@ -223,14 +245,16 @@ The hardware gives the project a real environment to work against. Devices can b
 </table>
 
 <p align="center">
-  <a href="hardware/hardware-overview.md"><b>Open hardware overview →</b></a>
+  <a href="hardware/hardware-overview.md">
+    <img src="media/readme/buttons/explore-hardware.svg" alt="Explore hardware">
+  </a>
 </p>
 
 ## How NeXa RoVe works
 
 The rough flow is:
 
-**Voice or text input → command understanding → assistant decision → visual or spoken feedback → optional hardware action → testing and improvement loop**
+**Voice or text input -> command understanding -> assistant decision -> visual or spoken feedback -> optional hardware action -> testing and improvement loop**
 
 **Voice or text input** starts the interaction. A typed message and a spoken phrase can follow the same broad path once the text is prepared.
 
@@ -244,49 +268,69 @@ The rough flow is:
 
 **Testing and improvement** is a constant loop. The project has grown through small fixes, reports, focused tests and live hardware checks.
 
+## Diagram tour
+
+These diagrams are the fastest way to understand the system shape. Start with the runtime pipeline, then move into command understanding, vision, local model routing and hardware safety.
+
 <table>
   <tr>
     <td width="25%">
       <h3>Runtime pipeline</h3>
       <p>How input moves through the assistant flow.</p>
-      <a href="diagrams/runtime-pipeline.md"><b>Open diagram →</b></a>
+      <a href="diagrams/runtime-pipeline.md">
+        <img src="media/readme/buttons/open-runtime-pipeline.svg" alt="Runtime pipeline">
+      </a>
     </td>
     <td width="25%">
       <h3>Command understanding</h3>
       <p>How commands and fallback paths are separated.</p>
-      <a href="diagrams/command-understanding.md"><b>Open diagram →</b></a>
-    </td>
-    <td width="25%">
-      <h3>Visual Shell flow</h3>
-      <p>How UI state helps explain what the assistant is doing.</p>
-      <a href="diagrams/visual-shell-flow.md"><b>Open diagram →</b></a>
+      <a href="diagrams/command-understanding.md">
+        <img src="media/readme/buttons/open-command-flow.svg" alt="Command flow">
+      </a>
     </td>
     <td width="25%">
       <h3>Vision flow</h3>
       <p>How camera and detection ideas fit into the system.</p>
-      <a href="diagrams/vision-flow.md"><b>Open diagram →</b></a>
+      <a href="diagrams/vision-flow.md">
+        <img src="media/readme/buttons/open-vision-flow.svg" alt="Vision flow">
+      </a>
+    </td>
+    <td width="25%">
+      <h3>Hardware safety</h3>
+      <p>How movement ideas are checked before action.</p>
+      <a href="diagrams/hardware-safety-loop.md">
+        <img src="media/readme/buttons/open-hardware-safety.svg" alt="Hardware safety">
+      </a>
     </td>
   </tr>
   <tr>
     <td width="25%">
       <h3>Local AI model flow</h3>
       <p>How local response routes can be selected by task type.</p>
-      <a href="diagrams/local-ai-model-flow.md"><b>Open diagram →</b></a>
+      <a href="diagrams/local-ai-model-flow.md">
+        <img src="media/readme/buttons/open-diagrams.svg" alt="Open diagrams">
+      </a>
     </td>
     <td width="25%">
-      <h3>Hardware safety loop</h3>
-      <p>How movement ideas are checked before action.</p>
-      <a href="diagrams/hardware-safety-loop.md"><b>Open diagram →</b></a>
+      <h3>Visual Shell flow</h3>
+      <p>How UI state helps explain what the assistant is doing.</p>
+      <a href="diagrams/visual-shell-flow.md">
+        <img src="media/readme/buttons/open-diagrams.svg" alt="Open diagrams">
+      </a>
     </td>
     <td width="25%">
       <h3>Build stage map</h3>
       <p>How the project has moved through stages.</p>
-      <a href="diagrams/build-stage-map.md"><b>Open map →</b></a>
+      <a href="diagrams/build-stage-map.md">
+        <img src="media/readme/buttons/open-diagrams.svg" alt="Open diagrams">
+      </a>
     </td>
     <td width="25%">
       <h3>System overview</h3>
       <p>A readable overview of the design direction.</p>
-      <a href="docs/system-design-overview.md"><b>Read overview →</b></a>
+      <a href="docs/system-design-overview.md">
+        <img src="media/readme/buttons/explore-system-design.svg" alt="Explore system design">
+      </a>
     </td>
   </tr>
 </table>
@@ -302,85 +346,111 @@ I used reports, tests and small focused improvements to keep the project moving.
     <td width="20%">
       <h3>Engineering story</h3>
       <p>A readable account of the project direction and build process.</p>
-      <a href="docs/engineering-story.md"><b>Read story →</b></a>
+      <a href="docs/engineering-story.md">
+        <img src="media/readme/buttons/read-engineering-story.svg" alt="Read engineering story">
+      </a>
     </td>
     <td width="20%">
       <h3>Build map</h3>
       <p>Project stages and how the pieces connect over time.</p>
-      <a href="docs/build-map.md"><b>Open build map →</b></a>
+      <a href="docs/build-map.md">
+        <img src="media/readme/buttons/open-diagrams.svg" alt="Open diagrams">
+      </a>
     </td>
     <td width="20%">
       <h3>Challenges</h3>
       <p>Problems I worked through and how I approached them.</p>
-      <a href="docs/challenges-and-solutions.md"><b>View challenges →</b></a>
+      <a href="docs/challenges-and-solutions.md">
+        <img src="media/readme/buttons/read-engineering-story.svg" alt="Read engineering story">
+      </a>
     </td>
     <td width="20%">
       <h3>Engineering log</h3>
       <p>Selected progress notes and project updates.</p>
-      <a href="reports/public-engineering-log.md"><b>Open log →</b></a>
+      <a href="reports/public-engineering-log.md">
+        <img src="media/readme/buttons/read-engineering-story.svg" alt="Read engineering story">
+      </a>
     </td>
     <td width="20%">
       <h3>Technical brief</h3>
       <p>A recruiter-friendly summary of the engineering work.</p>
-      <a href="docs/recruiter-technical-brief.md"><b>Read brief →</b></a>
+      <a href="docs/recruiter-technical-brief.md">
+        <img src="media/readme/buttons/read-engineering-story.svg" alt="Read engineering story">
+      </a>
     </td>
   </tr>
 </table>
 
 ## Explore the example code
 
-The repo includes simplified runnable Python examples that show how I think about the system without needing the full hardware setup.
+The example files are small runnable Python files that show the main design ideas in a simple form. They use fake data and the Python standard library, so they can be read, run and tested without the full hardware setup.
 
-The examples use fake data and the Python standard library. They are meant to be read, run and tested quickly.
+This is the best place to try the ideas directly. Start with the system flow, then look at command understanding, runtime routing, hardware safety, vision confidence, UI state, model route selection and learning flow.
 
 <table>
   <tr>
     <td width="25%">
       <h3>System flow</h3>
       <p>Shared command classification and movement decision idea.</p>
-      <a href="examples/public_demo/system_flow_example.py"><b>Open example →</b></a>
+      <a href="examples/public_demo/system_flow_example.py">
+        <img src="media/readme/buttons/run-code-examples.svg" alt="Run code examples">
+      </a>
     </td>
     <td width="25%">
       <h3>Command understanding</h3>
       <p>Classifies status, hardware, learning, camera and movement commands.</p>
-      <a href="examples/public_demo/command_understanding_example.py"><b>Open example →</b></a>
+      <a href="examples/public_demo/command_understanding_example.py">
+        <img src="media/readme/buttons/open-command-flow.svg" alt="Command flow">
+      </a>
     </td>
     <td width="25%">
       <h3>Runtime pipeline</h3>
       <p>Runs voice and text through the same simplified response flow.</p>
-      <a href="examples/public_demo/runtime_pipeline_example.py"><b>Open example →</b></a>
+      <a href="examples/public_demo/runtime_pipeline_example.py">
+        <img src="media/readme/buttons/open-runtime-pipeline.svg" alt="Runtime pipeline">
+      </a>
     </td>
     <td width="25%">
       <h3>Hardware safety gate</h3>
       <p>Shows ALLOW, WAIT, STOP and BLOCKED decisions from fake state.</p>
-      <a href="examples/public_demo/hardware_safety_gate_example.py"><b>Open example →</b></a>
+      <a href="examples/public_demo/hardware_safety_gate_example.py">
+        <img src="media/readme/buttons/open-hardware-safety.svg" alt="Hardware safety">
+      </a>
     </td>
   </tr>
   <tr>
     <td width="25%">
       <h3>Vision confidence</h3>
       <p>Uses fake detections to show confidence and freshness checks.</p>
-      <a href="examples/public_demo/vision_confidence_example.py"><b>Open example →</b></a>
+      <a href="examples/public_demo/vision_confidence_example.py">
+        <img src="media/readme/buttons/open-vision-flow.svg" alt="Vision flow">
+      </a>
     </td>
     <td width="25%">
       <h3>UI state</h3>
       <p>Maps assistant events to visible interface states.</p>
-      <a href="examples/public_demo/ui_state_example.py"><b>Open example →</b></a>
+      <a href="examples/public_demo/ui_state_example.py">
+        <img src="media/readme/buttons/run-code-examples.svg" alt="Run code examples">
+      </a>
     </td>
     <td width="25%">
       <h3>Local model route</h3>
       <p>Shows a simple route choice between commands, local responses and helpers.</p>
-      <a href="examples/public_demo/local_model_route_example.py"><b>Open example →</b></a>
+      <a href="examples/public_demo/local_model_route_example.py">
+        <img src="media/readme/buttons/open-code-guide.svg" alt="Code guide">
+      </a>
     </td>
     <td width="25%">
       <h3>Learning flow</h3>
       <p>Maps learning phrases to lesson, quiz, plan and explanation modes.</p>
-      <a href="examples/public_demo/learning_flow_example.py"><b>Open example →</b></a>
+      <a href="examples/public_demo/learning_flow_example.py">
+        <img src="media/readme/buttons/open-learning-flow.svg" alt="Learning flow">
+      </a>
     </td>
   </tr>
 </table>
 
-Run the main examples:
+## Run the examples
 
 ```bash
 python3 examples/public_demo/system_flow_example.py
@@ -400,16 +470,20 @@ python3 -m unittest discover examples/public_demo -p "test_*.py"
 ```
 
 <p align="center">
-  <a href="docs/code-examples.md"><b>Open code examples guide →</b></a>
+  <a href="docs/code-examples.md">
+    <img src="media/readme/buttons/open-code-guide.svg" alt="Code guide">
+  </a>
 </p>
 
 ## Short demo video
 
-<p align="center">
-  <a href="media/videos/nexa-rove-26s-demo.mp4"><b>Watch the 26-second NeXa RoVe demo →</b></a>
-</p>
-
 The demo shows the current physical setup and the direction of the interface on the front display.
+
+<p align="center">
+  <a href="media/videos/nexa-rove-26s-demo.mp4">
+    <img src="media/readme/buttons/watch-demo.svg" alt="Watch demo">
+  </a>
+</p>
 
 ## Public boundaries
 
