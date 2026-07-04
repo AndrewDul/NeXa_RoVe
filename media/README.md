@@ -1,8 +1,8 @@
 # Media
 
-This folder is for public-safe media that helps explain NeXa RoVe.
+This folder is for media that helps explain NeXa RoVe.
 
-Media added here should be reviewed before publishing. It should show the project clearly without exposing private data, logs, diagnostics, secrets, private screens, raw recordings, or personal information.
+Media added here should be reviewed before publishing. It should show the project clearly and avoid distracting background details.
 
 Planned media may include:
 

@@ -6,18 +6,18 @@ Use the folders like this:
 
 - `Presentation/` is for images that show how NeXa RoVe looks as a project, device, or setup.
 - `Hardware/` is for images of hardware parts used in the project.
-- `gallery.md` presents both groups in a clean public layout.
+- `gallery.md` presents both groups in a clean layout.
 
 Suitable images include:
 
 - hardware photos
-- UI screenshots without private data
-- safe progress photos
-- close-ups that do not expose sensitive screens
-- edited images where private details have been removed
-- selected stills from short public demo clips
+- UI screenshots
+- progress photos
+- close-ups of components or the build
+- edited images where needed
+- selected stills from short demo clips
 
-Do not add unreviewed screenshots, personal data, secrets, private screens or raw captures.
+Review each image before adding it to the gallery.
 
 ## Before adding an image
 

@@ -1,7 +1,7 @@
 """Simplified public speech pipeline concept.
 
-This does not use real STT, real TTS, models, private prompts, or private
-NeXa command handling. It only shows a small public-safe flow with fake input.
+This does not use real STT, real TTS, models, prompts, or full NeXa command
+handling. It only shows a small example flow with fake input.
 """
 
 from __future__ import annotations
@@ -42,7 +42,7 @@ def detect_intent(text: str) -> str:
 
 
 def safe_response(intent: str) -> str:
-    """Return a safe public response for the detected intent."""
+    """Return a simple response for the detected intent."""
     return INTENT_RESPONSES.get(intent, "Sorry, this public demo only supports a few simple commands.")
 
 

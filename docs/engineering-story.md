@@ -1,127 +1,129 @@
 # Engineering story
 
-This page explains the engineering work behind NeXa RoVe.
-
 ## What NeXa RoVe is
 
-NeXa RoVe is my personal local-first AI and robotics project. It explores how an assistant could run on real hardware, listen through voice interaction, show feedback on a visual interface, use Raspberry Pi hardware, read sensors and interact with robotics components in a careful way.
+NeXa RoVe is my personal AI and robotics project. It combines a local assistant direction with Raspberry Pi hardware, voice interaction, a Godot-based Visual Shell, cameras, sensors and robotics experiments.
 
-This repository explains the work, shows selected media, shares simplified examples and records the engineering journey.
+The project is active development. It is not a finished product, but it has grown into a serious engineering exercise: building a system that can listen, respond, show state on a screen and connect to physical hardware in a controlled way.
 
 ## Why I started building it
 
-I started building NeXa RoVe because I wanted to understand what it takes to move an AI assistant from a screen-only idea into a physical system.
+I started NeXa RoVe because I wanted to understand what happens when an assistant moves from a normal chat interface into a real physical setup.
 
-That means dealing with problems that do not appear in a simple chatbot:
+A chatbot can answer text. A physical assistant has more problems:
 
-- audio input can be noisy
-- local models can be slow or limited
-- hardware can fail or disconnect
-- UI state needs to stay understandable
-- movement must be treated as a safety problem
-- testing has to cover both software behaviour and real devices
+- it needs to hear the user
+- it needs to show what it is doing
+- it needs to run on limited hardware
+- it needs to handle missing devices
+- it needs to treat movement carefully
+- it needs to be testable when software and hardware meet
 
-I also wanted to explore a more local-first direction. Cloud AI tools are useful, but a local assistant can give more control over privacy, reliability and cost when the task is suitable for local hardware.
+That combination made the project interesting to me.
+
+## What I wanted to learn
+
+I wanted to learn how to design a system where software, UI and hardware work together.
+
+The main learning goals were:
+
+- local AI and embedded hardware
+- voice interaction and command handling
+- runtime design
+- Godot UI work
+- Raspberry Pi integration
+- camera and sensor experiments
+- robotics safety thinking
+- testing and debugging on real devices
+- clear technical documentation
 
 ## What makes it difficult
 
-NeXa RoVe is difficult because it combines several different engineering areas:
+The hard part is integration. Each area can work on its own, but the project becomes difficult when they all need to work together.
 
-- voice interaction
-- local AI experimentation
-- runtime orchestration
-- UI feedback
-- Raspberry Pi hardware
-- sensors and camera experiments
-- robotics movement
-- safety gates and failure handling
-- testing and documentation
+For example, a voice command may affect command understanding, local model use, UI feedback, speech output and hardware state. If one part is slow or uncertain, the whole experience can feel broken.
 
-Each area affects the others. A voice command is not just text. It can affect the interface, local model choice, speech output, hardware state and possible movement. That means the system needs clear boundaries and careful behaviour when something is unavailable or uncertain.
+Real hardware adds more uncertainty. A camera may not provide a usable frame. A microphone may capture the wrong phrase. A sensor reading may be stale. A movement request may need to stop rather than continue.
 
-## What has been built so far
+## Main engineering areas
 
-At a high level, the private development work has explored:
+NeXa RoVe has grown around these areas:
 
-- a local-first assistant runtime
-- voice input and speech response ideas
-- command and intent handling
-- a Godot-based Visual Shell
-- UI panels for feedback and status
+- local runtime and process thinking
+- voice input and speech response direction
+- command understanding and fallback behaviour
+- Visual Shell / Godot UI
 - Raspberry Pi hardware integration
-- microphone, display, camera and sensor hardware
-- mobile base and pan-tilt movement experiments
-- learning support concepts
-- testing, smoke checks and debugging reports
-- documentation and demo material
-
-The public repository focuses on the project story, design thinking and selected demonstrations.
-
-## How the project grew over time
-
-The project grew in broad stages.
-
-First, it started as an assistant idea: a system that could take input, understand simple requests and respond.
-
-Then it moved towards a local runtime: a set of processes and services that could run together on local hardware, rather than only as a single script.
-
-Voice interaction came next. That introduced timing, wake/listen behaviour, speech recognition quality, speech output and the need to avoid long silences.
-
-The Visual Shell then became important. A physical assistant should show what it is doing, not only speak. The UI work focused on calm feedback, visible status and panels that make the system easier to understand.
-
-The hardware work added another layer. Raspberry Pi hardware, displays, microphones, cameras, sensors, power and storage all need practical testing. Real devices do not behave like ideal software mocks.
-
-Robotics experiments added the hardest safety questions. Movement needs explicit limits, safe decisions, checks before action and ways to stop or wait when information is weak.
-
-Finally, the project has moved towards stronger documentation and public presentation. The repo now records the build process in a way that is easy to follow.
-
-## What problems I had to solve
-
-Some of the main problems have been:
-
-- keeping voice interaction responsive enough to feel usable
-- balancing local AI quality with Raspberry Pi hardware limits
-- making the UI show honest states rather than pretending everything is ready
-- keeping hardware actions separate from normal assistant responses
-- handling missing or unreliable devices
-- checking sensor and camera data before trusting it
-- treating movement as a safety issue, not just a command
-- keeping private development data out of the public repository
-- documenting the system clearly enough that the work is understandable later
-
-The private development reports show repeated cycles of testing, finding weak points, improving behaviour, then documenting what changed. The public version keeps that story without exposing the internal code.
-
-## What I learned from building it
-
-The main lesson is that physical AI systems are integration-heavy. The hard part is not only writing a model call or drawing a UI. The hard part is making many pieces behave together:
-
-- input must be interpreted correctly
-- the runtime must know what is available
-- the UI must show useful feedback
-- hardware must fail safely
-- testing needs to catch regressions
-- documentation needs to explain decisions
-
-I also learned that honest fallback behaviour matters. If a camera preview is not available, the UI should say that. If hardware is not ready, the system should not pretend it can move. If local AI is too slow for a task, the design needs to account for that.
-
-## What is still being improved
-
-NeXa RoVe is still active development. Current improvement areas include:
-
-- local voice interaction
-- visual feedback through the UI
-- Raspberry Pi hardware integration
-- sensors and camera experiments
-- robotics movement safety
-- local AI reliability
+- sensor and camera experiments
+- robotics movement and safety decisions
 - learning support and personal assistance ideas
-- testing and debugging on real hardware
+- testing, debugging and reporting
+
+## How the project grew
+
+The first stage was the assistant idea: take user input, understand the request and respond.
+
+The next stage was runtime thinking. A real assistant needs more than one function. It needs input processing, command handling, UI updates, model work, speech output and hardware state.
+
+Voice interaction then introduced timing problems. The assistant needs to avoid long silence, handle partial speech, recover from unclear input and show feedback while work is happening.
+
+The Visual Shell became important because a physical assistant needs a visible state. It should show when it is listening, thinking, answering, showing a panel or waiting for something.
+
+Hardware integration then changed the project again. Raspberry Pi hardware, displays, microphones, cameras, sensors, storage and power all behave differently in real use than they do in a plan.
+
+Robotics added the strongest constraints. Movement cannot be treated like a normal text response. It needs checks, conservative decisions and clear feedback.
+
+## Problems I faced
+
+Some of the main problems were:
+
+- voice recognition being unreliable for short or noisy phrases
+- local models needing a balance between speed and quality
+- UI panels needing to show honest state
+- camera and sensor data not always being available
+- movement decisions needing safe defaults
+- hardware readiness needing clearer checks
+- debugging becoming hard when several parts changed at once
+- documentation needing to keep up with the project
+
+## How I worked through problems
+
+The pattern became:
+
+1. Reproduce the issue.
+2. Separate the problem into smaller parts.
+3. Check whether the issue was input, routing, UI, model behaviour, hardware state or testing.
+4. Make one focused change.
+5. Run checks or a smoke test.
+6. Write a short report so the decision was not lost.
+
+This helped me avoid treating every bug as one giant system failure.
+
+## What I learned
+
+I learned that assistant projects are not only about models. They are systems projects.
+
+The model matters, but so do:
+
+- input quality
+- latency
+- fallback behaviour
+- UI feedback
+- hardware state
+- testing
 - documentation
+- safe defaults
 
-The project is not finished. The goal is to keep improving it in practical steps.
+I also learned that writing down decisions is useful. Reports and notes made it easier to understand why a change was made and what problem it solved.
 
-## Why the main development work is separate
+## What I am improving next
 
-The main development work is separate from this portfolio repository because NeXa RoVe combines software, hardware, voice and movement. The public repo is designed to show the engineering story without turning the working system into a copy-and-paste project.
+The current focus is:
 
-This keeps the public material focused: what was built, what problems came up, what decisions were made and what I learned.
+- improving local voice interaction
+- making the Visual Shell clearer
+- testing hardware components more consistently
+- refining sensor and camera flows
+- improving movement safety decisions
+- building better learning support ideas
+- keeping the public repo clear and useful for people reading about the project

@@ -31,8 +31,8 @@ The media and hardware pages show selected project photos, hardware images and p
 
 The current work is focused on the parts that make the assistant feel practical and safe: local AI direction, voice interaction, visual feedback, Raspberry Pi hardware, sensors, robotics exploration, testing, and movement safety.
 
-I am also exploring how a system like this could support learning, routines, memory, and personal assistance in a more local-first way. These are active development areas, not finished product claims.
+I am also exploring how a system like this could support learning, routines, personal context, and everyday assistance in a more local-first way. These are active development areas, not finished product claims.
 
-## What is intentionally kept private
+## Engineering focus
 
 The engineering notes focus on the design direction, integration work and lessons learned from building the project.

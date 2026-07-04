@@ -1,123 +1,133 @@
 # Challenges and solutions
 
-This document explains the main engineering challenges in NeXa RoVe and how I approached them.
+## Voice responsiveness
 
-## Voice interaction responsiveness
+**Challenge:** Voice interaction needs to feel responsive and not leave the user waiting in silence.
 
-**Challenge:** Voice interaction needs to feel responsive. Long pauses make the assistant feel broken, even if the system is still working.
+**Why it was hard:** The pipeline includes capture, speech recognition, text preparation, command understanding, response generation, speech output and UI feedback.
 
-**Why it was hard:** Voice input has several stages: listening, detecting speech, turning speech into text, understanding the request, preparing a response, speaking back and updating the UI.
+**Approach:** Treat voice as a full loop. Improve timing, show visual feedback and handle unclear input with useful prompts.
 
-**Approach:** Treat the voice path as a pipeline and test each part separately. Keep simple commands separate from slower assistant behaviour where possible. Use visual feedback so the user can see what is happening.
+**Result:** The design became more focused on acknowledgement, feedback and recovery.
 
-**Public-safe result:** The public repo includes simplified voice activity and speech pipeline examples that show the concept without real audio code.
+**What I learned:** Voice UX is not only accuracy. It is also timing and communication.
 
-**What I learned:** Responsiveness is not only model speed. It is also feedback, clear state and good fallback behaviour.
+## Local AI on Raspberry Pi
 
-## Local AI on limited hardware
+**Challenge:** Local AI is useful, but Raspberry Pi hardware has practical limits.
 
-**Challenge:** Local AI is useful for privacy and control, but local hardware has limits.
+**Why it was hard:** Larger models can be slower or harder to run. Smaller models can be faster but less capable.
 
-**Why it was hard:** Smaller models can be faster but less capable. Larger models may be slow, memory-heavy or unreliable on embedded hardware.
+**Approach:** Keep deterministic command paths separate from model-backed responses and treat model use as a tradeoff.
 
-**Approach:** Explore local-first behaviour carefully, using simple tasks where local processing makes sense and treating model choice as an engineering tradeoff.
+**Result:** The public design separates fast commands, assistant answers and learning support.
 
-**Public-safe result:** Public docs explain the local AI direction without exposing model routing internals or prompts.
-
-**What I learned:** Local AI work is about balancing speed, quality, reliability and hardware limits.
+**What I learned:** Local AI design is about matching the task to the hardware.
 
 ## Runtime reliability
 
-**Challenge:** The assistant is not a single script. It has multiple runtime concerns: input, processing, UI, speech output, hardware state and safe actions.
+**Challenge:** The assistant has several moving parts that need to work together.
 
-**Why it was hard:** If one part fails, the whole experience can become confusing. The UI might show the wrong state, voice might stop, or a hardware feature might be unavailable.
+**Why it was hard:** A problem in one area can appear somewhere else. For example, voice may work but UI feedback may lag, or hardware may be present but not ready.
 
-**Approach:** Think in terms of runtime state, health, fallback behaviour and testing. Avoid pretending a component is ready when it is not.
+**Approach:** Split the runtime into understandable stages and document what each stage is responsible for.
 
-**Public-safe result:** Public documentation explains the runtime pipeline at a high level while keeping private architecture out of the repo.
+**Result:** The diagrams now show runtime flow, command understanding, UI feedback and hardware checks separately.
 
-**What I learned:** A reliable assistant needs honest state and recovery thinking, not only features.
+**What I learned:** Clear boundaries make debugging easier.
 
-## Visual Shell and Godot UI integration
+## Command understanding
 
-**Challenge:** The assistant needs a visual layer that can show feedback clearly without becoming cluttered.
+**Challenge:** The assistant needs to distinguish simple commands, questions, learning requests and movement-related requests.
 
-**Why it was hard:** The UI has to reflect real state from the assistant and hardware. It should not show fake readiness or hide important blocked states.
+**Why it was hard:** Speech recognition can produce partial or strange text, and a short phrase can mean different things depending on context.
 
-**Approach:** Use a calm Visual Shell direction with status panels, assistant feedback and clear states. Keep the UI focused on showing state and guiding interaction.
+**Approach:** Use a classification mindset: normalise, classify, route, then respond or ask for clarification.
 
-**Public-safe result:** The public README and gallery show selected Visual Shell images. The detailed UI implementation remains private.
+**Result:** The public examples now include a small system-flow demo that classifies sample commands.
 
-**What I learned:** UI feedback helps trust. A good assistant should show what it is doing.
+**What I learned:** Asking for clarification is often better than guessing.
 
-## Hardware connection and device reliability
+## Godot Visual Shell
 
-**Challenge:** Real hardware does not always behave consistently.
+**Challenge:** The UI needs to show assistant state without becoming cluttered.
 
-**Why it was hard:** Devices may disconnect, fail to initialise, need separate power, require calibration or behave differently after reboot.
+**Why it was hard:** The screen needs to support face/home view, panels, status, commands and learning flows.
 
-**Approach:** Test components separately, keep hardware readiness explicit and avoid assuming a device is available just because it exists in the design.
+**Approach:** Build the Visual Shell around calm feedback, panels and clear status changes.
 
-**Public-safe result:** The public hardware gallery and overview show the hardware groups without exposing wiring or configuration.
+**Result:** The public gallery and diagrams show how the Visual Shell fits into the system.
 
-**What I learned:** Hardware integration needs patience, repeatable checks and clear failure messages.
+**What I learned:** UI is part of the assistant's behaviour, not just presentation.
 
-## Sensor integration
+## Camera and vision flow
 
-**Challenge:** Sensor data can be useful, but it can also be noisy or missing.
+**Challenge:** Vision can help the assistant understand the environment, but camera data can be uncertain.
 
-**Why it was hard:** A sensor reading may be stale, unavailable or misleading if the surrounding system is not ready.
+**Why it was hard:** Frames, detections and distance estimates are not always available or reliable.
 
-**Approach:** Treat sensor values as state that needs checking. Keep public examples mocked and simple.
+**Approach:** Think in terms of capture, preparation, confidence and decision-making.
 
-**Result:** The repository includes a mocked sensor snapshot example and sensor documentation.
+**Result:** The vision diagram explains how camera input becomes state or feedback.
 
-**What I learned:** Sensor data should support decisions, not silently control important behaviour without checks.
+**What I learned:** Vision should support decisions only when confidence is good enough.
 
-## Camera and vision experiments
+## Sensor and hardware state
 
-**Challenge:** Camera and vision work is useful for a physical assistant, but it raises reliability and privacy questions.
+**Challenge:** Hardware and sensors can be unavailable, stale or noisy.
 
-**Why it was hard:** Camera hardware can fail, frames may not be available, and visual detections can be uncertain.
+**Why it was hard:** Real devices do not always behave like simple software mocks.
 
-**Approach:** Keep camera work honest in the UI and treat detections as confidence-based signals rather than facts.
+**Approach:** Treat availability and freshness as part of the design.
 
-**Result:** The repository uses simple detection examples to explain the idea without needing real camera data.
+**Result:** The hardware and sensing docs explain why component testing matters.
 
-**What I learned:** Vision systems need conservative handling, especially before any physical action.
+**What I learned:** Hardware integration needs patient debugging and small checks.
 
 ## Robotics movement safety
 
-**Challenge:** Movement must be safe, predictable and limited.
+**Challenge:** Movement requests need more care than normal assistant responses.
 
-**Why it was hard:** A robot can move because of a bad command, weak detection, stale state or missing hardware checks if the system is not careful.
+**Why it was hard:** A wrong physical action can create a real-world issue.
 
-**Approach:** Use conservative decision rules: stop on emergency conditions, stop on obstacles, wait when the target is lost and move only when the safe conditions are clear.
+**Approach:** Use conservative outcomes: stop, wait, hold distance or move slowly.
 
-**Public-safe result:** The public repo includes a simplified follow-me safety decision example. It is not real robot control logic.
+**Result:** The hardware safety loop diagram and example code show this decision style.
 
-**What I learned:** Physical movement should be designed around blockers and safe defaults.
+**What I learned:** Stop and wait are good engineering outcomes when information is unclear.
 
 ## Learning support design
 
-**Challenge:** Learning support can be useful, but it needs boundaries.
+**Challenge:** Learning support should help without turning every question into a study workflow.
 
-**Why it was hard:** A learning assistant has to distinguish normal questions from study workflows, avoid pretending to be a teacher and handle user context carefully.
+**Why it was hard:** The assistant needs to handle ordinary questions, explicit study requests, quizzes and follow-up learning tasks differently.
 
-**Approach:** Explore learning support as a structured assistant direction with clear user control and careful local-first thinking.
+**Approach:** Think of learning as a structured mode with its own request types and feedback.
 
-**Public-safe result:** Public docs explain learning support as an active direction without exposing private prompts, data stores or routing logic.
+**Result:** The build map and diagrams show learning support as a separate part of the system.
 
-**What I learned:** Helpful learning tools need clarity, not overclaiming.
+**What I learned:** Learning tools need clear intent and good boundaries.
 
-## Public documentation
+## Testing and reporting discipline
 
-**Challenge:** The project should be understandable to people who have not seen the development repo.
+**Challenge:** The project changed quickly across voice, UI, hardware and runtime behaviour.
 
-**Why it was hard:** Engineering work can become hard to explain when the interesting parts span runtime behaviour, UI, hardware and testing.
+**Why it was hard:** Without notes, it becomes difficult to remember why something changed.
 
-**Approach:** Share stages, challenges, images, diagrams, simplified examples and clear summaries.
+**Approach:** Write reports, run tests, do small checks and keep public examples testable.
 
-**Result:** This repository now acts as an engineering record.
+**Result:** The public repo includes tests, reports and engineering notes.
 
-**What I learned:** Privacy-aware documentation is a real engineering skill.
+**What I learned:** Documentation is not separate from engineering. It helps keep the project understandable.
+
+## Public presentation
+
+**Challenge:** The project needed to make sense to recruiters and technical readers.
+
+**Why it was hard:** The work spans many areas, so a simple feature list does not explain the effort.
+
+**Approach:** Build a portfolio structure: README, diagrams, engineering story, build map, examples, media and recruiter brief.
+
+**Result:** The public repo now tells the project story more clearly.
+
+**What I learned:** A strong project page should explain decisions, not only show screenshots.

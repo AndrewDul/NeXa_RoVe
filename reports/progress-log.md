@@ -82,7 +82,7 @@ The images help show the current physical build clearly.
 
 ### Public notes
 
-The images were checked for safe public presentation at a basic level. Future updates may include more selected photos, UI screenshots, and short demo clips.
+The images were checked for basic presentation issues. Future updates may include more selected photos, UI screenshots, and short demo clips.
 
 ## 2026-07-03
 

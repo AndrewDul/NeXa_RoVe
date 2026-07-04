@@ -1,23 +1,14 @@
 # Diagrams
 
-This folder is for safe, high-level diagrams. Diagrams should explain the project without showing detailed internal logic.
+These diagrams explain the main system design ideas behind NeXa RoVe.
 
-## High-level view
+- [Runtime pipeline](runtime-pipeline.md)
+- [Command understanding](command-understanding.md)
+- [Visual Shell flow](visual-shell-flow.md)
+- [Vision flow](vision-flow.md)
+- [Local AI and model flow](local-ai-model-flow.md)
+- [Hardware safety loop](hardware-safety-loop.md)
+- [Build stage map](build-stage-map.md)
+- [Data and repository boundaries](data-privacy-boundaries.md)
 
-```text
-User interaction
-       |
-       v
-Local AI and command handling
-       |
-       v
-Interface and feedback
-       |
-       v
-Hardware and sensors
-       |
-       v
-Privacy and safety checks
-```
-
-This is only a general view. It does not describe the private runtime architecture, exact routing logic, memory system, prompts, or implementation details.
+They are intended to make the project easier to understand without needing to read the full development history.

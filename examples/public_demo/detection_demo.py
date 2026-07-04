@@ -11,7 +11,7 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class FakeDetection:
-    """A public-safe fake detection result."""
+    """A fake detection result for the public example."""
 
     label: str
     confidence: float

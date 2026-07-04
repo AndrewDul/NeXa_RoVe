@@ -25,7 +25,7 @@ The assistant then prepares a response. That response may be shown in the Visual
 
 If a request could affect hardware, it should pass through a safety-minded decision path before anything physical happens.
 
-## Public-safe runtime stages
+## Runtime stages
 
 1. **User input**  
    A user speaks or enters a request.
@@ -34,7 +34,7 @@ If a request could affect hardware, it should pass through a safety-minded decis
    The system prepares the input for understanding. For voice, this can include broad concepts such as activity detection and speech recognition.
 
 3. **Command understanding**  
-   The request is classified into a safe public category, such as simple command, assistant response, learning support or no action.
+   The request is classified into a category such as simple command, assistant response, learning support or no action.
 
 4. **Local assistant logic**  
    The assistant decides what can be handled locally and what response is appropriate.

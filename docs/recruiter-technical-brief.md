@@ -4,7 +4,7 @@
 
 NeXa RoVe is my personal local-first AI and robotics project. It explores how an assistant can run on real hardware with voice interaction, a visual interface, Raspberry Pi hardware, sensors and safe robotics experiments.
 
-This repository shows the project direction, selected media, simplified code examples, engineering notes and public boundaries.
+This repository shows the project direction, selected media, simplified code examples, engineering notes and system diagrams.
 
 ## What I built
 
@@ -45,7 +45,7 @@ The project involves practical challenges such as:
 - dealing with hardware availability and failure
 - checking sensor and camera reliability
 - thinking carefully about physical movement
-- documenting progress without exposing private data
+- documenting progress clearly
 
 ## Technologies involved
 
@@ -60,11 +60,11 @@ The public repository shows or discusses:
 - robotics hardware
 - standard-library public tests
 
-The working development repo contains deeper implementation work.
+The public pages focus on the engineering story, system thinking and selected examples.
 
-## Why the main runtime is separate
+## Why the public repo is separate
 
-The main runtime is separate because this repository is meant to be a readable portfolio and project page. It explains what was built and why the design matters without turning the repo into a full production code release.
+This repository is meant to be a readable portfolio and project page. It explains what was built, why the design matters and how the work developed over time.
 
 ## What this public repo proves
 
@@ -75,7 +75,7 @@ This public repo shows:
 - the work spans software, UI, AI and robotics
 - public examples are tested
 - documentation is treated seriously
-- privacy and safety boundaries are understood
+- project boundaries and responsible sharing are understood
 
 ## What I am looking to learn next
 

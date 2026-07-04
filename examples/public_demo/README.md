@@ -1,6 +1,6 @@
 # Public demo examples
 
-These are simplified public examples for the NeXa RoVe repository.
+These are simplified examples for the NeXa RoVe repository.
 
 They show broad ideas being explored in the project:
 
@@ -10,19 +10,22 @@ They show broad ideas being explored in the project:
 - simple object/person detection concept
 - follow-me safety decision concept
 - time intent handling
+- shared command flow and movement decision concept
 
-These examples are not production NeXa code. They do not connect to real hardware, use real microphones, use real cameras, control motors, run real speech models, include private prompts, or include private logic.
+The examples use fake data and the Python standard library. They are small enough to read quickly and can be tested without a hardware setup.
 
-The purpose is to make the public repository easier to understand without exposing the private NeXa implementation.
+The purpose is to show the engineering ideas in a clear form.
 
 ## Run the demo
 
 ```bash
 python3 examples/public_demo/demo_app.py
+python3 examples/public_demo/system_flow_example.py
 ```
 
 ## Run the tests
 
 ```bash
 python3 examples/public_demo/test_public_demo.py
+python3 examples/public_demo/test_system_flow_example.py
 ```

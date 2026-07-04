@@ -8,7 +8,7 @@ This page explains the hardware journey behind NeXa RoVe.
 
 Raspberry Pi hardware is used as the local computer for the project. It gives the assistant a physical base for running software, connecting devices and testing local-first ideas.
 
-The challenge is that embedded hardware has limits. CPU, memory, heat, storage, power and device connections all matter.
+The challenge is that embedded hardware has limits. CPU load, available resources, heat, storage, power and device connections all matter.
 
 ## Display and UI
 
@@ -26,7 +26,7 @@ Voice input is harder than typed input because it depends on audio quality, timi
 
 Camera hardware is being explored for sensing and vision experiments.
 
-Vision work is difficult because frames can be missing, delayed or uncertain. Public docs do not include real camera code, private image data or recognition logic.
+Vision work is difficult because frames can be missing, delayed or uncertain. The useful design question is when a reading is confident enough to affect feedback or behaviour.
 
 ## Sensors
 

@@ -50,9 +50,9 @@ This matters because a local assistant could help explain, organise, and review 
 
 The benefit could be better support for study, revision, and practical learning tasks, without claiming to replace teachers or proper guidance.
 
-## Memory and personal assistance concepts
+## Personal context and assistance concepts
 
-The project is exploring ideas around reminders, routines, memory, and personal assistance.
+The project is exploring ideas around reminders, routines, personal context, and everyday assistance.
 
 This matters because useful assistants need some context, but that context must be handled carefully.
 

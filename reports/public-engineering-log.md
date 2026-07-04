@@ -1,129 +1,157 @@
 # Public engineering log
 
-This log records engineering progress for NeXa RoVe.
+This log summarises the main stages of the NeXa RoVe build. It is written as a readable engineering record rather than a sprint dump.
 
 ## Stage: Project foundation
 
-**Area:** Assistant concept and local runtime direction.
+**Area:** Assistant concept and product direction.
 
-**What changed:** The project moved from a simple assistant idea towards a local-first assistant that can run with real hardware.
+**What I worked on:** I started with the idea of an assistant that would not only answer questions, but also run on real hardware and show its state through an interface.
 
-**Problem / decision:** A physical assistant needs more structure than a normal chatbot.
+**Problem I faced:** A physical assistant needs more structure than a chat-style program. It has to handle input, state, feedback and possible hardware actions in a predictable way.
 
-**How I approached it:** I treated the project as a system with input, understanding, response, UI feedback and hardware boundaries.
+**How I approached it:** I broke the project into separate areas: runtime flow, command understanding, voice, UI, hardware, sensors and testing.
 
-**What I learned:** The architecture has to support future hardware and safety work from the start.
+**What changed:** NeXa RoVe became a systems project rather than a single feature idea.
 
-**Note:** The public repo focuses on project explanation and selected demonstrations.
+**What I learned:** A useful assistant needs clear state and careful boundaries between thinking, responding and acting.
 
-## Stage: Voice interaction direction
+## Stage: Voice interaction
 
-**Area:** Voice input and response loop.
+**Area:** Spoken input and response flow.
 
-**What changed:** Voice interaction became one of the main development areas.
+**What I worked on:** I explored how voice input could fit into the assistant pipeline and how the system should behave while listening, processing and responding.
 
-**Problem / decision:** Voice needs to feel responsive and should not leave the user guessing.
+**Problem I faced:** Voice interaction is sensitive to timing. If the system feels slow or unclear, the user does not know whether it heard them or became stuck.
 
-**How I approached it:** I separated the public concept into simple examples and kept real voice pipeline work private.
+**How I approached it:** I treated voice as part of the wider runtime flow, with visible feedback through the UI and fallback behaviour when a request cannot be understood.
 
-**What I learned:** Voice systems need timing, fallback behaviour and clear UI feedback.
+**What changed:** Voice became a core interaction direction rather than an isolated audio feature.
 
-**Public-safe note:** Public examples use fake audio samples only.
+**What I learned:** Voice systems need strong feedback. A short spoken answer is useful, but the screen also needs to show what is happening.
 
-## Stage: Visual Shell and UI direction
+## Stage: Command understanding
 
-**Area:** Godot Visual Shell.
+**Area:** Turning user requests into useful actions.
 
-**What changed:** The project gained a visual interface direction for feedback, panels and status.
+**What I worked on:** I explored how requests can be separated into different kinds of work, such as status checks, assistant replies, learning support and movement-related requests.
 
-**Problem / decision:** A physical assistant should show what it is doing, not only speak.
+**Problem I faced:** Not every sentence should become an action. Some requests should be answered, some should be refused, and some should wait for more context.
 
-**How I approached it:** I focused on calm UI feedback, visible state and clear screenshots.
+**How I approached it:** I designed the public examples and diagrams around a shared command pipeline: prepare the input, classify the request, choose the response path and check before hardware action.
 
-**What I learned:** Honest UI status is part of reliability.
+**What changed:** The project gained a clearer distinction between normal assistant responses and requests that could affect physical hardware.
 
-**Note:** The public material shows the interface direction rather than the full UI source.
+**What I learned:** Command handling is as much about saying “wait” or “I cannot do that” as it is about doing the requested action.
+
+## Stage: Visual Shell and UI
+
+**Area:** Godot interface and assistant feedback.
+
+**What I worked on:** I developed the Visual Shell direction so the assistant can show state, panels, feedback and responses on the front display.
+
+**Problem I faced:** A physical assistant can feel unclear if it only speaks. The user needs to see whether it is idle, listening, responding or blocked.
+
+**How I approached it:** I focused on readable panels, visible state and a calm interface that supports the assistant instead of distracting from it.
+
+**What changed:** The UI became part of the system design, not only a presentation layer.
+
+**What I learned:** Good UI feedback improves trust because it makes the system’s behaviour easier to understand.
+
+## Stage: Local AI and model experiments
+
+**Area:** Running suitable assistant work close to the user.
+
+**What I worked on:** I explored local AI direction, smaller model use, speech-related tools and the tradeoff between speed, quality and hardware limits.
+
+**Problem I faced:** Local hardware has real constraints. A model or tool that works well on a desktop may be too slow, too heavy or too unreliable on a small device.
+
+**How I approached it:** I treated model use as an engineering tradeoff. Fast paths are useful for simple commands, while more complex requests need different handling.
+
+**What changed:** The design direction became more practical: local where it makes sense, careful fallback where needed.
+
+**What I learned:** Local-first systems are not only about privacy. They are also about latency, reliability, cost and user control.
 
 ## Stage: Hardware build
 
 **Area:** Raspberry Pi, display, microphone, camera, storage and power.
 
-**What changed:** The assistant moved onto real hardware with connected components.
+**What I worked on:** I moved the project from a software idea into a physical setup with connected components.
 
-**Problem / decision:** Hardware can fail or behave differently from software mocks.
+**Problem I faced:** Hardware introduces failure cases that do not exist in a purely software project: disconnected devices, stale readings, power limits, heat and driver behaviour.
 
-**How I approached it:** I tested components separately and documented the hardware at a high level.
+**How I approached it:** I tested components separately, documented the hardware role and avoided assuming that a device is ready just because the software expects it.
 
-**What I learned:** Hardware readiness needs explicit checks and clear assumptions.
+**What changed:** NeXa RoVe became easier to explain visually because the build could be shown through photos, hardware notes and a short demo video.
 
-**Public-safe note:** The public repo shows photos and broad descriptions only.
+**What I learned:** Real hardware makes the project more difficult, but it also makes the engineering more concrete.
 
-## Stage: Sensors and robotics
+## Stage: Vision and sensing
 
-**Area:** Sensors, cameras, mobile base and pan-tilt hardware.
+**Area:** Cameras, distance, orientation and environment signals.
 
-**What changed:** The project started exploring environment awareness and controlled movement.
+**What I worked on:** I explored how cameras and sensors could provide information to the assistant and how that information might be used by UI or movement decisions.
 
-**Problem / decision:** Movement requires stronger safety thinking than normal assistant responses.
+**Problem I faced:** Sensor and vision data can be uncertain. A reading can be missing, old, noisy or not confident enough to trust.
 
-**How I approached it:** I treated stop, wait and blocked states as important outcomes, not failures.
+**How I approached it:** I documented the flow around capture, preparation, confidence, distance and decision points rather than treating sensor data as automatically correct.
 
-**What I learned:** Safe defaults matter when software can affect physical hardware.
+**What changed:** The project gained a stronger safety mindset around interpreting the environment.
 
-**Public-safe note:** The public follow-me example is simplified concept code, not real control logic.
+**What I learned:** A good robotics system needs to know when it does not know enough.
+
+## Stage: Robotics movement safety
+
+**Area:** Mobile base, pan-tilt hardware and movement decisions.
+
+**What I worked on:** I explored movement as a separate kind of action that needs checks before it is allowed.
+
+**Problem I faced:** Movement is different from text output. A mistake can affect the physical environment, so the default behaviour has to be cautious.
+
+**How I approached it:** I used simple decision ideas such as stop, wait, hold distance and move slowly. The public example code mirrors this style with fake target and obstacle states.
+
+**What changed:** Hardware actions became part of a safety loop instead of a direct response to a command.
+
+**What I learned:** Safe movement depends on refusing or delaying action when conditions are unclear.
 
 ## Stage: Learning support direction
 
-**Area:** Study support and personal assistance ideas.
+**Area:** Study, explanation and personal assistance ideas.
 
-**What changed:** The project began exploring how a local assistant could support learning, routines and reflection.
+**What I worked on:** I explored how the assistant could support learning by helping with explanation, organisation and review.
 
-**Problem / decision:** Learning support should help without overclaiming or replacing proper teaching.
+**Problem I faced:** Learning support must be useful without pretending to replace teachers, mentors or proper advice.
 
-**How I approached it:** I kept the public explanation careful and focused on possible support.
+**How I approached it:** I treated learning support as a careful assistant feature: explain, organise, ask useful questions and help the user reflect.
 
-**What I learned:** Personal assistance features need strong boundaries around data and control.
+**What changed:** The project gained a stronger purpose beyond hardware demonstration.
 
-**Public-safe note:** Prompts, private data and learning internals are not published.
+**What I learned:** Personal assistance features need thoughtful design because they affect how people learn, plan and make decisions.
 
-## Stage: Public repo and media
+## Stage: Testing and reporting
 
-**Area:** GitHub and LinkedIn presentation.
+**Area:** Debugging, checks and development records.
 
-**What changed:** The public repository was prepared with README, photos, gallery pages and a short demo video.
+**What I worked on:** I used tests, manual checks and written reports to keep track of problems and decisions as the project grew.
 
-**Problem / decision:** The project needed to be easy to understand without exposing the private system.
+**Problem I faced:** When a project combines voice, UI, hardware and AI, failures can come from many places.
 
-**How I approached it:** I separated public images and videos from private development material and added clear sharing boundaries.
+**How I approached it:** I separated problems, checked one area at a time and wrote down decisions so I could return to them later.
 
-**What I learned:** Public presentation should be honest, simple and well organised.
+**What changed:** The project became easier to maintain because progress was written down instead of kept only in my head.
 
-**Public-safe note:** Media is selected and reviewed before sharing.
+**What I learned:** Documentation is part of engineering. It helps explain the work and makes debugging less chaotic.
 
-## Stage: Safe code examples
+## Stage: Public portfolio
 
-**Area:** Public example code.
+**Area:** GitHub, media, diagrams and examples.
 
-**What changed:** Simplified Python examples were added for voice activity, speech flow, sensor snapshots, fake detection, follow-me safety and time intent handling.
+**What I worked on:** I prepared the public repository with a clearer README, project photos, hardware thumbnails, demo video, diagrams, engineering notes and simplified example code.
 
-**Problem / decision:** The public repo needed code examples, but not the real runtime.
+**Problem I faced:** The repo needed to show real effort without becoming noisy or overclaiming.
 
-**How I approached it:** I wrote small standard-library examples with fake data and `unittest` tests.
+**How I approached it:** I focused on clear explanations, diagrams, stage-based docs and small runnable examples with tests.
 
-**What I learned:** Concept examples can show engineering direction without needing the full working system.
+**What changed:** The public repo now tells a fuller engineering story for recruiters, university contacts and technical readers.
 
-**Public-safe note:** The examples do not use microphones, cameras, motors, real models or private logic.
-
-## Stage: Demo video
-
-**Area:** Public demo material.
-
-**What changed:** A short public demo video was added and linked from the README.
-
-**Problem / decision:** A short video helps people understand the project quickly.
-
-**How I approached it:** I kept the video short and linked it as demo material.
-
-**What I learned:** Demo material should be short, clear and reviewed before sharing.
-
-**Note:** Demo clips should be reviewed before sharing.
+**What I learned:** A portfolio project is stronger when it explains the decisions behind the build, not only the final-looking media.

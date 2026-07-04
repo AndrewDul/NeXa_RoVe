@@ -8,7 +8,7 @@ These notes explain the main hardware groups and how they fit into the project.
 
 The Raspberry Pi is the main local computer for development, testing and hardware integration. It is used to explore what can run close to the user rather than depending on cloud services for every interaction.
 
-Additional local hardware is being explored for AI and vision-related work, but the public repository only describes this at a broad level.
+Additional local hardware is being explored for AI and vision-related work as the build develops.
 
 ## Voice input
 
@@ -20,7 +20,7 @@ The display is used to show assistant feedback, status and interface screens. Th
 
 ## Camera and vision experiments
 
-Camera hardware is used for safe sensing and vision experiments. Public notes do not include private camera code, raw camera captures, face recognition logic or private datasets.
+Camera hardware is used for sensing and vision experiments. The work is focused on understanding scene information, confidence and how the assistant should respond.
 
 ## Sensors
 
@@ -28,8 +28,8 @@ Sensor hardware is being used for environment, distance, orientation and status 
 
 ## Movement and robotics
 
-The mobile base and pan-tilt hardware are used while exploring controlled movement. Safety is the main constraint, so public material stays at the concept and progress level rather than exposing private control logic.
+The mobile base and pan-tilt hardware are used while exploring controlled movement. Safety is the main constraint, so movement work is treated separately from normal assistant responses.
 
 ## Power and storage
 
-Power, UPS and storage hardware support the physical build and local development work. Public notes only describe these parts broadly and do not include private configuration or sensitive device details.
+Power, UPS and storage hardware support the physical build and local development work.

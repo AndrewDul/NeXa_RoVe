@@ -1,7 +1,7 @@
 """Simplified public sensor snapshot concept.
 
 This uses fake values only. It does not access GPIO, I2C, serial devices,
-real sensors, hardware IDs, private configuration, or diagnostics.
+real sensors, hardware IDs, configuration, or device output.
 """
 
 from __future__ import annotations
@@ -11,7 +11,7 @@ from dataclasses import asdict, dataclass
 
 @dataclass(frozen=True)
 class SensorSnapshot:
-    """Public-safe fake sensor state."""
+    """Fake sensor state for the public example."""
 
     battery_percent: int
     distance_cm: int

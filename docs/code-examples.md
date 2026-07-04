@@ -12,6 +12,7 @@ They are simplified examples only. They show concepts related to the current NeX
 - detection concept using fake object/person detections
 - follow-me safety concept using a conservative decision rule
 - time intent concept using the Python standard library
+- shared system-flow concept using command classification and a movement check
 
 ## Design choice
 
@@ -28,4 +29,6 @@ The examples mirror those broad areas in a small, readable form.
 ```bash
 python3 examples/public_demo/demo_app.py
 python3 examples/public_demo/test_public_demo.py
+python3 examples/public_demo/system_flow_example.py
+python3 examples/public_demo/test_system_flow_example.py
 ```

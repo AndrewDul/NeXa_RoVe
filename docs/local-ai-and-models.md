@@ -23,7 +23,7 @@ Local hardware has limits. A model that works well on a desktop may be too slow 
 That creates several engineering problems:
 
 - latency
-- memory use
+- resource use
 - response quality
 - voice interaction timing
 - fallback behaviour

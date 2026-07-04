@@ -1,210 +1,205 @@
 # NeXa RoVe
 
-A personal local-first AI and robotics project exploring voice interaction, Raspberry Pi hardware, sensors, UI feedback and safe robotics control.
+A personal local-first AI and robotics project combining voice interaction, visual feedback, Raspberry Pi hardware, sensors and robotics experiments.
 
-![Python](https://img.shields.io/badge/Python-public%20examples-3776AB?style=flat-square&logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/Python-examples-3776AB?style=flat-square&logo=python&logoColor=white)
 ![Raspberry Pi](https://img.shields.io/badge/Raspberry%20Pi-hardware-C51A4A?style=flat-square&logo=raspberrypi&logoColor=white)
-![Local-first AI](https://img.shields.io/badge/Local--first%20AI-active%20exploration-555555?style=flat-square)
-![Robotics](https://img.shields.io/badge/Robotics-safe%20experiments-555555?style=flat-square)
+![Godot](https://img.shields.io/badge/Godot-Visual%20Shell-478CBF?style=flat-square&logo=godotengine&logoColor=white)
+![Local AI](https://img.shields.io/badge/Local%20AI-exploration-555555?style=flat-square)
+![Robotics](https://img.shields.io/badge/Robotics-experiments-555555?style=flat-square)
+
+## What is NeXa RoVe?
+
+NeXa RoVe is my personal AI and robotics project. I am building it to explore how an assistant can run on real hardware, listen through voice, show feedback on a screen and connect to physical components in a careful way.
+
+The project brings together software, UI work, Raspberry Pi hardware, sensors, local AI experiments, voice interaction and robotics. It started as an assistant idea and has grown into a wider engineering project about runtime design, hardware integration and user feedback.
+
+The goal is to learn how to build assistant systems that are useful, understandable and reliable when they move beyond a laptop screen. NeXa RoVe is active development, not a finished commercial product.
+
+## What I am trying to achieve
+
+I am working towards an assistant that can listen, respond, show what it is doing and eventually interact with hardware carefully. A big part of the project is learning how voice, UI, sensors, local processing and runtime systems fit together.
+
+I am also exploring learning support and personal assistance ideas: study help, routines, explanations, reminders and better ways for a local assistant to support everyday work.
+
+The project has also helped me build engineering discipline. I write reports, test small pieces, investigate failures, improve one area at a time and keep track of decisions as the system changes.
+
+## What this project includes
+
+- 🧠 Local AI direction
+- 🎙️ Voice interaction
+- 🖥️ Visual Shell / Godot UI
+- 🤖 Robotics experiments
+- 📷 Vision and sensing
+- 🔌 Raspberry Pi hardware
+- 🧪 Testing and debugging
+- 📚 Learning support direction
+- 📝 Engineering documentation
+
+## NeXa RoVe gallery
 
 <p align="center">
-  <img src="media/images/Presentation/nexa-rove-main-photo.jpg" alt="NeXa RoVe current setup" width="720">
+  <img src="media/images/Presentation/nexa-rove-main-photo.jpg" alt="NeXa RoVe setup" width="680">
 </p>
 
-<p align="center"><sub>Current view of the NeXa RoVe setup.</sub></p>
-
-NeXa RoVe is my personal AI and robotics project. I am building it step by step to explore how a local-first assistant could work on real hardware, with voice interaction, a visual interface, sensors and careful physical control.
-
-The project is not presented as a finished product. It is an active build where I am testing practical ideas around local AI, Raspberry Pi hardware, assistant feedback, robotics safety and reliability.
-
-Local-first matters because it can give more control over privacy, cost and reliability. The aim is to understand what can sensibly run close to the user, without exposing private information unnecessarily.
-
-## Project photos
-
-### NeXa RoVe
+<p align="center"><sub>Current NeXa RoVe setup.</sub></p>
 
 <table>
   <tr>
     <td width="50%">
       <img src="media/images/Presentation/front.jpeg" alt="Front view of NeXa RoVe" width="320"><br>
-      <sub>Front view of the current NeXa RoVe setup.</sub>
+      <sub>Front view of the current build.</sub>
     </td>
     <td width="50%">
-      <img src="media/images/Presentation/nexa-ui-preview.png" alt="NeXa RoVe visual interface" width="320"><br>
-      <sub>Visual interface running on the front display.</sub>
+      <img src="media/images/Presentation/nexa-ui-preview.png" alt="Visual Shell preview" width="320"><br>
+      <sub>Visual Shell running on the front display.</sub>
     </td>
   </tr>
   <tr>
     <td width="50%">
       <img src="media/images/Presentation/top.jpeg" alt="Top view of NeXa RoVe" width="320"><br>
-      <sub>Build progress photo showing the project being tested and adjusted.</sub>
+      <sub>Build progress and mounting work.</sub>
     </td>
     <td width="50%">
       <img src="media/images/Presentation/inside.jpeg" alt="Side view of NeXa RoVe hardware" width="320"><br>
-      <sub>Side view of the current hardware layout.</sub>
+      <sub>Side view of the hardware layout.</sub>
     </td>
   </tr>
 </table>
 
-More images are available in [media/images/gallery.md](media/images/gallery.md).
+More photos are available in [media/images/gallery.md](media/images/gallery.md).
 
 ## Hardware used
-
-These are the hardware parts shown in this repository. The notes explain how the hardware fits into the project.
 
 <table>
   <tr>
     <td width="33%">
-      <img src="media/images/Hardware/Raspberry_Pi_5.jpeg" alt="Raspberry Pi 5" width="180"><br>
+      <img src="media/images/Hardware/Raspberry_Pi_5.jpeg" alt="Raspberry Pi 5" width="170"><br>
       <b>Raspberry Pi 5</b><br>
-      <sub>Main local computer used for development, testing and hardware integration.</sub>
+      <sub>Main local computer used for development, integration and running the project on real hardware.</sub>
     </td>
     <td width="33%">
-      <img src="media/images/Hardware/AI_HAT_plus_2.jpeg" alt="Raspberry Pi AI HAT+" width="180"><br>
+      <img src="media/images/Hardware/AI_HAT_plus_2.jpeg" alt="AI HAT+" width="170"><br>
       <b>AI HAT+</b><br>
-      <sub>Used while exploring local AI and vision-related hardware work.</sub>
+      <sub>Used while exploring local AI and vision acceleration ideas.</sub>
     </td>
     <td width="33%">
-      <img src="media/images/Hardware/8_HD_DSI.jpeg" alt="8 inch DSI display" width="180"><br>
+      <img src="media/images/Hardware/8_HD_DSI.jpeg" alt="8 inch DSI display" width="170"><br>
       <b>8 inch DSI display</b><br>
-      <sub>Used to show assistant feedback, status and interface screens.</sub>
+      <sub>Shows assistant feedback, status and interface screens.</sub>
     </td>
   </tr>
   <tr>
     <td width="33%">
-      <img src="media/images/Hardware/ReSpeaker_XMOSXVF800.jpeg" alt="ReSpeaker microphone hardware" width="180"><br>
+      <img src="media/images/Hardware/ReSpeaker_XMOSXVF800.jpeg" alt="ReSpeaker microphone" width="170"><br>
       <b>ReSpeaker microphone</b><br>
       <sub>Used for voice input experiments and local interaction work.</sub>
     </td>
     <td width="33%">
-      <img src="media/images/Hardware/Camera_Module_3_Wide.jpeg" alt="Camera Module 3 Wide" width="180"><br>
+      <img src="media/images/Hardware/Camera_Module_3_Wide.jpeg" alt="Camera Module 3 Wide" width="170"><br>
       <b>Camera Module 3 Wide</b><br>
-      <sub>Used for safe camera and vision experiments.</sub>
+      <sub>Used for camera and vision experiments.</sub>
     </td>
     <td width="33%">
-      <img src="media/images/Hardware/OAK_D_LITE.jpeg" alt="OAK-D Lite" width="180"><br>
+      <img src="media/images/Hardware/OAK_D_LITE.jpeg" alt="OAK-D Lite" width="170"><br>
       <b>OAK-D Lite</b><br>
       <sub>Used while exploring depth and vision hardware options.</sub>
     </td>
   </tr>
   <tr>
     <td width="33%">
-      <img src="media/images/Hardware/pan_tilt.jpeg" alt="Pan-tilt hardware" width="180"><br>
-      <b>Pan-tilt hardware</b><br>
-      <sub>Used while exploring controlled movement and camera positioning.</sub>
+      <img src="media/images/Hardware/pan_tilt.jpeg" alt="Pan-tilt hardware" width="170"><br>
+      <b>Pan-tilt</b><br>
+      <sub>Used for camera positioning and movement experiments.</sub>
     </td>
     <td width="33%">
-      <img src="media/images/Hardware/6x4_Off_Road_UGV_ESP32_Driver.jpeg" alt="6x4 off-road UGV mobile base" width="180"><br>
-      <b>6x4 mobile base</b><br>
-      <sub>Used for robotics movement experiments with safety as the main constraint.</sub>
+      <img src="media/images/Hardware/6x4_Off_Road_UGV_ESP32_Driver.jpeg" alt="Mobile base" width="170"><br>
+      <b>Mobile base</b><br>
+      <sub>Used for robotics movement experiments and safety thinking.</sub>
     </td>
     <td width="33%">
-      <img src="media/images/Hardware/ToF_8x8.jpeg" alt="8x8 ToF sensor" width="180"><br>
-      <b>8x8 ToF sensor</b><br>
-      <sub>Used for sensing and distance experiments.</sub>
+      <img src="media/images/Hardware/ToF_8x8.jpeg" alt="ToF sensor" width="170"><br>
+      <b>ToF sensor</b><br>
+      <sub>Used for distance and sensing experiments.</sub>
     </td>
   </tr>
   <tr>
     <td width="33%">
-      <img src="media/images/Hardware/BME688_Quality.jpeg" alt="BME688 air quality sensor" width="180"><br>
+      <img src="media/images/Hardware/BME688_Quality.jpeg" alt="BME688 sensor" width="170"><br>
       <b>BME688 sensor</b><br>
       <sub>Used for environment and status experiments.</sub>
     </td>
     <td width="33%">
-      <img src="media/images/Hardware/orientation_DoF.jpeg" alt="Orientation sensor" width="180"><br>
+      <img src="media/images/Hardware/orientation_DoF.jpeg" alt="Orientation sensor" width="170"><br>
       <b>Orientation sensor</b><br>
-      <sub>Used while exploring orientation and movement awareness.</sub>
+      <sub>Used while exploring motion and orientation awareness.</sub>
     </td>
     <td width="33%">
-      <img src="media/images/Hardware/SupTronics_X1206_4Cell.jpeg" alt="Power hardware" width="180"><br>
-      <b>Power and UPS hardware</b><br>
-      <sub>Used to support the physical build and power-status work.</sub>
+      <img src="media/images/Hardware/SupTronics_X1206_4Cell.jpeg" alt="Power and UPS hardware" width="170"><br>
+      <b>Power / UPS</b><br>
+      <sub>Supports the physical build and power-status work.</sub>
     </td>
   </tr>
   <tr>
     <td width="33%">
-      <img src="media/images/Hardware/ssd.jpeg" alt="SSD storage" width="180"><br>
+      <img src="media/images/Hardware/ssd.jpeg" alt="SSD storage" width="170"><br>
       <b>SSD storage</b><br>
       <sub>Used for local project storage and development work.</sub>
     </td>
     <td width="33%">
-      <img src="media/images/Hardware/speaker.jpeg" alt="Speaker hardware" width="180"><br>
+      <img src="media/images/Hardware/speaker.jpeg" alt="Speaker" width="170"><br>
       <b>Speaker</b><br>
       <sub>Used for local audio output experiments.</sub>
     </td>
     <td width="33%">
-      <img src="media/images/Hardware/USB_3_HUB.jpeg" alt="USB 3 hub" width="180"><br>
+      <img src="media/images/Hardware/USB_3_HUB.jpeg" alt="USB hub" width="170"><br>
       <b>USB hub</b><br>
-      <sub>Used to connect and test hardware during development.</sub>
+      <sub>Helps connect and test hardware during development.</sub>
     </td>
   </tr>
 </table>
+
+## Engineering journey
+
+The project has been built through many small stages, experiments and fixes. The public docs below explain the work in a controlled and readable way.
+
+- [Engineering story](docs/engineering-story.md)
+- [Build map](docs/build-map.md)
+- [Challenges and solutions](docs/challenges-and-solutions.md)
+- [Public engineering log](reports/public-engineering-log.md)
+
+## System design and diagrams
+
+These diagrams show the main engineering ideas behind NeXa RoVe: runtime flow, command understanding, Visual Shell, vision, local AI flow, hardware safety and build stages.
+
+- [Runtime pipeline](diagrams/runtime-pipeline.md)
+- [Command understanding](diagrams/command-understanding.md)
+- [Visual Shell flow](diagrams/visual-shell-flow.md)
+- [Vision flow](diagrams/vision-flow.md)
+- [Local AI and model flow](diagrams/local-ai-model-flow.md)
+- [Hardware safety loop](diagrams/hardware-safety-loop.md)
+- [Build stage map](diagrams/build-stage-map.md)
+- [System design overview](docs/system-design-overview.md)
+- [Public pseudocode examples](docs/public-pseudocode-examples.md)
+
+## Example code
+
+The repository includes simplified Python examples that show how I think about voice flow, command handling, sensors, detection and safety decisions.
+
+- [examples/public_demo](examples/public_demo)
+- [Code examples guide](docs/code-examples.md)
+
+The examples include `unittest` tests.
 
 ## Short demo video
 
 [Watch the 26-second NeXa RoVe demo](media/videos/nexa-rove-26s-demo.mp4)
 
-A short video showing the current NeXa RoVe setup.
-
-## Current work
-
-I am currently working on:
-
-- local voice interaction
-- visual feedback through the UI
-- Raspberry Pi hardware integration
-- sensors and robotics exploration
-- safe physical interaction
-- a local-first AI direction
-- testing and reliability
-- learning support and personal assistance ideas
-
-More detail is available in [docs/current-work.md](docs/current-work.md) and [docs/current-stage.md](docs/current-stage.md).
-
-## Engineering journey
-
-This repository includes notes about the build process, challenges, runtime direction, Visual Shell, hardware work, testing and engineering decisions.
-
-- [Engineering story](docs/engineering-story.md)
-- [Build map](docs/build-map.md)
-- [Challenges and solutions](docs/challenges-and-solutions.md)
-- [Runtime pipeline overview](docs/runtime-pipeline-overview.md)
-- [System diagrams](docs/system-diagrams.md)
-- [Visual Shell and Godot](docs/visual-shell-and-godot.md)
-- [Local AI and models](docs/local-ai-and-models.md)
-- [Hardware and sensing journey](docs/hardware-and-sensing-journey.md)
-- [Testing and debugging journey](docs/testing-and-debugging-journey.md)
-- [Recruiter technical brief](docs/recruiter-technical-brief.md)
-- [Public engineering log](reports/public-engineering-log.md)
-
-## Example code
-
-Simplified code examples are available in [examples/public_demo](examples/public_demo). They show the main concepts in small, readable Python files.
-
-The examples cover:
-
-- voice activity concept
-- speech pipeline concept
-- mocked sensor snapshot
-- fake detection concept
-- follow-me safety decision concept
-- time intent concept
-- `unittest` tests
-
-More detail is available in [docs/code-examples.md](docs/code-examples.md).
-
-## What this repository contains
-
-- project overview notes
-- current development direction
-- engineering journey notes
-- selected public photos and video
-- hardware summaries
-- demo plans
-- simplified public example code
-- sharing boundaries
+A short video showing the current physical setup.
 
 ## Public boundaries
+
+This public repository is designed to show my work on NeXa RoVe in a controlled way. The main working repository remains private for now, but this repo explains the project, hardware, design thinking, diagrams, simplified examples and selected progress.
 
 This public repository does not include private source code, prompts, memory files, logs, diagnostics, raw recordings, private configuration or the full internal runtime.
 

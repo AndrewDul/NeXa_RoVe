@@ -1,111 +1,123 @@
 # Build map
 
-This is a map of how NeXa RoVe has grown over time.
+This page maps the main stages of the NeXa RoVe build.
 
-## Stage 1: Early assistant idea
+## Stage 1: Concept and product direction
 
-**What was being built:** A personal assistant concept that could respond to user requests.
+**What I worked on:** Defining the idea of a local assistant that could live on a desk and connect to hardware.
 
-**Why it mattered:** This gave the project a simple starting point: input, understanding and response.
+**Why it mattered:** The project needed a clear direction before adding more features.
 
-**Main challenge:** Avoiding a toy demo and thinking about how the assistant could later connect to real hardware.
+**Problem introduced:** A physical assistant is more complex than a chatbot because it needs UI, audio and hardware thinking.
 
-**Public-safe outcome:** A direction was set: build an assistant that could become physical, local and interactive.
-
-**What it taught me:** A useful assistant needs structure, not only a chat interface.
+**What I learned:** A good concept should guide engineering decisions, not just describe a feature list.
 
 ## Stage 2: Local runtime foundation
 
-**What was being built:** A local runtime approach where different parts of the assistant could run together.
+**What I worked on:** Thinking about the assistant as a runtime with separate responsibilities.
 
-**Why it mattered:** A real assistant needs coordination between input, processing, UI, output and hardware.
+**Why it mattered:** Voice, UI, model work and hardware state all need coordination.
 
-**Main challenge:** Keeping the system understandable as more services and behaviours were added.
+**Problem introduced:** The more parts a system has, the easier it is to lose track of state.
 
-**Public-safe outcome:** The project moved towards a local-first runtime model.
+**What I learned:** Runtime structure matters early. It becomes harder to add later.
 
-**What it taught me:** Runtime reliability matters as much as individual features.
+## Stage 3: Voice interaction
 
-## Stage 3: Voice interaction and speech loop
+**What I worked on:** Voice input, speech timing, response flow and feedback.
 
-**What was being built:** Voice input, speech response ideas and command handling.
+**Why it mattered:** Voice is one of the main ways a physical assistant should be used.
 
-**Why it mattered:** Voice is one of the most natural ways to interact with a physical assistant.
+**Problem introduced:** Voice recognition can be noisy, partial or delayed.
 
-**Main challenge:** Voice systems have timing problems, recognition errors and awkward silence if the response path is not designed well.
+**What I learned:** Voice UX is about the whole loop, not only speech-to-text.
 
-**Public-safe outcome:** Voice became a major project direction, with public examples showing only simplified concepts.
+## Stage 4: Command understanding
 
-**What it taught me:** A voice loop needs clear feedback, fallback behaviour and careful testing.
+**What I worked on:** Separating simple commands, general questions, learning requests and movement-related requests.
 
-## Stage 4: Visual Shell and Godot interface
+**Why it mattered:** Different requests need different handling.
 
-**What was being built:** A Godot-based Visual Shell for assistant feedback, panels and status display.
+**Problem introduced:** Unclear input needs repair rather than guessing.
 
-**Why it mattered:** A physical assistant should show state clearly. The user should not have to guess whether it is listening, thinking, idle or blocked.
+**What I learned:** Classification and fallback behaviour are core assistant skills.
 
-**Main challenge:** Keeping the interface calm and useful while the backend state changes.
+## Stage 5: Visual Shell / Godot UI
 
-**Public-safe outcome:** The public repo shows selected UI images and explains the Visual Shell at a high level.
+**What I worked on:** Building a screen interface that shows assistant state, panels and feedback.
 
-**What it taught me:** UI is part of reliability. Honest status can prevent confusion.
+**Why it mattered:** Users need to see what the assistant is doing.
 
-## Stage 5: Hardware integration on Raspberry Pi
+**Problem introduced:** The UI must stay calm and useful even when backend state changes.
 
-**What was being built:** A Raspberry Pi based setup with display, microphone, camera, sensors, storage and power hardware.
+**What I learned:** Interface feedback is part of reliability.
 
-**Why it mattered:** Running on real hardware exposes practical issues that desktop-only software does not show.
+## Stage 6: Local AI and model experiments
 
-**Main challenge:** Devices can be missing, busy, slow, underpowered or unreliable.
+**What I worked on:** Exploring where local models and deterministic paths fit into the assistant.
 
-**Public-safe outcome:** The public hardware gallery shows selected components without exposing private wiring or configuration.
+**Why it mattered:** Local-first behaviour can improve control and reduce cloud dependency for suitable tasks.
 
-**What it taught me:** Hardware work needs staged testing and clear readiness checks.
+**Problem introduced:** Local hardware has limits, especially around speed and model size.
 
-## Stage 6: Sensors, cameras and environment awareness
+**What I learned:** Model selection is an engineering tradeoff, not a one-time choice.
 
-**What was being built:** Experiments with sensors, camera hardware and environment state.
+## Stage 7: Hardware integration
 
-**Why it mattered:** A physical assistant needs some awareness of its hardware state and surroundings.
+**What I worked on:** Raspberry Pi, display, microphone, storage, power and connected components.
 
-**Main challenge:** Sensor and camera data can be noisy, delayed or unavailable.
+**Why it mattered:** The project needed to run as a physical setup, not only a desktop script.
 
-**Public-safe outcome:** Public docs describe sensing at a broad level and include safe mocked examples.
+**Problem introduced:** Real hardware can disconnect, fail, slow down or behave differently after restart.
 
-**What it taught me:** The system should be honest when data is missing or uncertain.
+**What I learned:** Hardware work needs small tests and clear assumptions.
 
-## Stage 7: Robotics movement and safety thinking
+## Stage 8: Cameras and vision
 
-**What was being built:** Movement experiments with a mobile base and pan-tilt hardware.
+**What I worked on:** Camera and vision experiments for sensing and scene understanding.
 
-**Why it mattered:** Movement changes the risk level. A wrong response is one thing; a wrong physical action is different.
+**Why it mattered:** A physical assistant benefits from being able to observe its environment.
 
-**Main challenge:** Hardware actions need explicit safety rules, blocking states and conservative decisions.
+**Problem introduced:** Vision data can be uncertain, delayed or unavailable.
 
-**Public-safe outcome:** The public repo includes a simplified follow-me safety example, not real control code.
+**What I learned:** Confidence and availability matter before a visual signal is used.
 
-**What it taught me:** Robotics work should default to stop, wait or hold when confidence is low.
+## Stage 9: Sensors
 
-## Stage 8: Learning support and personal assistance direction
+**What I worked on:** Distance, orientation, environment and status sensing.
 
-**What was being built:** Concepts around study support, tutoring-style help, routines and personal assistance.
+**Why it mattered:** Sensors help the assistant understand hardware state and surroundings.
 
-**Why it mattered:** A local assistant could help with learning and organisation in a more personal way.
+**Problem introduced:** Sensor readings must be checked before being trusted.
 
-**Main challenge:** Keeping learning support useful without over-routing normal questions or storing sensitive data carelessly.
+**What I learned:** A stale or missing reading should be handled as a normal state, not a surprise.
 
-**Public-safe outcome:** The public docs explain the learning direction without exposing private prompts, data stores or routing logic.
+## Stage 10: Robotics movement safety
 
-**What it taught me:** Personal assistance needs strong boundaries and clear user control.
+**What I worked on:** Movement concepts, mobile base experiments and pan-tilt control ideas.
 
-## Stage 9: Public presentation, demo material and safe examples
+**Why it mattered:** Physical movement changes the risk level of the project.
 
-**What was being built:** Public documentation, images, video, simplified code examples and sharing boundaries.
+**Problem introduced:** Movement requests need checks before action.
 
-**Why it mattered:** The project needs to be understandable to recruiters, university contacts and technical readers without exposing the private system.
+**What I learned:** Stop, wait and hold-distance are important outcomes.
 
-**Main challenge:** Showing the engineering depth without turning the repo into a long internal development dump.
+## Stage 11: Learning support
 
-**Public outcome:** This repository now acts as a project page and engineering record.
+**What I worked on:** Study support, tutoring-style flows, quizzes and personal assistance ideas.
 
-**What it taught me:** Good documentation is part of engineering, especially when privacy and safety matter.
+**Why it mattered:** A local assistant could help with learning and daily organisation.
+
+**Problem introduced:** Learning support needs structure so ordinary questions do not turn into heavy workflows.
+
+**What I learned:** A useful learning assistant needs clear modes and good feedback.
+
+## Stage 12: Public demo and documentation
+
+**What I worked on:** Public repo, images, video, diagrams, simplified code examples and engineering notes.
+
+**Why it mattered:** The project needed to be understandable to people who had not followed the whole build.
+
+**Problem introduced:** The public repo had to show effort without becoming an internal dump.
+
+**What I learned:** Good presentation is part of engineering communication.
