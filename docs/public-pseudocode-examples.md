@@ -103,3 +103,17 @@ def choose_detection(detections):
 ```
 
 Vision decisions should consider confidence instead of treating every detection as equally reliable.
+
+## Runnable examples
+
+The same ideas are also available as small runnable Python files in [examples/public_demo](../examples/public_demo).
+
+Useful starting points:
+
+- [command_understanding_example.py](../examples/public_demo/command_understanding_example.py)
+- [runtime_pipeline_example.py](../examples/public_demo/runtime_pipeline_example.py)
+- [hardware_safety_gate_example.py](../examples/public_demo/hardware_safety_gate_example.py)
+- [vision_confidence_example.py](../examples/public_demo/vision_confidence_example.py)
+- [ui_state_example.py](../examples/public_demo/ui_state_example.py)
+- [local_model_route_example.py](../examples/public_demo/local_model_route_example.py)
+- [learning_flow_example.py](../examples/public_demo/learning_flow_example.py)

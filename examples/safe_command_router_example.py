@@ -1,7 +1,6 @@
-"""Simplified public command router example for NeXa_RoVe.
+"""Simplified command router example for NeXa RoVe.
 
-This is a simplified public example for the NeXa_RoVe repository.
-It is not production code and does not include private NeXa logic.
+The example maps a few demo commands to short responses using plain Python.
 """
 
 
@@ -10,8 +9,8 @@ def handle_command(command: str) -> str:
     normalised = command.strip().lower()
 
     responses = {
-        "hello": "Hello. This is a safe public NeXa RoVe example.",
-        "status": "NeXa RoVe public demo mode",
+        "hello": "Hello. This is a NeXa RoVe example.",
+        "status": "NeXa RoVe demo mode",
         "help": "Available commands: hello, status, help",
     }
 
