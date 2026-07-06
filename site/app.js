@@ -36,6 +36,22 @@ let blinkTimer = 0;
 let randomFaceTimer = 0;
 let hoverReactionTimer = 0;
 
+function asElement(target) {
+  if (target instanceof Element) return target;
+  if (target?.parentElement instanceof Element) return target.parentElement;
+  return null;
+}
+
+function closestElement(target, selector) {
+  const element = asElement(target);
+  return element ? element.closest(selector) : null;
+}
+
+function matchesElement(target, selector) {
+  const element = asElement(target);
+  return element ? element.matches(selector) : false;
+}
+
 const galleryItems = [
   ["media/images/Presentation/nexa-rove-main-photo.jpg", "Current NeXa RoVe setup."],
   ["media/images/Presentation/front.jpeg", "Front view of the current build."],
@@ -288,7 +304,8 @@ function buildQuickActions() {
 
 function bindControls() {
   face.addEventListener("click", () => {
-    if (isScrolledTour) {
+    updateScrollState();
+    if (isScrolledTour || window.scrollY > SCROLL_THRESHOLD) {
       triggerFaceReaction("return-home");
       scrollToHome();
       return;
@@ -370,7 +387,16 @@ function exitScrolledTour() {
 function scrollToHome() {
   closeMenu();
   closePanel();
-  document.getElementById("home").scrollIntoView({ behavior: "smooth", block: "start" });
+  const root = document.documentElement;
+  const previousScrollBehavior = root.style.scrollBehavior;
+  root.style.scrollBehavior = "auto";
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+  window.scrollTo(0, 0);
+  updateScrollState();
+  requestAnimationFrame(() => {
+    root.style.scrollBehavior = previousScrollBehavior;
+  });
 }
 
 function setFaceExpression(expression) {
@@ -397,7 +423,8 @@ function triggerFaceReaction(type = "smile") {
   setFaceExpression(reactionExpression(type));
   document.body.classList.remove("face-react", "face-glow", "face-blink");
   if (!prefersReducedMotion) {
-    void face.offsetWidth;
+    const faceCore = face.querySelector(".face-core");
+    void faceCore.offsetWidth;
     if (["pressed", "happy", "laugh", "return-home"].includes(type)) document.body.classList.add("face-react");
     document.body.classList.add("face-glow");
     if (type === "blink") blinkFace();
@@ -495,13 +522,13 @@ function bindInteractiveReactions() {
   ].join(",");
 
   document.addEventListener("click", (event) => {
-    const target = event.target.closest(selector);
+    const target = closestElement(event.target, selector);
     if (!target || face.contains(target)) return;
     triggerFaceReaction(reactionForTarget(target));
   });
 
   document.addEventListener("pointerenter", (event) => {
-    const target = event.target.closest(".hardware-card");
+    const target = closestElement(event.target, ".hardware-card");
     if (!target) return;
     window.clearTimeout(hoverReactionTimer);
     hoverReactionTimer = window.setTimeout(() => {
@@ -511,15 +538,16 @@ function bindInteractiveReactions() {
 }
 
 function reactionForTarget(target) {
-  if (target.matches("[data-panel], .edge-control")) return "focused";
-  if (target.matches("[data-gallery-index], [data-gallery-src], .image-button") || target.closest(".gallery-card")) return "surprised";
-  if (target.matches("[data-copy]") || target.closest(".code-card")) return "happy";
-  if (target.matches("[data-action='play'], #resetGame") || target.closest("#tab-play, .game-board")) return "laugh";
-  if (target.matches("video") || target.closest(".video-shell")) return "focused";
-  if (target.closest(".hardware-card")) return Math.random() > 0.5 ? "look-left" : "look-right";
-  if (target.closest(".flow-card, .doc-card, .timeline-item") || target.matches(".flow-card a, .doc-card a, .timeline-item a")) return "focused";
-  if (target.closest(".orbital-tile")) {
-    const action = target.closest(".orbital-tile").dataset.action;
+  if (matchesElement(target, "[data-panel], .edge-control")) return "focused";
+  if (matchesElement(target, "[data-gallery-index], [data-gallery-src], .image-button") || closestElement(target, ".gallery-card")) return "surprised";
+  if (matchesElement(target, "[data-copy]") || closestElement(target, ".code-card")) return "happy";
+  if (matchesElement(target, "[data-action='play'], #resetGame") || closestElement(target, "#tab-play, .game-board")) return "laugh";
+  if (matchesElement(target, "video") || closestElement(target, ".video-shell")) return "focused";
+  if (closestElement(target, ".hardware-card")) return Math.random() > 0.5 ? "look-left" : "look-right";
+  if (closestElement(target, ".flow-card, .doc-card, .timeline-item") || matchesElement(target, ".flow-card a, .doc-card a, .timeline-item a")) return "focused";
+  const orbitalTile = closestElement(target, ".orbital-tile");
+  if (orbitalTile) {
+    const action = orbitalTile.dataset.action;
     return action === "play" ? "laugh" : "smile";
   }
   return "smile";
@@ -693,7 +721,12 @@ function handleKeys(event) {
 }
 
 async function copyText(text) {
+  if (!text) {
+    showToast("Copy failed");
+    return;
+  }
   try {
+    if (!navigator.clipboard?.writeText) throw new Error("Clipboard unavailable");
     await navigator.clipboard.writeText(text);
     showToast("Command copied");
   } catch {
