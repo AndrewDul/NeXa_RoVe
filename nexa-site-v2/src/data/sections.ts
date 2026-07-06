@@ -6,6 +6,21 @@ export interface SiteSection {
   title: string;
   intro: string;
   points: string[];
+  photos?: {
+    src: string;
+    alt: string;
+    caption: string;
+  }[];
+  codePreview?: {
+    title: string;
+    command: string;
+    description: string;
+  };
+  roadmap?: string[];
+  related?: {
+    label: string;
+    href: string;
+  }[];
 }
 
 const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
@@ -19,14 +34,48 @@ const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
       "Content model prepared for public engineering updates."
     ]
   },
-  prototype: {
+  "nexa-rove": {
     eyebrow: "Physical build",
-    title: "NeXa RoVe Prototype",
+    title: "NeXa RoVe",
     intro: "NeXa RoVe is presented as the first physical prototype for the wider NeXa direction.",
     points: [
       "Public development vehicle for visible robotics progress.",
       "Hardware and software progress shown selectively.",
       "Prototype story remains separate from private long-term goals."
+    ],
+    photos: [
+      {
+        src: "/media/images/Presentation/nexa-rove-main-photo.jpg",
+        alt: "Current NeXa RoVe setup",
+        caption: "Current public build setup."
+      },
+      {
+        src: "/media/images/Presentation/front.jpeg",
+        alt: "Front view of the NeXa RoVe prototype",
+        caption: "Front display and physical layout."
+      },
+      {
+        src: "/media/images/Presentation/inside.jpeg",
+        alt: "Inside view of the NeXa RoVe hardware layout",
+        caption: "Internal hardware arrangement shown at a public level."
+      }
+    ],
+    codePreview: {
+      title: "Public example",
+      command: "python3 examples/public_demo/demo_app.py",
+      description: "A safe demo entry point that shows the public example flow without private runtime details."
+    },
+    roadmap: [
+      "Refine the public v2 visual system and launcher.",
+      "Add optimized media handling before deployment.",
+      "Connect public demo, hardware and Code Lab sections with clearer navigation."
+    ],
+    related: [
+      { label: "Hardware", href: "#hardware" },
+      { label: "Demo", href: "#demo" },
+      { label: "Code Lab", href: "#code-lab" },
+      { label: "Roadmap", href: "#roadmap" },
+      { label: "Public Boundaries", href: "#public-boundaries" }
     ]
   },
   hardware: {
@@ -92,6 +141,6 @@ const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
 };
 
 export const sections: SiteSection[] = launcherTiles.map((tile) => ({
-  id: tile.id,
-  ...sectionCopy[tile.id]
+  id: tile.targetId,
+  ...sectionCopy[tile.targetId]
 }));

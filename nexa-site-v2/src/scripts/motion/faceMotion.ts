@@ -16,13 +16,11 @@ export function runFacePress(root: HTMLElement, reducedMotion: boolean) {
   if (reducedMotion) return;
   const inner = root.querySelector(".face-inner");
   const core = root.querySelector(".face-core");
-  const aura = root.querySelector(".face-aura");
   void loadGsap().then((gsap) => {
     gsap
       .timeline()
       .fromTo(inner, { scaleY: 0.9, y: 9, transformOrigin: "180px 180px" }, { scaleY: 1, y: 0, duration: 0.58, ease: "elastic.out(1, 0.38)" })
-      .fromTo(core, { scale: 0.985, transformOrigin: "180px 180px" }, { scale: 1, duration: 0.52, ease: "elastic.out(1, 0.5)" }, 0)
-      .fromTo(aura, { opacity: 0.34 }, { opacity: 1, duration: 0.42, ease: "power2.out" }, 0);
+      .fromTo(core, { scale: 0.985, transformOrigin: "180px 180px" }, { scale: 1, duration: 0.52, ease: "elastic.out(1, 0.5)" }, 0);
   });
 }
 

@@ -23,13 +23,13 @@ export const launcherTiles: LauncherTile[] = [
     reaction: "focus"
   },
   {
-    id: "prototype",
-    label: "NeXa RoVe Prototype",
-    summary: "The first physical robot and public development vehicle.",
+    id: "nexa-rove",
+    label: "NeXa RoVe",
+    summary: "The first physical prototype and public development vehicle.",
     iconKey: "prototype",
-    targetId: "prototype",
-    category: "Prototype",
-    href: "#prototype",
+    targetId: "nexa-rove",
+    category: "Physical prototype",
+    href: "#nexa-rove",
     reaction: "smile"
   },
   {

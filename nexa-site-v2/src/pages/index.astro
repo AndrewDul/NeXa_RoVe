@@ -36,6 +36,42 @@ import { publicBoundaries } from "../data/publicBoundaries";
                   <p>{boundary}</p>
                 ))}
               </div>
+            ) : section.id === "nexa-rove" ? (
+              <div class="rove-section">
+                <div class="rove-photo-grid" aria-label="NeXa RoVe public photos">
+                  {section.photos?.map((photo) => (
+                    <figure class="rove-photo">
+                      <img src={photo.src} alt={photo.alt} loading="lazy" />
+                      <figcaption>{photo.caption}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+                <div class="tile-grid">
+                  {section.points.map((point) => (
+                    <GlassTile title={section.title} text={point} />
+                  ))}
+                </div>
+                {section.codePreview && (
+                  <article class="code-preview" aria-label="NeXa RoVe public code preview">
+                    <p class="micro-label">{section.codePreview.title}</p>
+                    <code>{section.codePreview.command}</code>
+                    <p>{section.codePreview.description}</p>
+                  </article>
+                )}
+                <div class="rove-roadmap" aria-label="NeXa RoVe public roadmap">
+                  {section.roadmap?.map((item, index) => (
+                    <article>
+                      <span>{String(index + 1).padStart(2, "0")}</span>
+                      <p>{item}</p>
+                    </article>
+                  ))}
+                </div>
+                <nav class="section-nav" aria-label="NeXa RoVe related sections">
+                  {section.related?.map((link) => (
+                    <a href={link.href}>{link.label}</a>
+                  ))}
+                </nav>
+              </div>
             ) : (
               <div class="tile-grid">
                 {section.points.map((point) => (

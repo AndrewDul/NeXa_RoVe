@@ -1,8 +1,13 @@
 export function revealScrollSections(reducedMotion: boolean) {
   const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-scroll-section]"));
+  const updateDockedState = () => {
+    document.body.classList.toggle("face-docked", window.scrollY > Math.max(260, window.innerHeight * 0.55));
+  };
+  updateDockedState();
+  window.addEventListener("scroll", updateDockedState, { passive: true });
   if (reducedMotion || !("IntersectionObserver" in window)) {
     sections.forEach((section) => section.classList.add("section-visible"));
-    return () => {};
+    return () => window.removeEventListener("scroll", updateDockedState);
   }
 
   const observer = new IntersectionObserver(
@@ -17,5 +22,8 @@ export function revealScrollSections(reducedMotion: boolean) {
     { threshold: 0.14 }
   );
   sections.forEach((section) => observer.observe(section));
-  return () => observer.disconnect();
+  return () => {
+    observer.disconnect();
+    window.removeEventListener("scroll", updateDockedState);
+  };
 }

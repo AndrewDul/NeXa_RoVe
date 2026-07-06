@@ -11,7 +11,14 @@ import {
   type FaceState
 } from "../scripts/contracts/faceStateMachine";
 import SystemLauncher from "./SystemLauncher";
-import { CANONICAL_FACE_DESCRIPTION, CANONICAL_FACE_EYE_COUNT, CANONICAL_FACE_SMILE_COUNT } from "../scripts/contracts/nexaFaceIdentity";
+import {
+  CANONICAL_FACE_DESCRIPTION,
+  CANONICAL_FACE_EYE_COUNT,
+  CANONICAL_FACE_HAS_BORDER,
+  CANONICAL_FACE_HAS_FRAME,
+  CANONICAL_FACE_MIN_SMILE_Y,
+  CANONICAL_FACE_SMILE_COUNT
+} from "../scripts/contracts/nexaFaceIdentity";
 
 interface NexaFaceProps {
   tiles: LauncherTile[];
@@ -128,7 +135,7 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
   }
 
   return (
-    <div className="nexa-system" ref={rootRef}>
+    <div className="nexa-system" data-launcher-open={face.launcherOpen ? "true" : "false"} ref={rootRef}>
       <button
         ref={faceButtonRef}
         className="face-control"
@@ -142,30 +149,18 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
         <svg className={faceClass} viewBox="0 0 360 360" role="img" aria-labelledby="nexa-face-title" data-testid="nexa-face-logo">
           <title id="nexa-face-title">Animated NeXa face</title>
           <desc>{CANONICAL_FACE_DESCRIPTION}</desc>
-          <defs>
-            <linearGradient id="face-shell" x1="70" x2="290" y1="48" y2="318" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#f8fbff" />
-              <stop offset="0.48" stopColor="#74f0e3" />
-              <stop offset="1" stopColor="#9ff6ba" />
-            </linearGradient>
-            <radialGradient id="face-core" cx="50%" cy="44%" r="60%">
-              <stop stopColor="#263645" />
-              <stop offset="0.56" stopColor="#111925" />
-              <stop offset="1" stopColor="#070b12" />
-            </radialGradient>
-          </defs>
-          <circle className="face-halo" cx="180" cy="180" r="172" />
-          <circle className="face-aura" cx="180" cy="180" r="158" />
-          <circle className="face-shell" cx="180" cy="180" r="130" />
-          <circle className="face-core" data-testid="nexa-face-core" cx="180" cy="180" r="106" />
           <g
-            className="face-inner"
-            data-testid="nexa-face-canonical"
+            className="face-inner face-core"
+            data-testid="nexa-face-core"
+            data-face-role="canonical"
             data-canonical-eye-count={CANONICAL_FACE_EYE_COUNT}
             data-canonical-smile-count={CANONICAL_FACE_SMILE_COUNT}
+            data-canonical-has-frame={CANONICAL_FACE_HAS_FRAME}
+            data-canonical-has-border={CANONICAL_FACE_HAS_BORDER}
+            data-canonical-min-smile-y={CANONICAL_FACE_MIN_SMILE_Y}
           >
-            <path data-eye data-testid="nexa-face-eye" data-face-logo-part className="eye eye-left" d="M122 109 C103 116, 98 150, 112 182 C122 207, 150 208, 160 183 C174 149, 155 101, 122 109Z" />
-            <path data-eye data-testid="nexa-face-eye" data-face-logo-part className="eye eye-right" d="M238 109 C257 116, 262 150, 248 182 C238 207, 210 208, 200 183 C186 149, 205 101, 238 109Z" />
+            <path data-eye data-testid="nexa-face-eye" data-face-logo-part className="eye eye-left" d="M123 86 C103 94, 98 128, 110 161 C120 188, 150 190, 161 163 C175 126, 157 78, 123 86Z" />
+            <path data-eye data-testid="nexa-face-eye" data-face-logo-part className="eye eye-right" d="M237 86 C257 94, 262 128, 250 161 C240 188, 210 190, 199 163 C185 126, 203 78, 237 86Z" />
             <path data-testid="nexa-face-smile" data-face-logo-part className="smile-mark" d={smilePath(face.state)} />
           </g>
         </svg>
@@ -179,9 +174,9 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
 }
 
 function smilePath(state: FaceState) {
-  if (state === "focused" || state === "squint" || state === "sleepy") return "M134 225 C154 240, 206 240, 226 225";
-  if (state === "laugh" || state === "smile" || state === "surprised") return "M118 208 C145 255, 215 255, 242 208";
-  return "M124 214 C150 248, 210 248, 236 214";
+  if (state === "focused" || state === "squint" || state === "sleepy") return "M128 260 C152 278, 208 278, 232 260";
+  if (state === "laugh" || state === "smile" || state === "surprised") return "M116 250 C144 304, 216 304, 244 250";
+  return "M120 258 C148 294, 212 294, 240 258";
 }
 
 const faceStyles = `
@@ -197,23 +192,23 @@ const faceStyles = `
   .nexa-system::before {
     position: absolute;
     z-index: 0;
-    width: min(82vw, 760px);
+    width: min(74vw, 680px);
     aspect-ratio: 1;
     border-radius: 999px;
     pointer-events: none;
     content: "";
     background:
-      radial-gradient(circle, rgba(116, 240, 227, 0.17), transparent 38%),
-      conic-gradient(from 180deg, transparent, rgba(137, 169, 255, 0.16), transparent, rgba(255, 159, 194, 0.12), transparent);
-    filter: blur(18px);
-    opacity: 0.74;
+      radial-gradient(circle, rgba(116, 240, 227, 0.14), transparent 44%),
+      radial-gradient(circle at 50% 64%, rgba(255, 255, 255, 0.08), transparent 48%);
+    filter: blur(34px);
+    opacity: 0.58;
   }
 
   .face-control {
     position: relative;
     z-index: 4;
     display: grid;
-    width: clamp(238px, 35vw, 430px);
+    width: clamp(246px, 35vw, 430px);
     aspect-ratio: 1;
     place-items: center;
     padding: 0;
@@ -221,7 +216,27 @@ const faceStyles = `
     border-radius: 999px;
     background: transparent;
     cursor: pointer;
+    outline-offset: 14px;
     touch-action: manipulation;
+    transition: width 380ms ease;
+  }
+
+  .nexa-system[data-launcher-open="true"] .face-control {
+    width: clamp(128px, 12vw, 160px);
+  }
+
+  body.face-docked .nexa-system[data-launcher-open="false"] .face-control {
+    position: fixed;
+    top: calc(var(--island-top) + 46px);
+    left: 50%;
+    z-index: 90;
+    width: clamp(58px, 7vw, 76px);
+    border: 1px solid rgba(216, 231, 247, 0.18);
+    border-radius: 18px;
+    background: rgba(5, 8, 14, 0.38);
+    box-shadow: var(--shadow-glass);
+    backdrop-filter: blur(16px);
+    transform: translateX(-50%);
   }
 
   .face-svg {
@@ -233,30 +248,9 @@ const faceStyles = `
       drop-shadow(0 0 36px rgba(116, 240, 227, 0.1));
   }
 
-  .face-halo {
-    fill: none;
-    stroke: rgba(116, 240, 227, 0.1);
-    stroke-dasharray: 2 15;
-    stroke-linecap: round;
-    stroke-width: 2;
-  }
-
-  .face-aura {
-    fill: rgba(116, 240, 227, 0.075);
-    stroke: rgba(216, 231, 247, 0.18);
-    stroke-width: 1;
-    transition: opacity 220ms ease;
-  }
-
-  .face-shell {
-    fill: url(#face-shell);
-    opacity: 0.94;
-  }
-
   .face-core {
-    fill: url(#face-core);
-    stroke: rgba(255, 255, 255, 0.2);
-    stroke-width: 2;
+    transform-box: fill-box;
+    transform-origin: center;
   }
 
   .face-inner {
@@ -265,7 +259,7 @@ const faceStyles = `
 
   .eye {
     fill: #f5fdff;
-    filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.34));
+    filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.38));
     transition: transform 180ms ease;
     transform-origin: center;
   }
@@ -275,8 +269,8 @@ const faceStyles = `
     stroke: #f8fbff;
     stroke-linecap: round;
     stroke-linejoin: round;
-    stroke-width: 13;
-    filter: drop-shadow(0 0 9px rgba(255, 255, 255, 0.24));
+    stroke-width: 12;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.28));
     transition: d 180ms ease, transform 180ms ease, stroke-width 180ms ease, filter 180ms ease;
   }
 
@@ -285,13 +279,13 @@ const faceStyles = `
     transform-origin: 180px 180px;
   }
 
-  .face-launcher-open .face-aura {
-    opacity: 0.92;
+  .face-launcher-open .face-inner {
+    transform: translateY(-2px);
   }
 
   .face-smile .smile-mark,
   .face-launcher-open .smile-mark {
-    stroke-width: 14;
+    stroke-width: 13;
     filter: drop-shadow(0 0 13px rgba(255, 255, 255, 0.3));
   }
 
@@ -309,7 +303,7 @@ const faceStyles = `
 
   .system-launcher {
     position: absolute;
-    inset: 0;
+    inset: -10px;
     z-index: 5;
     display: grid;
     place-items: center;
@@ -322,26 +316,31 @@ const faceStyles = `
     opacity: 1;
   }
 
+  .system-launcher[data-open="false"] .launcher-tile {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .system-launcher[data-open="true"] .launcher-tile {
+    visibility: visible;
+  }
+
   .launcher-grid {
-    display: grid;
+    position: relative;
     width: min(100%, 1080px);
-    min-height: min(100%, 640px);
-    grid-template-columns: repeat(6, minmax(108px, 1fr));
-    grid-template-areas:
-      ". a a . b b"
-      "c c . . d d"
-      "e e . . f f"
-      ". g g . h h";
-    align-items: center;
-    gap: clamp(10px, 1.4vw, 16px);
-    padding: 10px;
+    min-height: min(100%, 660px);
+    pointer-events: none;
   }
 
   .launcher-tile {
-    position: relative;
+    position: absolute;
     z-index: 1;
+    top: 50%;
+    left: 50%;
     display: grid;
-    min-height: 112px;
+    width: clamp(150px, 13vw, 182px);
+    height: 116px;
+    min-height: 0;
     grid-template-columns: auto 1fr;
     grid-template-areas:
       "icon copy"
@@ -361,11 +360,11 @@ const faceStyles = `
     backdrop-filter: blur(20px);
     cursor: pointer;
     pointer-events: auto;
-    transform: translateZ(0);
+    transform: translate(-50%, -50%);
     transition:
       border-color 180ms ease,
       box-shadow 180ms ease,
-      transform 180ms ease,
+      translate 180ms ease,
       background 180ms ease;
   }
 
@@ -380,14 +379,14 @@ const faceStyles = `
     opacity: 0.75;
   }
 
-  .launcher-tile:nth-child(1) { grid-area: a; }
-  .launcher-tile:nth-child(2) { grid-area: b; }
-  .launcher-tile:nth-child(3) { grid-area: c; }
-  .launcher-tile:nth-child(4) { grid-area: d; }
-  .launcher-tile:nth-child(5) { grid-area: e; }
-  .launcher-tile:nth-child(6) { grid-area: f; }
-  .launcher-tile:nth-child(7) { grid-area: g; }
-  .launcher-tile:nth-child(8) { grid-area: h; }
+  .launcher-tile:nth-child(1) { transform: translate(-50%, -50%) translate(0, -255px); }
+  .launcher-tile:nth-child(2) { transform: translate(-50%, -50%) translate(260px, -164px); }
+  .launcher-tile:nth-child(3) { transform: translate(-50%, -50%) translate(336px, 0); }
+  .launcher-tile:nth-child(4) { transform: translate(-50%, -50%) translate(260px, 164px); }
+  .launcher-tile:nth-child(5) { transform: translate(-50%, -50%) translate(0, 232px); }
+  .launcher-tile:nth-child(6) { transform: translate(-50%, -50%) translate(-260px, 164px); }
+  .launcher-tile:nth-child(7) { transform: translate(-50%, -50%) translate(-336px, 0); }
+  .launcher-tile:nth-child(8) { transform: translate(-50%, -50%) translate(-260px, -164px); }
 
   .launcher-icon {
     position: relative;
@@ -428,6 +427,10 @@ const faceStyles = `
   }
 
   .launcher-copy small {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
     color: var(--color-muted);
     font-size: 0.75rem;
     line-height: 1.35;
@@ -450,7 +453,7 @@ const faceStyles = `
   .launcher-tile:focus-visible {
     border-color: var(--color-line-strong);
     box-shadow: var(--shadow-focus);
-    transform: translateY(-3px);
+    translate: 0 -3px;
   }
 
   .launcher-tile:focus-visible {
@@ -476,6 +479,7 @@ const faceStyles = `
     }
 
     .launcher-grid {
+      display: grid;
       min-height: 0;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       grid-template-areas: none;
@@ -485,8 +489,14 @@ const faceStyles = `
 
     .launcher-tile {
       grid-area: auto !important;
+      position: relative;
+      top: auto;
+      left: auto;
+      width: auto;
+      height: auto;
       min-height: 92px;
       padding: 13px;
+      transform: none !important;
     }
 
     .launcher-icon {
@@ -503,6 +513,14 @@ const faceStyles = `
 
     .face-control {
       width: min(76vw, 292px);
+    }
+
+    .nexa-system[data-launcher-open="true"] .face-control {
+      width: min(48vw, 180px);
+    }
+
+    body.face-docked .nexa-system[data-launcher-open="false"] .face-control {
+      width: 58px;
     }
 
     .launcher-grid {
