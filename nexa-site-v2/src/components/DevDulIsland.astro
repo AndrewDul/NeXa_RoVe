@@ -1,0 +1,42 @@
+<a class="devdul-island" href="#top" aria-label="Return to NeXa home">
+  <span class="devdul-mark">D</span>
+  <span class="devdul-text">DevDul</span>
+</a>
+
+<style>
+  .devdul-island {
+    position: fixed;
+    top: var(--island-top);
+    left: max(14px, env(safe-area-inset-left));
+    z-index: 40;
+    display: inline-flex;
+    min-height: 42px;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px 8px 8px;
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    background: rgba(9, 13, 20, 0.72);
+    box-shadow: var(--shadow-soft);
+    color: var(--color-text);
+    text-decoration: none;
+    backdrop-filter: blur(18px);
+  }
+
+  .devdul-mark {
+    display: grid;
+    width: 26px;
+    height: 26px;
+    place-items: center;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--color-aqua), var(--color-green));
+    color: #061012;
+    font-size: 0.78rem;
+    font-weight: 900;
+  }
+
+  .devdul-text {
+    font-size: 0.86rem;
+    font-weight: 750;
+  }
+</style>

@@ -1,0 +1,21 @@
+---
+interface Props {
+  id: string;
+  eyebrow: string;
+  title: string;
+  intro: string;
+}
+
+const { id, eyebrow, title, intro } = Astro.props;
+---
+
+<section class="section-shell" id={id} data-scroll-section>
+  <div class="section-inner">
+    <header class="section-heading">
+      <p class="home-kicker">{eyebrow}</p>
+      <h2>{title}</h2>
+      <p>{intro}</p>
+    </header>
+    <slot />
+  </div>
+</section>

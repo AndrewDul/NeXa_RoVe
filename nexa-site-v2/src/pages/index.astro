@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DevDulIsland from "../components/DevDulIsland.astro";
+import GlassTile from "../components/GlassTile.astro";
+import NexaFace from "../components/NexaFace";
+import SectionShell from "../components/SectionShell.astro";
+import { launcherTiles } from "../data/tiles";
+import { sections } from "../data/sections";
+import { publicBoundaries } from "../data/publicBoundaries";
+---
+
+<BaseLayout>
+  <main class="page-shell" id="top">
+    <DevDulIsland />
+
+    <section class="home-stage" aria-label="NeXa home">
+      <div class="home-stack">
+        <NexaFace client:load tiles={launcherTiles} />
+        <div class="home-copy">
+          <p class="home-kicker">Public foundation</p>
+          <h1>NeXa</h1>
+          <p>
+            NeXa is being built in public through selected progress, with NeXa RoVe shown as the first physical prototype.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="scroll-guide" aria-label="NeXa public sections">
+      {
+        sections.map((section) => (
+          <SectionShell id={section.id} eyebrow={section.eyebrow} title={section.title} intro={section.intro}>
+            {section.id === "public-boundaries" ? (
+              <div class="boundary-list">
+                {publicBoundaries.map((boundary) => (
+                  <p>{boundary}</p>
+                ))}
+              </div>
+            ) : (
+              <div class="tile-grid">
+                {section.points.map((point) => (
+                  <GlassTile title={section.title} text={point} />
+                ))}
+              </div>
+            )}
+          </SectionShell>
+        ))
+      }
+    </div>
+  </main>
+</BaseLayout>

@@ -1,0 +1,22 @@
+:root {
+  color-scheme: dark;
+  --color-void: #05070b;
+  --color-panel: rgba(12, 17, 25, 0.74);
+  --color-panel-strong: rgba(20, 27, 38, 0.86);
+  --color-line: rgba(183, 199, 217, 0.2);
+  --color-line-strong: rgba(205, 221, 241, 0.38);
+  --color-text: #f5f7fb;
+  --color-muted: #a9b3c1;
+  --color-soft: #d6dde8;
+  --color-aqua: #74f0e3;
+  --color-green: #9ff6ba;
+  --color-rose: #ff9fc2;
+  --color-gold: #f3d782;
+  --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.42);
+  --shadow-focus: 0 0 0 1px rgba(116, 240, 227, 0.34), 0 0 44px rgba(116, 240, 227, 0.14);
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 28px;
+  --max-content: 1180px;
+  --island-top: max(14px, env(safe-area-inset-top));
+}

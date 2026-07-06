@@ -1,0 +1,68 @@
+import type { FaceEvent } from "../scripts/contracts/faceStateMachine";
+
+export interface LauncherTile {
+  id: string;
+  label: string;
+  summary: string;
+  href: string;
+  reaction: FaceEvent;
+}
+
+export const launcherTiles: LauncherTile[] = [
+  {
+    id: "system-preview",
+    label: "System Preview",
+    summary: "The public feeling of NeXa as a composed, responsive interface.",
+    href: "#system-preview",
+    reaction: "focus"
+  },
+  {
+    id: "prototype",
+    label: "NeXa RoVe Prototype",
+    summary: "The first physical robot and public development vehicle.",
+    href: "#prototype",
+    reaction: "smile"
+  },
+  {
+    id: "hardware",
+    label: "Hardware",
+    summary: "Selected public parts, build decisions and physical constraints.",
+    href: "#hardware",
+    reaction: "look-left"
+  },
+  {
+    id: "build-story",
+    label: "Build Story",
+    summary: "A concise record of visible progress without private internals.",
+    href: "#build-story",
+    reaction: "look-right"
+  },
+  {
+    id: "code-lab",
+    label: "Code Lab",
+    summary: "Small public examples that show engineering style and care.",
+    href: "#code-lab",
+    reaction: "focus"
+  },
+  {
+    id: "demo",
+    label: "Demo",
+    summary: "Public demonstrations and safe entry points for the project.",
+    href: "#demo",
+    reaction: "surprise"
+  },
+  {
+    id: "roadmap",
+    label: "Roadmap",
+    summary: "Near-term public direction for the site and prototype.",
+    href: "#roadmap",
+    reaction: "squint"
+  },
+  {
+    id: "public-boundaries",
+    label: "Public Boundaries",
+    summary: "What is shared publicly and what remains intentionally private.",
+    href: "#public-boundaries",
+    reaction: "sleepy"
+  }
+];

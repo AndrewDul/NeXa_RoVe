@@ -1,0 +1,13 @@
+---
+interface Props {
+  title: string;
+  text: string;
+}
+
+const { title, text } = Astro.props;
+---
+
+<article class="glass-tile">
+  <h3>{title}</h3>
+  <p>{text}</p>
+</article>
