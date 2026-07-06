@@ -1,41 +1,27 @@
-.env
-.env.*
-*.key
-*.pem
-*.secret
-secrets/
-credentials/
-tokens/
+# Local audit, reports and private test artifacts
+/tests/
 
-.venv/
-venv/
-__pycache__/
-*.pyc
-.pytest_cache/
+# Node dependencies
+node_modules/
+/node_modules/
+/nexa-site-v2/node_modules/
 
-var/
-logs/
-diagnostics/
-memory/
-runtime/
-cache/
+# Build output
+dist/
+/dist/
+/nexa-site-v2/dist/
 
-raw_audio/
-raw_camera/
-raw_images/
-raw_transcripts/
+# Astro generated files
+.astro/
+/.astro/
+/nexa-site-v2/.astro/
 
-*.db
-*.sqlite
-*.sqlite3
-user_profiles.json
-nexa_user_model_latest.json
+# Test and automation artifacts
+playwright-report/
+test-results/
+coverage/
 
-models/
-*.gguf
-*.onnx
-*.bin
-
-.idea/
-.vscode/
+# Logs and local system files
+*.log
 .DS_Store
+Thumbs.db
