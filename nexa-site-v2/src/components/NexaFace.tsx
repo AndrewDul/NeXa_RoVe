@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { LauncherTile } from "../data/tiles";
-import { blinkEyes, lookPupils, runFaceIntro, runFacePress } from "../scripts/motion/faceMotion";
+import { blinkEyes, lookPupils, runFacePress } from "../scripts/motion/faceMotion";
 import { revealLauncher } from "../scripts/motion/launcherMotion";
 import { revealScrollSections } from "../scripts/motion/scrollMotion";
 import {
@@ -24,6 +24,7 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
   const [face, setFace] = useState<FaceModel>(initialFaceModel);
   const rootRef = useRef<HTMLDivElement>(null);
   const launcherRef = useRef<HTMLDivElement>(null);
+  const faceButtonRef = useRef<HTMLButtonElement>(null);
   const stateResetRef = useRef<number | undefined>(undefined);
 
   const faceClass = useMemo(() => `face-svg face-${face.state} ${face.launcherOpen ? "face-launcher-open" : ""}`, [face.state, face.launcherOpen]);
@@ -31,7 +32,6 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
   useEffect(() => {
     const reducedMotion = getReducedMotion();
     setFace((current) => ({ ...current, reducedMotion }));
-    const cleanupIntro = rootRef.current ? runFaceIntro(rootRef.current, reducedMotion) : () => {};
     const cleanupScroll = revealScrollSections(reducedMotion);
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     const onMotionChange = () => {
@@ -43,11 +43,21 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
     };
     media.addEventListener("change", onMotionChange);
     return () => {
-      cleanupIntro();
       cleanupScroll();
       media.removeEventListener("change", onMotionChange);
     };
   }, []);
+
+  useEffect(() => {
+    if (!face.launcherOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      closeLauncher(true);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [face.launcherOpen]);
 
   useEffect(() => {
     if (!face.launcherOpen || !launcherRef.current) return;
@@ -58,15 +68,20 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
     if (face.reducedMotion) return;
     const eyes = Array.from(rootRef.current?.querySelectorAll("[data-eye]") ?? []);
     const pupils = Array.from(rootRef.current?.querySelectorAll("[data-pupil]") ?? []);
-    const blinkId = window.setInterval(() => blinkEyes(eyes, false), 9800);
-    const lookId = window.setInterval(() => {
-      const direction = Math.random() > 0.5 ? "left" : "right";
-      lookPupils(pupils, direction, false);
-      window.setTimeout(() => lookPupils(pupils, "center", false), 1200);
-    }, 24000);
+    let blinkId: number | undefined;
+    let lookId: number | undefined;
+    const startupId = window.setTimeout(() => {
+      blinkId = window.setInterval(() => blinkEyes(eyes, false), 9800);
+      lookId = window.setInterval(() => {
+        const direction = Math.random() > 0.5 ? "left" : "right";
+        lookPupils(pupils, direction, false);
+        window.setTimeout(() => lookPupils(pupils, "center", false), 1200);
+      }, 24000);
+    }, 3200);
     return () => {
-      window.clearInterval(blinkId);
-      window.clearInterval(lookId);
+      window.clearTimeout(startupId);
+      if (blinkId) window.clearInterval(blinkId);
+      if (lookId) window.clearInterval(lookId);
     };
   }, [face.reducedMotion]);
 
@@ -86,12 +101,24 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
     }, 900);
   }
 
+  function closeLauncher(focusFace = false) {
+    window.clearTimeout(stateResetRef.current);
+    setFace((current) => transitionFace(current, "launcher-close"));
+    if (focusFace) {
+      window.setTimeout(() => faceButtonRef.current?.focus(), 0);
+    }
+  }
+
   function openLauncher() {
     const shouldOpen = !face.launcherOpen;
+    if (!shouldOpen) {
+      closeLauncher();
+      return;
+    }
     if (rootRef.current) runFacePress(rootRef.current, face.reducedMotion);
-    setFace((current) => transitionFace(current, shouldOpen ? "face-click" : "launcher-close"));
+    setFace((current) => transitionFace(current, "face-click"));
     window.setTimeout(() => {
-      setFace((current) => transitionFace(current, shouldOpen ? "launcher-open" : "launcher-close"));
+      setFace((current) => transitionFace(current, "launcher-open"));
     }, face.reducedMotion ? 0 : 160);
   }
 
@@ -102,6 +129,7 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
   return (
     <div className="nexa-system" ref={rootRef}>
       <button
+        ref={faceButtonRef}
         className="face-control"
         type="button"
         aria-expanded={face.launcherOpen}

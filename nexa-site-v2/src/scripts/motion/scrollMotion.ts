@@ -1,18 +1,15 @@
-import { gsap } from "gsap";
-
 export function revealScrollSections(reducedMotion: boolean) {
-  const sections = Array.from(document.querySelectorAll("[data-scroll-section]"));
+  const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-scroll-section]"));
   if (reducedMotion || !("IntersectionObserver" in window)) {
-    gsap.set(sections, { opacity: 1, y: 0 });
+    sections.forEach((section) => section.classList.add("section-visible"));
     return () => {};
   }
 
-  gsap.set(sections, { opacity: 0, y: 28 });
   const observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
-          gsap.to(entry.target, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" });
+          entry.target.classList.add("section-visible");
           observer.unobserve(entry.target);
         }
       }

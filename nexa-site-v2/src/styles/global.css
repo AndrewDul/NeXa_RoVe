@@ -152,6 +152,18 @@ button {
 .section-shell {
   position: relative;
   padding: clamp(60px, 9vw, 120px) 20px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 620ms ease,
+    transform 620ms ease;
+  content-visibility: auto;
+  contain-intrinsic-block-size: 720px;
+}
+
+.section-shell.section-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .section-shell:nth-child(even) {
@@ -279,5 +291,10 @@ button {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+  }
+
+  .section-shell {
+    opacity: 1;
+    transform: none;
   }
 }
