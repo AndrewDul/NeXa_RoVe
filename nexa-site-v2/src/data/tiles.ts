@@ -4,6 +4,9 @@ export interface LauncherTile {
   id: string;
   label: string;
   summary: string;
+  iconKey: "system" | "prototype" | "hardware" | "story" | "code" | "demo" | "roadmap" | "boundary";
+  targetId: string;
+  category: string;
   href: string;
   reaction: FaceEvent;
 }
@@ -13,6 +16,9 @@ export const launcherTiles: LauncherTile[] = [
     id: "system-preview",
     label: "System Preview",
     summary: "The public feeling of NeXa as a composed, responsive interface.",
+    iconKey: "system",
+    targetId: "system-preview",
+    category: "Interface",
     href: "#system-preview",
     reaction: "focus"
   },
@@ -20,6 +26,9 @@ export const launcherTiles: LauncherTile[] = [
     id: "prototype",
     label: "NeXa RoVe Prototype",
     summary: "The first physical robot and public development vehicle.",
+    iconKey: "prototype",
+    targetId: "prototype",
+    category: "Prototype",
     href: "#prototype",
     reaction: "smile"
   },
@@ -27,6 +36,9 @@ export const launcherTiles: LauncherTile[] = [
     id: "hardware",
     label: "Hardware",
     summary: "Selected public parts, build decisions and physical constraints.",
+    iconKey: "hardware",
+    targetId: "hardware",
+    category: "Engineering",
     href: "#hardware",
     reaction: "look-left"
   },
@@ -34,6 +46,9 @@ export const launcherTiles: LauncherTile[] = [
     id: "build-story",
     label: "Build Story",
     summary: "A concise record of visible progress without private internals.",
+    iconKey: "story",
+    targetId: "build-story",
+    category: "Progress",
     href: "#build-story",
     reaction: "look-right"
   },
@@ -41,6 +56,9 @@ export const launcherTiles: LauncherTile[] = [
     id: "code-lab",
     label: "Code Lab",
     summary: "Small public examples that show engineering style and care.",
+    iconKey: "code",
+    targetId: "code-lab",
+    category: "Software",
     href: "#code-lab",
     reaction: "focus"
   },
@@ -48,6 +66,9 @@ export const launcherTiles: LauncherTile[] = [
     id: "demo",
     label: "Demo",
     summary: "Public demonstrations and safe entry points for the project.",
+    iconKey: "demo",
+    targetId: "demo",
+    category: "Preview",
     href: "#demo",
     reaction: "surprise"
   },
@@ -55,6 +76,9 @@ export const launcherTiles: LauncherTile[] = [
     id: "roadmap",
     label: "Roadmap",
     summary: "Near-term public direction for the site and prototype.",
+    iconKey: "roadmap",
+    targetId: "roadmap",
+    category: "Direction",
     href: "#roadmap",
     reaction: "squint"
   },
@@ -62,6 +86,9 @@ export const launcherTiles: LauncherTile[] = [
     id: "public-boundaries",
     label: "Public Boundaries",
     summary: "What is shared publicly and what remains intentionally private.",
+    iconKey: "boundary",
+    targetId: "public-boundaries",
+    category: "Scope",
     href: "#public-boundaries",
     reaction: "sleepy"
   }
