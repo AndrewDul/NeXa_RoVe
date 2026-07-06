@@ -16,6 +16,16 @@ export interface SiteSection {
     command: string;
     description: string;
   };
+  docs?: {
+    label: string;
+    href: string;
+  }[];
+  video?: {
+    src: string;
+    poster: string;
+    caption: string;
+  };
+  history?: string[];
   roadmap?: string[];
   related?: {
     label: string;
@@ -27,11 +37,11 @@ const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
   "system-preview": {
     eyebrow: "NeXa",
     title: "System Preview",
-    intro: "A refined dark interface that frames NeXa as the main public system.",
+    intro: "A compact preview of NeXa as a composed interface shell.",
     points: [
-      "Premium glass UI direction with controlled depth.",
+      "Dark glass UI direction with controlled depth.",
       "Animated NeXa face as the primary interaction point.",
-      "Content model prepared for public engineering updates."
+      "Public-safe modules prepared for future work."
     ]
   },
   "nexa-rove": {
@@ -65,57 +75,83 @@ const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
       command: "python3 examples/public_demo/demo_app.py",
       description: "A safe demo entry point that shows the public example flow without private runtime details."
     },
+    docs: [
+      { label: "Project overview", href: "/docs/project-overview.md" },
+      { label: "System design", href: "/docs/system-design-overview.md" },
+      { label: "Hardware overview", href: "/hardware/hardware-overview.md" },
+      { label: "Public examples", href: "/docs/code-examples.md" }
+    ],
+    video: {
+      src: "/media/videos/nexa-rove-26s-demo.mp4",
+      poster: "/media/images/Presentation/front.jpeg",
+      caption: "Short public demo clip for the current physical setup."
+    },
+    history: [
+      "Start with a local assistant direction and a visual feedback surface.",
+      "Move into Raspberry Pi hardware, display, power and mounting work.",
+      "Create public examples that explain ideas without private runtime files."
+    ],
     roadmap: [
       "Refine the public v2 visual system and launcher.",
       "Add optimized media handling before deployment.",
       "Connect public demo, hardware and Code Lab sections with clearer navigation."
     ],
     related: [
-      { label: "Hardware", href: "#hardware" },
-      { label: "Demo", href: "#demo" },
-      { label: "Code Lab", href: "#code-lab" },
+      { label: "Vision", href: "#vision" },
+      { label: "Interaction", href: "#interaction" },
+      { label: "Automation", href: "#automation" },
       { label: "Roadmap", href: "#roadmap" },
       { label: "Public Boundaries", href: "#public-boundaries" }
     ]
   },
-  hardware: {
-    eyebrow: "Engineering",
-    title: "Hardware",
-    intro: "Selected public hardware notes can show real constraints without exposing private implementation details.",
+  capabilities: {
+    eyebrow: "System",
+    title: "Capabilities",
+    intro: "This area frames the kinds of support NeXa can grow toward without exposing private plans.",
     points: [
-      "Chassis, sensing and control notes can be summarized here.",
-      "Images should be optimized before being copied into v2.",
-      "Heavy existing media should stay referenced until the migration plan is ready."
+      "Present clear status and next actions.",
+      "Keep user control visible at every step.",
+      "Separate public concepts from private implementation."
     ]
   },
-  "build-story": {
-    eyebrow: "Progress",
-    title: "Build Story",
-    intro: "The site can show measured progress through public milestones.",
+  interaction: {
+    eyebrow: "Input",
+    title: "Interaction",
+    intro: "Interaction is shown as a clean loop between intent, response and visible feedback.",
     points: [
-      "Short dated updates can replace long internal logs.",
-      "Public failures and fixes can show engineering judgment.",
-      "Private prompts, logs and deep runtime internals stay out."
+      "Touch and launcher controls are direct.",
+      "Voice ideas can be described without private runtime details.",
+      "The face gives simple state feedback."
     ]
   },
-  "code-lab": {
-    eyebrow: "Software",
-    title: "Code Lab",
-    intro: "Selected examples can make the engineering visible while preserving boundaries.",
+  memory: {
+    eyebrow: "Context",
+    title: "Memory",
+    intro: "Memory remains a placeholder for careful context design and user choice.",
     points: [
-      "Small snippets and commands should be curated.",
-      "Examples should point to safe public demos.",
-      "Copy controls can be added as focused React islands later."
+      "Public copy stays high level.",
+      "No private logs or personal data are shown.",
+      "Future settings should make scope understandable."
     ]
   },
-  demo: {
-    eyebrow: "Experience",
-    title: "Demo",
-    intro: "The demo area should give visitors a clear view of what is publicly available now.",
+  automation: {
+    eyebrow: "Actions",
+    title: "Automation",
+    intro: "Automation is presented as a cautious support layer, not as uncontrolled action.",
     points: [
-      "Use short clips or lightweight previews after media optimization.",
-      "Keep demo controls functional without requiring private services.",
-      "Fallback links should remain available if JavaScript fails."
+      "Tasks need clear permission and state.",
+      "Physical behavior stays conservative.",
+      "Public demos use safe examples only."
+    ]
+  },
+  vision: {
+    eyebrow: "Sensing",
+    title: "Vision",
+    intro: "Vision is described as public-facing feedback and awareness, separate from private internals.",
+    points: [
+      "Camera and sensing ideas stay bounded.",
+      "Confidence and safety checks are part of the public story.",
+      "Images are used only where they clarify the build."
     ]
   },
   roadmap: {
@@ -126,6 +162,16 @@ const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
       "Polish the visual system and launcher behavior.",
       "Port content into typed Astro data modules.",
       "Define the eventual deployment switch only after v2 passes local checks."
+    ]
+  },
+  "build-direction": {
+    eyebrow: "Process",
+    title: "Build Direction",
+    intro: "The public build direction stays focused on useful, readable progress.",
+    points: [
+      "Keep the home shell simple and system-led.",
+      "Grow NeXa RoVe as the main content flow.",
+      "Use local tests before any public switch."
     ]
   },
   "public-boundaries": {

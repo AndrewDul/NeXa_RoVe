@@ -24,4 +24,8 @@
   --radius-lg: 24px;
   --max-content: 1180px;
   --island-top: max(14px, env(safe-area-inset-top));
+  --top-flow-offset: clamp(144px, 16vw, 190px);
+  --z-content: 10;
+  --z-island: 120;
+  --z-docked-face: 115;
 }

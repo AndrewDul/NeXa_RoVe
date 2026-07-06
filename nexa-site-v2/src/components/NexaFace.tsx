@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 import type { LauncherTile } from "../data/tiles";
 import { blinkEyes, shiftFaceLogo, runFacePress } from "../scripts/motion/faceMotion";
 import { revealLauncher } from "../scripts/motion/launcherMotion";
@@ -30,6 +30,7 @@ function getReducedMotion() {
 
 export default function NexaFace({ tiles }: NexaFaceProps) {
   const [face, setFace] = useState<FaceModel>(initialFaceModel);
+  const [contentActive, setContentActive] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const launcherRef = useRef<HTMLDivElement>(null);
   const faceButtonRef = useRef<HTMLButtonElement>(null);
@@ -41,6 +42,10 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
     const reducedMotion = getReducedMotion();
     setFace((current) => ({ ...current, reducedMotion }));
     const cleanupScroll = revealScrollSections(reducedMotion);
+    if (window.location.hash && window.location.hash !== "#top") {
+      document.body.classList.add("content-active", "face-docked");
+      setContentActive(true);
+    }
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     const onMotionChange = () => {
       setFace((current) =>
@@ -117,7 +122,22 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
     }
   }
 
+  function returnHome() {
+    window.clearTimeout(stateResetRef.current);
+    closeLauncher(false);
+    document.body.classList.remove("content-active", "face-docked");
+    setContentActive(false);
+    window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}`);
+    window.scrollTo({ top: 0, behavior: face.reducedMotion ? "auto" : "smooth" });
+    setFace((current) => transitionFace({ ...current, launcherOpen: false }, "press-release"));
+  }
+
   function openLauncher() {
+    if (contentActive || document.body.classList.contains("content-active")) {
+      if (rootRef.current) runFacePress(rootRef.current, face.reducedMotion);
+      returnHome();
+      return;
+    }
     const shouldOpen = !face.launcherOpen;
     if (!shouldOpen) {
       closeLauncher();
@@ -134,20 +154,30 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
     send(event);
   }
 
-  function onTileSelect() {
+  function onTileSelect(tile: LauncherTile, event: MouseEvent<HTMLAnchorElement>) {
+    event.preventDefault();
     send("smile", false);
-    window.setTimeout(() => closeLauncher(false), face.reducedMotion ? 0 : 80);
+    closeLauncher(false);
+    document.body.classList.add("content-active", "face-docked");
+    setContentActive(true);
+    window.setTimeout(() => {
+      const target = document.getElementById(tile.targetId);
+      if (!target) return;
+      window.history.replaceState(null, "", `#${tile.targetId}`);
+      target.scrollIntoView({ behavior: face.reducedMotion ? "auto" : "smooth", block: "start" });
+    }, face.reducedMotion ? 0 : 120);
   }
 
   return (
     <div className="nexa-system" data-launcher-open={face.launcherOpen ? "true" : "false"} ref={rootRef}>
       <button
         ref={faceButtonRef}
-        className="face-control"
+        className={`face-control ${face.launcherOpen ? "face-control-open" : ""} ${contentActive ? "face-control-docked" : ""}`}
         type="button"
         aria-expanded={face.launcherOpen}
         aria-controls="nexa-launcher"
-        aria-label={face.launcherOpen ? "Close NeXa system launcher" : "Open NeXa system launcher"}
+        aria-label={contentActive ? "Return to NeXa home" : face.launcherOpen ? "Close NeXa system launcher" : "Open NeXa system launcher"}
+        title={contentActive ? "Return home" : undefined}
         data-testid="nexa-face-control"
         onClick={openLauncher}
       >
@@ -213,6 +243,7 @@ const faceStyles = `
     position: relative;
     z-index: 4;
     display: grid;
+    grid-area: 1 / 1;
     width: clamp(246px, 35vw, 430px);
     aspect-ratio: 1;
     place-items: center;
@@ -226,16 +257,23 @@ const faceStyles = `
     transition: width 380ms ease;
   }
 
-  .nexa-system[data-launcher-open="true"] .face-control {
-    width: clamp(128px, 12vw, 160px);
+  #nexa-launcher {
+    grid-area: 1 / 1;
+    width: 100%;
+    height: 100%;
   }
 
-  body.face-docked .nexa-system[data-launcher-open="false"] .face-control {
+  .face-control.face-control-open {
+    z-index: 7;
+    width: clamp(128px, 12vw, 160px) !important;
+  }
+
+  .face-control.face-control-docked {
     position: fixed;
     top: calc(var(--island-top) + 41px);
     left: 50%;
-    z-index: 90;
-    width: clamp(62px, 7vw, 78px);
+    z-index: var(--z-docked-face);
+    width: clamp(58px, 5vw, 70px) !important;
     border: 1px solid rgba(216, 231, 247, 0.18);
     border-radius: 0 0 18px 18px;
     background:
@@ -244,6 +282,12 @@ const faceStyles = `
     box-shadow: var(--shadow-glass);
     backdrop-filter: blur(16px);
     transform: translateX(-50%);
+    transition: none;
+  }
+
+  .face-control.face-control-docked:hover,
+  .face-control.face-control-docked:focus-visible {
+    box-shadow: var(--shadow-focus);
   }
 
   .face-svg {
@@ -309,9 +353,9 @@ const faceStyles = `
   }
 
   .system-launcher {
-    position: absolute;
-    inset: -10px;
-    z-index: 5;
+    position: fixed;
+    inset: 0;
+    z-index: 3;
     display: grid;
     place-items: center;
     pointer-events: none;
@@ -334,8 +378,8 @@ const faceStyles = `
 
   .launcher-grid {
     position: relative;
-    width: min(100%, 1080px);
-    min-height: min(100%, 660px);
+    width: min(100%, 1120px);
+    min-height: min(100%, 690px);
     pointer-events: none;
   }
 
@@ -345,8 +389,8 @@ const faceStyles = `
     top: 50%;
     left: 50%;
     display: grid;
-    width: clamp(150px, 13vw, 182px);
-    height: 116px;
+    width: clamp(124px, 12vw, 178px);
+    height: clamp(86px, 8.8vw, 112px);
     min-height: 0;
     grid-template-columns: auto 1fr;
     grid-template-areas:
@@ -386,14 +430,16 @@ const faceStyles = `
     opacity: 0.75;
   }
 
-  .launcher-tile:nth-child(1) { transform: translate(-50%, -50%) translate(0, -258px); }
-  .launcher-tile:nth-child(2) { transform: translate(-50%, -50%) translate(274px, -170px); }
-  .launcher-tile:nth-child(3) { transform: translate(-50%, -50%) translate(354px, 0); }
-  .launcher-tile:nth-child(4) { transform: translate(-50%, -50%) translate(274px, 170px); }
-  .launcher-tile:nth-child(5) { transform: translate(-50%, -50%) translate(0, 242px); }
-  .launcher-tile:nth-child(6) { transform: translate(-50%, -50%) translate(-274px, 170px); }
-  .launcher-tile:nth-child(7) { transform: translate(-50%, -50%) translate(-354px, 0); }
-  .launcher-tile:nth-child(8) { transform: translate(-50%, -50%) translate(-274px, -170px); }
+  .launcher-tile:nth-child(1) { transform: translate(-50%, -50%) translate(0, clamp(-310px, -24vw, -228px)); }
+  .launcher-tile:nth-child(2) { transform: translate(-50%, -50%) translate(clamp(177px, 18vw, 254px), clamp(-251px, -19vw, -185px)); }
+  .launcher-tile:nth-child(3) { transform: translate(-50%, -50%) translate(clamp(285px, 28.5vw, 409px), clamp(-96px, -7.5vw, -71px)); }
+  .launcher-tile:nth-child(4) { transform: translate(-50%, -50%) translate(clamp(285px, 28.5vw, 409px), clamp(71px, 7.5vw, 96px)); }
+  .launcher-tile:nth-child(5) { transform: translate(-50%, -50%) translate(clamp(177px, 18vw, 254px), clamp(185px, 19vw, 251px)); }
+  .launcher-tile:nth-child(6) { transform: translate(-50%, -50%) translate(0, clamp(228px, 24vw, 310px)); }
+  .launcher-tile:nth-child(7) { transform: translate(-50%, -50%) translate(clamp(-254px, -18vw, -177px), clamp(185px, 19vw, 251px)); }
+  .launcher-tile:nth-child(8) { transform: translate(-50%, -50%) translate(clamp(-409px, -28.5vw, -285px), clamp(71px, 7.5vw, 96px)); }
+  .launcher-tile:nth-child(9) { transform: translate(-50%, -50%) translate(clamp(-409px, -28.5vw, -285px), clamp(-96px, -7.5vw, -71px)); }
+  .launcher-tile:nth-child(10) { transform: translate(-50%, -50%) translate(clamp(-254px, -18vw, -177px), clamp(-251px, -19vw, -185px)); }
 
   .launcher-icon {
     position: relative;
@@ -467,6 +513,10 @@ const faceStyles = `
     outline: 0;
   }
 
+  @media (min-width: 901px) {
+    .launcher-grid {}
+  }
+
   @media (max-width: 900px) {
     .nexa-system {
       min-height: auto;
@@ -475,35 +525,30 @@ const faceStyles = `
     }
 
     .system-launcher {
-      position: relative;
-      inset: auto;
+      inset: 0;
       width: 100%;
-      margin-top: 8px;
-    }
-
-    .system-launcher[data-open="false"] {
-      display: none;
     }
 
     .launcher-grid {
-      display: grid;
-      min-height: 0;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      grid-template-areas: none;
-      gap: 10px;
-      padding: 0;
+      min-height: clamp(420px, 70svh, 610px);
     }
 
+    .launcher-tile:nth-child(1) { transform: translate(-50%, -50%) translate(0, -230px); }
+    .launcher-tile:nth-child(2) { transform: translate(-50%, -50%) translate(177px, -186px); }
+    .launcher-tile:nth-child(3) { transform: translate(-50%, -50%) translate(285px, -71px); }
+    .launcher-tile:nth-child(4) { transform: translate(-50%, -50%) translate(285px, 71px); }
+    .launcher-tile:nth-child(5) { transform: translate(-50%, -50%) translate(177px, 186px); }
+    .launcher-tile:nth-child(6) { transform: translate(-50%, -50%) translate(0, 230px); }
+    .launcher-tile:nth-child(7) { transform: translate(-50%, -50%) translate(-177px, 186px); }
+    .launcher-tile:nth-child(8) { transform: translate(-50%, -50%) translate(-285px, 71px); }
+    .launcher-tile:nth-child(9) { transform: translate(-50%, -50%) translate(-285px, -71px); }
+    .launcher-tile:nth-child(10) { transform: translate(-50%, -50%) translate(-177px, -186px); }
+
     .launcher-tile {
-      grid-area: auto !important;
-      position: relative;
-      top: auto;
-      left: auto;
-      width: auto;
-      height: auto;
-      min-height: 92px;
-      padding: 13px;
-      transform: none !important;
+      width: clamp(94px, 25vw, 142px);
+      height: clamp(70px, 13svh, 94px);
+      padding: 10px;
+      gap: 7px 8px;
     }
 
     .launcher-icon {
@@ -523,7 +568,7 @@ const faceStyles = `
     }
 
     .nexa-system[data-launcher-open="true"] .face-control {
-      width: min(48vw, 180px);
+      width: min(31vw, 112px);
     }
 
     body.face-docked .nexa-system[data-launcher-open="false"] .face-control {
@@ -531,24 +576,41 @@ const faceStyles = `
     }
 
     .launcher-grid {
-      grid-template-columns: 1fr;
-      width: min(100%, 366px);
+      min-height: min(78svh, 470px);
     }
 
+    .launcher-tile:nth-child(1) { transform: translate(-50%, -50%) translate(0, -24svh); }
+    .launcher-tile:nth-child(2) { transform: translate(-50%, -50%) translate(20.7vw, -19.4svh); }
+    .launcher-tile:nth-child(3) { transform: translate(-50%, -50%) translate(33.3vw, -7.4svh); }
+    .launcher-tile:nth-child(4) { transform: translate(-50%, -50%) translate(33.3vw, 7.4svh); }
+    .launcher-tile:nth-child(5) { transform: translate(-50%, -50%) translate(20.7vw, 19.4svh); }
+    .launcher-tile:nth-child(6) { transform: translate(-50%, -50%) translate(0, 24svh); }
+    .launcher-tile:nth-child(7) { transform: translate(-50%, -50%) translate(-20.7vw, 19.4svh); }
+    .launcher-tile:nth-child(8) { transform: translate(-50%, -50%) translate(-33.3vw, 7.4svh); }
+    .launcher-tile:nth-child(9) { transform: translate(-50%, -50%) translate(-33.3vw, -7.4svh); }
+    .launcher-tile:nth-child(10) { transform: translate(-50%, -50%) translate(-20.7vw, -19.4svh); }
+
     .launcher-tile {
-      min-height: 76px;
-      grid-template-columns: auto 1fr auto;
-      grid-template-areas: "icon copy meta";
-      align-items: center;
+      width: clamp(64px, 20vw, 82px);
+      height: clamp(48px, 10svh, 64px);
+      grid-template-columns: 1fr;
+      grid-template-areas: "copy";
+      padding: 8px;
+      text-align: center;
+    }
+
+    .launcher-icon,
+    .launcher-category {
+      display: none;
+    }
+
+    .launcher-copy strong {
+      font-size: clamp(0.58rem, 2.35vw, 0.72rem);
     }
 
     .launcher-copy small {
-      font-size: 0.72rem;
-    }
-
-    .launcher-category {
-      align-self: center;
-      white-space: nowrap;
+      -webkit-line-clamp: 1;
+      font-size: clamp(0.48rem, 2vw, 0.6rem);
     }
   }
 

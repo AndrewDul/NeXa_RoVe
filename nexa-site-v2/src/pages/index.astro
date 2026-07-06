@@ -16,13 +16,6 @@ import { publicBoundaries } from "../data/publicBoundaries";
     <section class="home-stage" aria-label="NeXa home">
       <div class="home-stack">
         <NexaFace client:load tiles={launcherTiles} />
-        <div class="home-copy">
-          <p class="home-kicker">Public foundation</p>
-          <h1>NeXa</h1>
-          <p>
-            NeXa is being built in public through selected progress, with NeXa RoVe shown as the first physical prototype.
-          </p>
-        </div>
       </div>
     </section>
 
@@ -57,6 +50,30 @@ import { publicBoundaries } from "../data/publicBoundaries";
                     <code>{section.codePreview.command}</code>
                     <p>{section.codePreview.description}</p>
                   </article>
+                )}
+                {section.docs && (
+                  <div class="rove-docs" aria-label="NeXa RoVe public documents">
+                    {section.docs.map((doc) => (
+                      <a href={doc.href}>{doc.label}</a>
+                    ))}
+                  </div>
+                )}
+                {section.video && (
+                  <figure class="rove-video" aria-label="NeXa RoVe public video">
+                    <video controls preload="metadata" poster={section.video.poster}>
+                      <source src={section.video.src} type="video/mp4" />
+                    </video>
+                    <figcaption>{section.video.caption}</figcaption>
+                  </figure>
+                )}
+                {section.history && (
+                  <div class="rove-history" aria-label="NeXa RoVe build story">
+                    {section.history.map((item) => (
+                      <article>
+                        <p>{item}</p>
+                      </article>
+                    ))}
+                  </div>
                 )}
                 <div class="rove-roadmap" aria-label="NeXa RoVe public roadmap">
                   {section.roadmap?.map((item, index) => (

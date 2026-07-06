@@ -1,11 +1,12 @@
 import type { LauncherTile } from "../data/tiles";
 import type { FaceEvent } from "../scripts/contracts/faceStateMachine";
+import type { MouseEvent } from "react";
 
 interface SystemLauncherProps {
   open: boolean;
   tiles: LauncherTile[];
   onTileHover: (event: FaceEvent) => void;
-  onTileSelect: () => void;
+  onTileSelect: (tile: LauncherTile, event: MouseEvent<HTMLAnchorElement>) => void;
 }
 
 export default function SystemLauncher({ open, tiles, onTileHover, onTileSelect }: SystemLauncherProps) {
@@ -20,7 +21,7 @@ export default function SystemLauncher({ open, tiles, onTileHover, onTileSelect 
             key={tile.id}
             aria-label={`${tile.label}: ${tile.summary}`}
             data-category={tile.category}
-            onClick={onTileSelect}
+            onClick={(event) => onTileSelect(tile, event)}
             onFocus={() => onTileHover(tile.reaction)}
             onMouseEnter={() => onTileHover(tile.reaction)}
             tabIndex={open ? 0 : -1}
