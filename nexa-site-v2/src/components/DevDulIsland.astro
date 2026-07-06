@@ -7,8 +7,8 @@
   .devdul-island {
     position: fixed;
     top: var(--island-top);
-    left: max(14px, env(safe-area-inset-left));
-    z-index: 40;
+    left: 50%;
+    z-index: 92;
     display: inline-flex;
     min-height: 42px;
     align-items: center;
@@ -21,6 +21,7 @@
     color: var(--color-text);
     text-decoration: none;
     backdrop-filter: blur(18px);
+    transform: translateX(-50%);
   }
 
   .devdul-mark {
