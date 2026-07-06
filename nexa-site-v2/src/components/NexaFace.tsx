@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { LauncherTile } from "../data/tiles";
-import { blinkEyes, lookPupils, runFacePress } from "../scripts/motion/faceMotion";
+import { blinkEyes, shiftFaceLogo, runFacePress } from "../scripts/motion/faceMotion";
 import { revealLauncher } from "../scripts/motion/launcherMotion";
 import { revealScrollSections } from "../scripts/motion/scrollMotion";
 import {
@@ -11,6 +11,7 @@ import {
   type FaceState
 } from "../scripts/contracts/faceStateMachine";
 import SystemLauncher from "./SystemLauncher";
+import { CANONICAL_FACE_DESCRIPTION, CANONICAL_FACE_EYE_COUNT, CANONICAL_FACE_SMILE_COUNT } from "../scripts/contracts/nexaFaceIdentity";
 
 interface NexaFaceProps {
   tiles: LauncherTile[];
@@ -67,15 +68,15 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
   useEffect(() => {
     if (face.reducedMotion) return;
     const eyes = Array.from(rootRef.current?.querySelectorAll("[data-eye]") ?? []);
-    const pupils = Array.from(rootRef.current?.querySelectorAll("[data-pupil]") ?? []);
+    const logoParts = Array.from(rootRef.current?.querySelectorAll("[data-face-logo-part]") ?? []);
     let blinkId: number | undefined;
     let lookId: number | undefined;
     const startupId = window.setTimeout(() => {
       blinkId = window.setInterval(() => blinkEyes(eyes, false), 9800);
       lookId = window.setInterval(() => {
         const direction = Math.random() > 0.5 ? "left" : "right";
-        lookPupils(pupils, direction, false);
-        window.setTimeout(() => lookPupils(pupils, "center", false), 1200);
+        shiftFaceLogo(logoParts, direction, false);
+        window.setTimeout(() => shiftFaceLogo(logoParts, "center", false), 1200);
       }, 24000);
     }, 3200);
     return () => {
@@ -86,10 +87,10 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
   }, [face.reducedMotion]);
 
   useEffect(() => {
-    const pupils = Array.from(rootRef.current?.querySelectorAll("[data-pupil]") ?? []);
-    if (face.state === "look-left") lookPupils(pupils, "left", face.reducedMotion);
-    if (face.state === "look-right") lookPupils(pupils, "right", face.reducedMotion);
-    if (face.state === "neutral" || face.state === "smile") lookPupils(pupils, "center", face.reducedMotion);
+    const logoParts = Array.from(rootRef.current?.querySelectorAll("[data-face-logo-part]") ?? []);
+    if (face.state === "look-left") shiftFaceLogo(logoParts, "left", face.reducedMotion);
+    if (face.state === "look-right") shiftFaceLogo(logoParts, "right", face.reducedMotion);
+    if (face.state === "neutral" || face.state === "smile") shiftFaceLogo(logoParts, "center", face.reducedMotion);
   }, [face.state, face.reducedMotion]);
 
   function send(event: FaceEvent, holdState = true) {
@@ -138,8 +139,9 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
         data-testid="nexa-face-control"
         onClick={openLauncher}
       >
-        <svg className={faceClass} viewBox="0 0 360 360" role="img" aria-labelledby="nexa-face-title">
+        <svg className={faceClass} viewBox="0 0 360 360" role="img" aria-labelledby="nexa-face-title" data-testid="nexa-face-logo">
           <title id="nexa-face-title">Animated NeXa face</title>
+          <desc>{CANONICAL_FACE_DESCRIPTION}</desc>
           <defs>
             <linearGradient id="face-shell" x1="70" x2="290" y1="48" y2="318" gradientUnits="userSpaceOnUse">
               <stop stopColor="#f8fbff" />
@@ -151,30 +153,20 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
               <stop offset="0.56" stopColor="#111925" />
               <stop offset="1" stopColor="#070b12" />
             </radialGradient>
-            <linearGradient id="face-glass" x1="108" x2="252" y1="84" y2="260" gradientUnits="userSpaceOnUse">
-              <stop stopColor="rgba(255,255,255,0.36)" />
-              <stop offset="0.52" stopColor="rgba(255,255,255,0.05)" />
-              <stop offset="1" stopColor="rgba(116,240,227,0.1)" />
-            </linearGradient>
           </defs>
           <circle className="face-halo" cx="180" cy="180" r="172" />
           <circle className="face-aura" cx="180" cy="180" r="158" />
           <circle className="face-shell" cx="180" cy="180" r="130" />
-          <circle className="face-core" cx="180" cy="180" r="106" />
-          <path className="face-glass" d="M93 160 C104 94, 151 70, 204 82 C170 100, 137 123, 93 160Z" />
-          <path className="face-rim" d="M80 180 C80 118, 118 74, 180 74 C242 74, 280 118, 280 180 C280 242, 242 286, 180 286 C118 286, 80 242, 80 180Z" />
-          <g className="face-inner">
-            <ellipse className="eye-socket eye-socket-left" cx="136" cy="158" rx="34" ry="43" />
-            <ellipse className="eye-socket eye-socket-right" cx="224" cy="158" rx="34" ry="43" />
-            <ellipse data-eye className="eye eye-left" cx="136" cy="158" rx="18" ry="29" />
-            <ellipse data-eye className="eye eye-right" cx="224" cy="158" rx="18" ry="29" />
-            <circle data-pupil className="pupil pupil-left" cx="136" cy="162" r="6.6" />
-            <circle data-pupil className="pupil pupil-right" cx="224" cy="162" r="6.6" />
-            <circle className="pupil-spark pupil-spark-left" cx="132" cy="156" r="2.2" />
-            <circle className="pupil-spark pupil-spark-right" cx="220" cy="156" r="2.2" />
-            <path className="brow brow-left" d="M103 122 C122 111, 150 111, 169 124" />
-            <path className="brow brow-right" d="M191 124 C210 111, 238 111, 257 122" />
-            <path className="mouth" d={mouthPath(face.state)} />
+          <circle className="face-core" data-testid="nexa-face-core" cx="180" cy="180" r="106" />
+          <g
+            className="face-inner"
+            data-testid="nexa-face-canonical"
+            data-canonical-eye-count={CANONICAL_FACE_EYE_COUNT}
+            data-canonical-smile-count={CANONICAL_FACE_SMILE_COUNT}
+          >
+            <path data-eye data-testid="nexa-face-eye" data-face-logo-part className="eye eye-left" d="M122 109 C103 116, 98 150, 112 182 C122 207, 150 208, 160 183 C174 149, 155 101, 122 109Z" />
+            <path data-eye data-testid="nexa-face-eye" data-face-logo-part className="eye eye-right" d="M238 109 C257 116, 262 150, 248 182 C238 207, 210 208, 200 183 C186 149, 205 101, 238 109Z" />
+            <path data-testid="nexa-face-smile" data-face-logo-part className="smile-mark" d={smilePath(face.state)} />
           </g>
         </svg>
       </button>
@@ -186,12 +178,10 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
   );
 }
 
-function mouthPath(state: FaceState) {
-  if (state === "surprised") return "M166 222 C166 202, 194 202, 194 222 C194 243, 166 243, 166 222";
-  if (state === "laugh") return "M132 214 C156 260, 204 260, 228 214";
-  if (state === "focused" || state === "squint") return "M142 226 C166 216, 194 216, 218 226";
-  if (state === "sleepy") return "M148 226 C170 238, 190 238, 212 226";
-  return "M128 214 C154 248, 206 248, 232 214";
+function smilePath(state: FaceState) {
+  if (state === "focused" || state === "squint" || state === "sleepy") return "M134 225 C154 240, 206 240, 226 225";
+  if (state === "laugh" || state === "smile" || state === "surprised") return "M118 208 C145 255, 215 255, 242 208";
+  return "M124 214 C150 248, 210 248, 236 214";
 }
 
 const faceStyles = `
@@ -269,58 +259,25 @@ const faceStyles = `
     stroke-width: 2;
   }
 
-  .face-glass {
-    fill: url(#face-glass);
-    opacity: 0.68;
-    mix-blend-mode: screen;
-  }
-
-  .face-rim {
-    fill: none;
-    stroke: rgba(255, 255, 255, 0.18);
-    stroke-width: 1.5;
-  }
-
   .face-inner {
     transition: transform 180ms ease;
   }
 
-  .eye-socket {
-    fill: rgba(0, 0, 0, 0.16);
-    stroke: rgba(116, 240, 227, 0.08);
-    stroke-width: 1;
-  }
-
   .eye {
     fill: #f5fdff;
-    filter: drop-shadow(0 0 12px rgba(116, 240, 227, 0.26));
-    transition: rx 180ms ease, ry 180ms ease, transform 180ms ease, opacity 180ms ease;
-  }
-
-  .pupil {
-    fill: #061016;
-  }
-
-  .pupil-spark {
-    fill: rgba(255, 255, 255, 0.86);
-    pointer-events: none;
-  }
-
-  .brow {
-    fill: none;
-    stroke: rgba(238, 250, 255, 0.72);
-    stroke-linecap: round;
-    stroke-width: 8;
+    filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.34));
     transition: transform 180ms ease;
+    transform-origin: center;
   }
 
-  .mouth {
+  .smile-mark {
     fill: none;
-    stroke: #eefaff;
+    stroke: #f8fbff;
     stroke-linecap: round;
-    stroke-width: 12;
-    filter: drop-shadow(0 0 10px rgba(116, 240, 227, 0.2));
-    transition: d 180ms ease, transform 180ms ease, stroke-width 180ms ease;
+    stroke-linejoin: round;
+    stroke-width: 13;
+    filter: drop-shadow(0 0 9px rgba(255, 255, 255, 0.24));
+    transition: d 180ms ease, transform 180ms ease, stroke-width 180ms ease, filter 180ms ease;
   }
 
   .face-pressed .face-inner {
@@ -332,29 +289,22 @@ const faceStyles = `
     opacity: 0.92;
   }
 
-  .face-smile .mouth,
-  .face-launcher-open .mouth {
-    stroke-width: 13;
+  .face-smile .smile-mark,
+  .face-launcher-open .smile-mark {
+    stroke-width: 14;
+    filter: drop-shadow(0 0 13px rgba(255, 255, 255, 0.3));
   }
 
   .face-squint .eye {
-    ry: 11;
+    transform: scaleY(0.72);
   }
 
   .face-sleepy .eye {
-    ry: 8;
+    transform: scaleY(0.42);
   }
 
-  .face-focused .brow-left,
-  .face-squint .brow-left {
-    transform: translate(8px, 10px) rotate(8deg);
-    transform-origin: 136px 128px;
-  }
-
-  .face-focused .brow-right,
-  .face-squint .brow-right {
-    transform: translate(-8px, 10px) rotate(-8deg);
-    transform-origin: 224px 128px;
+  .face-focused .eye {
+    transform: scaleY(0.84);
   }
 
   .system-launcher {
@@ -579,8 +529,7 @@ const faceStyles = `
 
   @media (prefers-reduced-motion: reduce) {
     .eye,
-    .brow,
-    .mouth,
+    .smile-mark,
     .launcher-tile,
     .face-inner {
       transition: none;

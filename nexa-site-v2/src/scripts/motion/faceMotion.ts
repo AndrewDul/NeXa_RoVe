@@ -2,7 +2,7 @@ export interface FaceMotionParts {
   root: HTMLElement;
   eyes: Element[];
   mouth: Element | null;
-  pupils: Element[];
+  logoParts: Element[];
 }
 
 let gsapLoader: Promise<typeof import("gsap").gsap> | undefined;
@@ -33,18 +33,18 @@ export function blinkEyes(eyes: Element[], reducedMotion: boolean) {
   });
 }
 
-export function lookPupils(pupils: Element[], direction: "left" | "right" | "center", reducedMotion: boolean) {
-  if (pupils.length === 0) return;
-  const x = direction === "left" ? -9 : direction === "right" ? 9 : 0;
+export function shiftFaceLogo(parts: Element[], direction: "left" | "right" | "center", reducedMotion: boolean) {
+  if (parts.length === 0) return;
+  const x = direction === "left" ? -7 : direction === "right" ? 7 : 0;
   if (reducedMotion) {
-    pupils.forEach((pupil) => {
-      if (pupil instanceof HTMLElement || pupil instanceof SVGElement) {
-        pupil.style.transform = `translateX(${x}px)`;
+    parts.forEach((part) => {
+      if (part instanceof HTMLElement || part instanceof SVGElement) {
+        part.style.transform = `translateX(${x}px)`;
       }
     });
     return;
   }
   void loadGsap().then((gsap) => {
-    gsap.to(pupils, { x, duration: 0.48, ease: "power3.out" });
+    gsap.to(parts, { x, duration: 0.48, ease: "power3.out" });
   });
 }
