@@ -1,4 +1,5 @@
 import { launcherTiles } from "./tiles";
+import { publicPath } from "../utils/publicPath";
 
 export interface SiteSection {
   id: string;
@@ -223,21 +224,21 @@ const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
     },
     photos: [
       {
-        src: "/generated/rove/nexa-rove-main-720.webp",
+        src: publicPath("/generated/rove/nexa-rove-main-720.webp"),
         alt: "Current NeXa RoVe setup",
         caption: "Current public build setup for the prototype.",
         width: 720,
         height: 960
       },
       {
-        src: "/generated/rove/front-720.webp",
+        src: publicPath("/generated/rove/front-720.webp"),
         alt: "Front view of the NeXa RoVe prototype",
         caption: "Front display and physical layout.",
         width: 720,
         height: 960
       },
       {
-        src: "/generated/rove/inside-720.webp",
+        src: publicPath("/generated/rove/inside-720.webp"),
         alt: "Inside view of the NeXa RoVe hardware layout",
         caption: "Internal hardware arrangement shown at a public level.",
         width: 720,
@@ -257,14 +258,14 @@ const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
       ]
     },
     docs: [
-      { label: "Project overview", href: "/docs/project-overview.md" },
-      { label: "System design", href: "/docs/system-design-overview.md" },
-      { label: "Hardware overview", href: "/hardware/hardware-overview.md" },
-      { label: "Public examples", href: "/docs/code-examples.md" }
+      { label: "Project overview", href: publicPath("/docs/project-overview.md") },
+      { label: "System design", href: publicPath("/docs/system-design-overview.md") },
+      { label: "Hardware overview", href: publicPath("/hardware/hardware-overview.md") },
+      { label: "Public examples", href: publicPath("/docs/code-examples.md") }
     ],
     video: {
-      src: "/media/videos/nexa-rove-26s-demo.mp4",
-      poster: "/generated/rove/video-poster-960.webp",
+      src: publicPath("/media/videos/nexa-rove-26s-demo.mp4"),
+      poster: publicPath("/generated/rove/video-poster-960.webp"),
       caption: "Short public demo clip for the current physical setup. Opens only by user intent.",
       posterWidth: 960,
       posterHeight: 1280
