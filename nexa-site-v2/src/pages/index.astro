@@ -31,78 +31,175 @@ import { publicBoundaries } from "../data/publicBoundaries";
               </div>
             ) : section.id === "nexa-rove" ? (
               <div class="rove-section">
-                <div class="rove-photo-grid" aria-label="NeXa RoVe public photos">
-                  {section.photos?.map((photo) => (
-                    <figure class="rove-photo">
-                      <img
-                        src={photo.src}
-                        alt={photo.alt}
-                        width={photo.width}
-                        height={photo.height}
-                        loading="lazy"
-                        decoding="async"
-                      />
-                      <figcaption>{photo.caption}</figcaption>
-                    </figure>
-                  ))}
-                </div>
-                <div class="tile-grid">
-                  {section.points.map((point) => (
-                    <GlassTile title={section.title} text={point} />
-                  ))}
-                </div>
-                {section.codePreview && (
-                  <article class="code-preview" aria-label="NeXa RoVe public code preview">
-                    <p class="micro-label">{section.codePreview.title}</p>
-                    <code>{section.codePreview.command}</code>
-                    <p>{section.codePreview.description}</p>
-                  </article>
+                {section.rove && (
+                  <>
+                    <nav class="rove-internal-nav" aria-label="NeXa RoVe flow navigation">
+                      {section.rove.nav.map((link) => (
+                        <a href={link.href}>{link.label}</a>
+                      ))}
+                    </nav>
+
+                    <section class="rove-panel rove-overview-panel" id="rove-overview" aria-labelledby="rove-overview-title">
+                      <div>
+                        <p class="micro-label">{section.rove.overview.eyebrow}</p>
+                        <h3 id="rove-overview-title">{section.rove.overview.title}</h3>
+                        <p>{section.rove.overview.body}</p>
+                      </div>
+                      <div class="rove-highlight-stack" aria-label="NeXa RoVe overview highlights">
+                        {section.rove.overview.highlights.map((item) => (
+                          <p>{item}</p>
+                        ))}
+                      </div>
+                    </section>
+
+                    <section class="rove-subsection" aria-labelledby="rove-demonstrates-title">
+                      <header class="rove-subheading">
+                        <h3 id="rove-demonstrates-title">{section.rove.demonstrates.title}</h3>
+                      </header>
+                      <div class="rove-card-grid rove-card-grid-four">
+                        {section.rove.demonstrates.items.map((item) => (
+                          <article class="rove-info-card">
+                            <h4>{item.label}</h4>
+                            <p>{item.text}</p>
+                          </article>
+                        ))}
+                      </div>
+                    </section>
+
+                    <section class="rove-subsection" id="rove-media" aria-labelledby="rove-media-title">
+                      <header class="rove-subheading">
+                        <h3 id="rove-media-title">{section.rove.media.title}</h3>
+                        <p>{section.rove.media.intro}</p>
+                      </header>
+                      <div class="rove-photo-grid" aria-label="NeXa RoVe public photos">
+                        {section.photos?.map((photo) => (
+                          <figure class="rove-photo">
+                            <img
+                              src={photo.src}
+                              alt={photo.alt}
+                              width={photo.width}
+                              height={photo.height}
+                              loading="lazy"
+                              decoding="async"
+                            />
+                            <figcaption>{photo.caption}</figcaption>
+                          </figure>
+                        ))}
+                      </div>
+                      {section.video && (
+                        <figure class="rove-video-card" aria-label="NeXa RoVe public video">
+                          <a class="rove-video-poster" href={section.video.src} data-testid="rove-video-intent">
+                            <img
+                              src={section.video.poster}
+                              alt="Video preview for the NeXa RoVe public demo"
+                              width={section.video.posterWidth}
+                              height={section.video.posterHeight}
+                              loading="lazy"
+                              decoding="async"
+                            />
+                            <span>{section.rove.videoIntent.linkLabel}</span>
+                          </a>
+                          <figcaption>
+                            <strong>{section.rove.videoIntent.title}</strong>
+                            <span>{section.rove.videoIntent.text}</span>
+                            <span>{section.video.caption}</span>
+                          </figcaption>
+                        </figure>
+                      )}
+                    </section>
+
+                    <section class="rove-subsection" id="rove-hardware" aria-labelledby="rove-hardware-title">
+                      <header class="rove-subheading">
+                        <h3 id="rove-hardware-title">{section.rove.hardware.title}</h3>
+                      </header>
+                      <div class="rove-card-grid">
+                        {section.rove.hardware.items.map((item) => (
+                          <article class="rove-info-card">
+                            <h4>{item.label}</h4>
+                            <p>{item.text}</p>
+                          </article>
+                        ))}
+                      </div>
+                    </section>
+
+                    <section class="rove-subsection rove-software-layout" id="rove-software" aria-labelledby="rove-software-title">
+                      <div class="rove-subheading">
+                        <h3 id="rove-software-title">{section.rove.software.title}</h3>
+                        <p>{section.rove.software.text}</p>
+                      </div>
+                      {section.codePreview && (
+                        <article class="code-preview" aria-label="NeXa RoVe public code preview">
+                          <p class="micro-label">{section.codePreview.title}</p>
+                          <code>{section.codePreview.command}</code>
+                          {section.codePreview.lines && (
+                            <pre><code>{section.codePreview.lines.join("\n")}</code></pre>
+                          )}
+                          <p>{section.codePreview.description}</p>
+                        </article>
+                      )}
+                    </section>
+
+                    {section.docs && (
+                      <nav class="rove-docs" aria-label="NeXa RoVe public documents">
+                        {section.docs.map((doc) => (
+                          <a href={doc.href}>{doc.label}</a>
+                        ))}
+                      </nav>
+                    )}
+
+                    <section class="rove-subsection" id="rove-build-history" aria-labelledby="rove-build-history-title">
+                      <header class="rove-subheading">
+                        <h3 id="rove-build-history-title">{section.rove.timeline.title}</h3>
+                      </header>
+                      <div class="rove-timeline" aria-label="NeXa RoVe build history">
+                        {section.rove.timeline.items.map((item, index) => (
+                          <article>
+                            <span>{String(index + 1).padStart(2, "0")}</span>
+                            <h4>{item.label}</h4>
+                            <p>{item.text}</p>
+                          </article>
+                        ))}
+                      </div>
+                    </section>
+
+                    <section class="rove-subsection" id="rove-roadmap" aria-labelledby="rove-roadmap-title">
+                      <header class="rove-subheading">
+                        <h3 id="rove-roadmap-title">{section.rove.roadmap.title}</h3>
+                      </header>
+                      <div class="rove-roadmap" aria-label="NeXa RoVe public roadmap">
+                        {section.rove.roadmap.groups.map((group) => (
+                          <article>
+                            <h4>{group.label}</h4>
+                            <ul>
+                              {group.items.map((item) => (
+                                <li>{item}</li>
+                              ))}
+                            </ul>
+                          </article>
+                        ))}
+                      </div>
+                    </section>
+
+                    <section class="rove-subsection rove-boundaries-panel" id="rove-boundaries" aria-labelledby="rove-boundaries-title">
+                      <div>
+                        <p class="micro-label">Public showcase</p>
+                        <h3 id="rove-boundaries-title">{section.rove.boundaries.title}</h3>
+                        <p>{section.rove.boundaries.text}</p>
+                      </div>
+                      <div class="rove-boundary-list">
+                        {section.rove.boundaries.items.map((item) => (
+                          <p>{item}</p>
+                        ))}
+                      </div>
+                    </section>
+
+                    <nav class="section-nav" aria-label="NeXa RoVe related sections">
+                      {section.related?.map((link) => (
+                        <a href={link.href}>{link.label}</a>
+                      ))}
+                    </nav>
+                  </>
                 )}
-                {section.docs && (
-                  <div class="rove-docs" aria-label="NeXa RoVe public documents">
-                    {section.docs.map((doc) => (
-                      <a href={doc.href}>{doc.label}</a>
-                    ))}
-                  </div>
-                )}
-                {section.video && (
-                  <figure class="rove-video-card" aria-label="NeXa RoVe public video">
-                    <a class="rove-video-poster" href={section.video.src} data-testid="rove-video-intent">
-                      <img
-                        src={section.video.poster}
-                        alt="Video preview for the NeXa RoVe public demo"
-                        width={section.video.posterWidth}
-                        height={section.video.posterHeight}
-                        loading="lazy"
-                        decoding="async"
-                      />
-                      <span>Open demo video</span>
-                    </a>
-                    <figcaption>{section.video.caption}</figcaption>
-                  </figure>
-                )}
-                {section.history && (
-                  <div class="rove-history" aria-label="NeXa RoVe build story">
-                    {section.history.map((item) => (
-                      <article>
-                        <p>{item}</p>
-                      </article>
-                    ))}
-                  </div>
-                )}
-                <div class="rove-roadmap" aria-label="NeXa RoVe public roadmap">
-                  {section.roadmap?.map((item, index) => (
-                    <article>
-                      <span>{String(index + 1).padStart(2, "0")}</span>
-                      <p>{item}</p>
-                    </article>
-                  ))}
-                </div>
-                <nav class="section-nav" aria-label="NeXa RoVe related sections">
-                  {section.related?.map((link) => (
-                    <a href={link.href}>{link.label}</a>
-                  ))}
-                </nav>
               </div>
             ) : (
               <div class="tile-grid">

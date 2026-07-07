@@ -244,7 +244,165 @@ body.content-active .scroll-guide {
 
 .rove-section {
   display: grid;
-  gap: clamp(18px, 3vw, 28px);
+  gap: clamp(22px, 4vw, 42px);
+}
+
+.rove-internal-nav {
+  position: sticky;
+  top: calc(var(--top-flow-offset) - 18px);
+  z-index: 20;
+  display: flex;
+  max-width: 100%;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 8px;
+  border: 1px solid rgba(216, 231, 247, 0.16);
+  border-radius: var(--radius-sm);
+  background: rgba(5, 8, 14, 0.84);
+  box-shadow: var(--shadow-soft);
+  scrollbar-width: thin;
+}
+
+.rove-internal-nav a,
+.section-nav a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.rove-internal-nav a {
+  padding: 10px 13px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  color: var(--color-soft);
+  font-size: 0.84rem;
+  font-weight: 760;
+}
+
+.rove-internal-nav a:hover,
+.rove-internal-nav a:focus-visible,
+.section-nav a:hover,
+.section-nav a:focus-visible {
+  border-color: var(--color-line-strong);
+  box-shadow: var(--shadow-focus);
+  transform: translateY(-2px);
+}
+
+.rove-panel,
+.rove-subsection,
+.rove-boundaries-panel {
+  scroll-margin-top: calc(var(--top-flow-offset) + 82px);
+}
+
+.rove-panel,
+.rove-boundaries-panel,
+.rove-info-card,
+.rove-docs a,
+.rove-timeline article,
+.rove-roadmap article,
+.code-preview,
+.rove-video-card,
+.rove-photo {
+  border: 1px solid rgba(216, 231, 247, 0.16);
+  border-radius: var(--radius-sm);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.026)),
+    rgba(7, 11, 18, 0.78);
+  box-shadow: var(--shadow-glass);
+}
+
+.rove-panel,
+.rove-boundaries-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+  gap: clamp(18px, 4vw, 38px);
+  padding: clamp(22px, 4vw, 36px);
+}
+
+.rove-panel h3,
+.rove-boundaries-panel h3,
+.rove-subheading h3 {
+  margin: 0;
+  font-size: clamp(1.45rem, 3vw, 2.4rem);
+  line-height: 1.06;
+}
+
+.rove-panel p,
+.rove-boundaries-panel p,
+.rove-subheading p,
+.rove-info-card p,
+.rove-timeline p,
+.rove-roadmap li {
+  color: var(--color-muted);
+  line-height: 1.62;
+}
+
+.rove-panel p,
+.rove-boundaries-panel p,
+.rove-subheading p {
+  margin: 12px 0 0;
+}
+
+.rove-highlight-stack,
+.rove-boundary-list {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.rove-highlight-stack p,
+.rove-boundary-list p {
+  margin: 0;
+  padding: 14px 15px;
+  border-left: 2px solid var(--color-aqua);
+  border-radius: var(--radius-sm);
+  background: rgba(116, 240, 227, 0.07);
+}
+
+.rove-subsection {
+  display: grid;
+  gap: 16px;
+}
+
+.rove-subheading {
+  display: grid;
+  max-width: 760px;
+  gap: 8px;
+}
+
+.rove-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 12px;
+}
+
+.rove-card-grid-four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.rove-info-card {
+  min-height: 158px;
+  padding: 18px;
+}
+
+.rove-info-card h4,
+.rove-timeline h4,
+.rove-roadmap h4 {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 1rem;
+}
+
+.rove-info-card p,
+.rove-timeline p {
+  margin: 10px 0 0;
 }
 
 .rove-photo-grid {
@@ -258,13 +416,10 @@ body.content-active .scroll-guide {
   min-width: 0;
   margin: 0;
   overflow: hidden;
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-sm);
-  background: rgba(8, 13, 20, 0.72);
-  box-shadow: var(--shadow-glass);
 }
 
 .rove-photo img {
+  display: block;
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
@@ -282,12 +437,6 @@ body.content-active .scroll-guide {
   display: grid;
   gap: 10px;
   padding: clamp(18px, 3vw, 24px);
-  border: 1px solid rgba(216, 231, 247, 0.18);
-  border-radius: var(--radius-sm);
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.032)),
-    rgba(7, 11, 18, 0.84);
-  box-shadow: var(--shadow-glass);
 }
 
 .micro-label {
@@ -311,50 +460,48 @@ body.content-active .scroll-guide {
   font-size: 0.9rem;
 }
 
+.code-preview pre {
+  margin: 0;
+  overflow-x: auto;
+}
+
+.code-preview pre code {
+  color: var(--color-aqua);
+  line-height: 1.7;
+}
+
 .code-preview p:last-child {
   margin: 0;
   color: var(--color-muted);
   line-height: 1.62;
 }
 
-.rove-roadmap {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-}
-
 .rove-docs,
-.rove-history {
+.rove-timeline,
+.rove-roadmap {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   gap: 12px;
 }
 
-.rove-docs a,
-.rove-history article {
+.rove-docs a {
+  display: grid;
+  align-content: center;
   min-height: 76px;
   padding: 16px;
-  border: 1px solid rgba(216, 231, 247, 0.16);
-  border-radius: var(--radius-sm);
-  background: rgba(255, 255, 255, 0.045);
   color: var(--color-soft);
+  font-weight: 760;
   text-decoration: none;
-  box-shadow: var(--shadow-glass);
 }
 
-.rove-history p {
-  margin: 0;
-  color: var(--color-muted);
-  line-height: 1.55;
+.rove-software-layout {
+  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+  align-items: start;
 }
 
 .rove-video-card {
   margin: 0;
   overflow: hidden;
-  border: 1px solid rgba(216, 231, 247, 0.16);
-  border-radius: var(--radius-sm);
-  background: rgba(7, 11, 18, 0.78);
-  box-shadow: var(--shadow-glass);
 }
 
 .rove-video-poster {
@@ -408,31 +555,47 @@ body.content-active .scroll-guide {
 }
 
 .rove-video-card figcaption {
+  display: grid;
+  gap: 6px;
   padding: 13px 15px;
   color: var(--color-muted);
   font-size: 0.86rem;
+  line-height: 1.5;
 }
 
+.rove-video-card figcaption strong {
+  color: var(--color-text);
+}
+
+.rove-timeline {
+  position: relative;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.rove-timeline article,
 .rove-roadmap article {
   display: grid;
   gap: 10px;
-  min-height: 132px;
+  align-content: start;
+  min-height: 150px;
   padding: 18px;
-  border: 1px solid rgba(216, 231, 247, 0.15);
-  border-radius: var(--radius-sm);
-  background: rgba(255, 255, 255, 0.045);
 }
 
-.rove-roadmap span {
+.rove-timeline span {
   color: var(--color-aqua);
   font-size: 0.78rem;
   font-weight: 800;
 }
 
-.rove-roadmap p {
+.rove-roadmap article {
+  min-height: 184px;
+}
+
+.rove-roadmap ul {
+  display: grid;
+  gap: 8px;
   margin: 0;
-  color: var(--color-muted);
-  line-height: 1.52;
+  padding-left: 18px;
 }
 
 .section-nav {
@@ -442,7 +605,6 @@ body.content-active .scroll-guide {
 }
 
 .section-nav a {
-  min-height: 44px;
   padding: 12px 14px;
   border: 1px solid rgba(216, 231, 247, 0.18);
   border-radius: 999px;
@@ -450,18 +612,6 @@ body.content-active .scroll-guide {
   color: var(--color-soft);
   font-size: 0.86rem;
   font-weight: 700;
-  text-decoration: none;
-  transition:
-    border-color 160ms ease,
-    box-shadow 160ms ease,
-    transform 160ms ease;
-}
-
-.section-nav a:hover,
-.section-nav a:focus-visible {
-  border-color: var(--color-line-strong);
-  box-shadow: var(--shadow-focus);
-  transform: translateY(-2px);
 }
 
 .boundary-list p {
@@ -474,8 +624,16 @@ body.content-active .scroll-guide {
 
 @media (max-width: 800px) {
   .rove-photo-grid,
-  .rove-roadmap {
+  .rove-card-grid-four,
+  .rove-panel,
+  .rove-boundaries-panel,
+  .rove-software-layout,
+  .rove-timeline {
     grid-template-columns: 1fr;
+  }
+
+  .rove-internal-nav {
+    top: calc(var(--top-flow-offset) - 28px);
   }
 }
 
