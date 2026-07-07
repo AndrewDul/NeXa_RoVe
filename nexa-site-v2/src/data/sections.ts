@@ -10,6 +10,8 @@ export interface SiteSection {
     src: string;
     alt: string;
     caption: string;
+    width: number;
+    height: number;
   }[];
   codePreview?: {
     title: string;
@@ -24,6 +26,8 @@ export interface SiteSection {
     src: string;
     poster: string;
     caption: string;
+    posterWidth: number;
+    posterHeight: number;
   };
   history?: string[];
   roadmap?: string[];
@@ -55,19 +59,25 @@ const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
     ],
     photos: [
       {
-        src: "/media/images/Presentation/nexa-rove-main-photo.jpg",
+        src: "/generated/rove/nexa-rove-main-720.webp",
         alt: "Current NeXa RoVe setup",
-        caption: "Current public build setup."
+        caption: "Current public build setup.",
+        width: 720,
+        height: 960
       },
       {
-        src: "/media/images/Presentation/front.jpeg",
+        src: "/generated/rove/front-720.webp",
         alt: "Front view of the NeXa RoVe prototype",
-        caption: "Front display and physical layout."
+        caption: "Front display and physical layout.",
+        width: 720,
+        height: 960
       },
       {
-        src: "/media/images/Presentation/inside.jpeg",
+        src: "/generated/rove/inside-720.webp",
         alt: "Inside view of the NeXa RoVe hardware layout",
-        caption: "Internal hardware arrangement shown at a public level."
+        caption: "Internal hardware arrangement shown at a public level.",
+        width: 720,
+        height: 960
       }
     ],
     codePreview: {
@@ -83,8 +93,10 @@ const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
     ],
     video: {
       src: "/media/videos/nexa-rove-26s-demo.mp4",
-      poster: "/media/images/Presentation/front.jpeg",
-      caption: "Short public demo clip for the current physical setup."
+      poster: "/generated/rove/video-poster-960.webp",
+      caption: "Short public demo clip for the current physical setup.",
+      posterWidth: 960,
+      posterHeight: 1280
     },
     history: [
       "Start with a local assistant direction and a visual feedback surface.",

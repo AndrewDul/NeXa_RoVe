@@ -34,7 +34,14 @@ import { publicBoundaries } from "../data/publicBoundaries";
                 <div class="rove-photo-grid" aria-label="NeXa RoVe public photos">
                   {section.photos?.map((photo) => (
                     <figure class="rove-photo">
-                      <img src={photo.src} alt={photo.alt} loading="lazy" />
+                      <img
+                        src={photo.src}
+                        alt={photo.alt}
+                        width={photo.width}
+                        height={photo.height}
+                        loading="lazy"
+                        decoding="async"
+                      />
                       <figcaption>{photo.caption}</figcaption>
                     </figure>
                   ))}
@@ -59,10 +66,18 @@ import { publicBoundaries } from "../data/publicBoundaries";
                   </div>
                 )}
                 {section.video && (
-                  <figure class="rove-video" aria-label="NeXa RoVe public video">
-                    <video controls preload="metadata" poster={section.video.poster}>
-                      <source src={section.video.src} type="video/mp4" />
-                    </video>
+                  <figure class="rove-video-card" aria-label="NeXa RoVe public video">
+                    <a class="rove-video-poster" href={section.video.src} data-testid="rove-video-intent">
+                      <img
+                        src={section.video.poster}
+                        alt="Video preview for the NeXa RoVe public demo"
+                        width={section.video.posterWidth}
+                        height={section.video.posterHeight}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <span>Open demo video</span>
+                    </a>
                     <figcaption>{section.video.caption}</figcaption>
                   </figure>
                 )}
