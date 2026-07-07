@@ -8,6 +8,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+PUBLIC_BASE = "/NeXa_RoVe/"
 REQUIRED = [
     "index.html",
     "site/styles.css",
@@ -74,6 +75,12 @@ def should_check_target(target: str) -> bool:
     return True
 
 
+def local_path_for_target(target: str) -> Path:
+    if target.startswith(PUBLIC_BASE):
+        target = target[len(PUBLIC_BASE) :]
+    return ROOT / target.lstrip("/")
+
+
 def check_required() -> list[str]:
     errors: list[str] = []
     for item in REQUIRED:
@@ -92,7 +99,7 @@ def check_local_paths() -> list[str]:
         if not should_check_target(target):
             continue
         clean_target = target.split("#", 1)[0]
-        if clean_target and not (ROOT / clean_target).exists():
+        if clean_target and not local_path_for_target(clean_target).exists():
             errors.append(f"Missing local target from index.html: {target}")
     return errors
 
