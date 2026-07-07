@@ -1,12 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import DevDulIsland from "../components/DevDulIsland.astro";
-import GlassTile from "../components/GlassTile.astro";
 import NexaFace from "../components/NexaFace";
 import SectionShell from "../components/SectionShell.astro";
 import { launcherTiles } from "../data/tiles";
 import { sections } from "../data/sections";
-import { publicBoundaries } from "../data/publicBoundaries";
 ---
 
 <BaseLayout>
@@ -16,20 +14,15 @@ import { publicBoundaries } from "../data/publicBoundaries";
     <section class="home-stage" aria-label="NeXa home">
       <div class="home-stack">
         <NexaFace client:load tiles={launcherTiles} />
+        <p class="home-hint">click the face to explore</p>
       </div>
     </section>
 
     <div class="scroll-guide" aria-label="NeXa public sections">
       {
-        sections.map((section) => (
+        sections.filter((section) => section.id === "nexa-rove").map((section) => (
           <SectionShell id={section.id} eyebrow={section.eyebrow} title={section.title} intro={section.intro}>
-            {section.id === "public-boundaries" ? (
-              <div class="boundary-list">
-                {publicBoundaries.map((boundary) => (
-                  <p>{boundary}</p>
-                ))}
-              </div>
-            ) : section.id === "nexa-rove" ? (
+            {section.id === "nexa-rove" ? (
               <div class="rove-section">
                 {section.rove && (
                   <>
@@ -201,13 +194,7 @@ import { publicBoundaries } from "../data/publicBoundaries";
                   </>
                 )}
               </div>
-            ) : (
-              <div class="tile-grid">
-                {section.points.map((point) => (
-                  <GlassTile title={section.title} text={point} />
-                ))}
-              </div>
-            )}
+            ) : null}
           </SectionShell>
         ))
       }

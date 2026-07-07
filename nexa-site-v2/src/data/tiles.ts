@@ -9,6 +9,7 @@ export interface LauncherTile {
   category: string;
   href: string;
   reaction: FaceEvent;
+  active: boolean;
 }
 
 export const launcherTiles: LauncherTile[] = [
@@ -20,96 +21,106 @@ export const launcherTiles: LauncherTile[] = [
     targetId: "nexa-rove",
     category: "Primary",
     href: "#nexa-rove",
-    reaction: "smile"
+    reaction: "smile",
+    active: true
   },
   {
     id: "system-preview",
-    label: "System Preview",
-    summary: "A calm view of the future NeXa interface.",
+    label: "System",
+    summary: "Coming soon",
     iconKey: "system",
     targetId: "system-preview",
-    category: "Interface",
-    href: "#system-preview",
-    reaction: "focus"
+    category: "Coming soon",
+    href: "",
+    reaction: "focus",
+    active: false
   },
   {
-    id: "capabilities",
-    label: "Capabilities",
-    summary: "Public-safe areas the system can grow into.",
-    iconKey: "system",
-    targetId: "capabilities",
-    category: "Model",
-    href: "#capabilities",
-    reaction: "look-left"
-  },
-  {
-    id: "interaction",
-    label: "Interaction",
-    summary: "How touch, voice and visual feedback can meet.",
-    iconKey: "demo",
-    targetId: "interaction",
-    category: "Input",
-    href: "#interaction",
-    reaction: "look-right"
-  },
-  {
-    id: "memory",
-    label: "Memory",
-    summary: "A placeholder for careful personal context design.",
+    id: "learn",
+    label: "Learn",
+    summary: "Coming soon",
     iconKey: "story",
-    targetId: "memory",
-    category: "Context",
-    href: "#memory",
-    reaction: "focus"
-  },
-  {
-    id: "automation",
-    label: "Automation",
-    summary: "Safe task support without private control details.",
-    iconKey: "code",
-    targetId: "automation",
-    category: "Actions",
-    href: "#automation",
-    reaction: "surprise"
+    targetId: "learn",
+    category: "Coming soon",
+    href: "",
+    reaction: "look-left",
+    active: false
   },
   {
     id: "vision",
     label: "Vision",
-    summary: "A public preview of visual awareness ideas.",
+    summary: "Coming soon",
     iconKey: "hardware",
     targetId: "vision",
-    category: "Sensing",
-    href: "#vision",
-    reaction: "look-left"
+    category: "Coming soon",
+    href: "",
+    reaction: "look-right",
+    active: false
   },
   {
-    id: "roadmap",
-    label: "Roadmap",
-    summary: "Near-term public direction for v2.",
-    iconKey: "roadmap",
-    targetId: "roadmap",
-    category: "Direction",
-    href: "#roadmap",
-    reaction: "squint"
-  },
-  {
-    id: "build-direction",
-    label: "Build Direction",
-    summary: "How public work can stay focused and useful.",
+    id: "memory",
+    label: "Memory",
+    summary: "Coming soon",
     iconKey: "story",
-    targetId: "build-direction",
-    category: "Process",
-    href: "#build-direction",
-    reaction: "look-right"
+    targetId: "memory",
+    category: "Coming soon",
+    href: "",
+    reaction: "focus",
+    active: false
   },
   {
-    id: "public-boundaries",
-    label: "Public Boundaries",
-    summary: "What is shared publicly and what remains intentionally private.",
+    id: "automation",
+    label: "Automation",
+    summary: "Coming soon",
+    iconKey: "code",
+    targetId: "automation",
+    category: "Coming soon",
+    href: "",
+    reaction: "surprise",
+    active: false
+  },
+  {
+    id: "voice",
+    label: "Voice",
+    summary: "Coming soon",
+    iconKey: "demo",
+    targetId: "voice",
+    category: "Coming soon",
+    href: "",
+    reaction: "look-left",
+    active: false
+  },
+  {
+    id: "companion",
+    label: "Companion",
+    summary: "Coming soon",
+    iconKey: "system",
+    targetId: "companion",
+    category: "Coming soon",
+    href: "",
+    reaction: "squint",
+    active: false
+  },
+  {
+    id: "workspace",
+    label: "Workspace",
+    summary: "Coming soon",
+    iconKey: "roadmap",
+    targetId: "workspace",
+    category: "Coming soon",
+    href: "",
+    reaction: "look-right",
+    active: false
+  },
+  {
+    id: "more",
+    label: "More",
+    summary: "Coming soon",
     iconKey: "boundary",
-    targetId: "public-boundaries",
-    category: "Scope",
-    href: "#public-boundaries",
-    reaction: "sleepy"
+    targetId: "more",
+    category: "Coming soon",
+    href: "",
+    reaction: "sleepy",
+    active: false
   }
 ];

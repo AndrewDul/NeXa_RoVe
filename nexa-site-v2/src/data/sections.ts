@@ -281,11 +281,11 @@ const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
       "Connect public demo, hardware and Code Lab sections with clearer navigation."
     ],
     related: [
-      { label: "Vision", href: "#vision" },
-      { label: "Interaction", href: "#interaction" },
-      { label: "Automation", href: "#automation" },
-      { label: "Roadmap", href: "#roadmap" },
-      { label: "Public Boundaries", href: "#public-boundaries" }
+      { label: "Overview", href: "#rove-overview" },
+      { label: "Media", href: "#rove-media" },
+      { label: "Hardware", href: "#rove-hardware" },
+      { label: "Software", href: "#rove-software" },
+      { label: "Roadmap", href: "#rove-roadmap" }
     ]
   },
   capabilities: {
@@ -370,7 +370,7 @@ const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
   }
 };
 
-export const sections: SiteSection[] = launcherTiles.map((tile) => ({
-  id: tile.targetId,
-  ...sectionCopy[tile.targetId]
-}));
+export const sections: SiteSection[] = launcherTiles.flatMap((tile) => {
+  const copy = sectionCopy[tile.targetId];
+  return copy ? [{ id: tile.targetId, ...copy }] : [];
+});

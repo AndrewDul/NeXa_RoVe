@@ -6,13 +6,16 @@
 
 html {
   min-width: 320px;
+  height: 100%;
   background: var(--color-void);
   scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  min-height: 100vh;
+  width: 100%;
+  height: 100%;
+  min-height: 100svh;
   overflow-x: hidden;
   overflow-y: hidden;
   background:
@@ -69,15 +72,21 @@ button {
 }
 
 .page-shell {
-  min-height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+body.content-active .page-shell {
+  height: auto;
+  min-height: 100svh;
+  overflow: visible;
 }
 
 .home-stage {
   position: relative;
   display: grid;
-  min-height: 100svh;
   height: 100svh;
-  padding: calc(var(--island-top) + 66px) 20px 42px;
+  padding: calc(var(--island-top) + 58px) 20px max(22px, env(safe-area-inset-bottom));
   place-items: center;
   overflow: clip;
 }
@@ -113,11 +122,23 @@ button {
   z-index: 1;
   display: grid;
   width: min(100%, 1120px);
-  min-height: min(710px, calc(100svh - 110px));
-  grid-template-rows: 1fr;
+  height: min(690px, calc(100svh - var(--island-top) - 86px));
+  min-height: 0;
+  grid-template-rows: minmax(0, 1fr) auto;
   align-items: center;
   justify-items: center;
-  gap: clamp(18px, 3vw, 30px);
+  gap: clamp(8px, 2svh, 16px);
+}
+
+.home-hint {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  color: rgba(214, 221, 232, 0.62);
+  font-size: clamp(0.72rem, 1.8vw, 0.88rem);
+  font-weight: 560;
+  letter-spacing: 0.02em;
+  text-align: center;
 }
 
 .scroll-guide {

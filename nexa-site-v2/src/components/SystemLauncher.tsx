@@ -6,38 +6,65 @@ interface SystemLauncherProps {
   open: boolean;
   tiles: LauncherTile[];
   onTileHover: (event: FaceEvent) => void;
-  onTileSelect: (tile: LauncherTile, event: MouseEvent<HTMLAnchorElement>) => void;
+  onTileSelect: (tile: LauncherTile, event: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;
 }
 
 export default function SystemLauncher({ open, tiles, onTileHover, onTileSelect }: SystemLauncherProps) {
   return (
     <nav className="system-launcher" data-open={open ? "true" : "false"} aria-label="NeXa system launcher" aria-hidden={!open}>
       <div className="launcher-grid">
-        {tiles.map((tile) => (
-          <a
-            className="launcher-tile"
-            data-launcher-tile
-            href={tile.href}
-            key={tile.id}
-            aria-label={`${tile.label}: ${tile.summary}`}
-            data-category={tile.category}
-            onClick={(event) => onTileSelect(tile, event)}
-            onFocus={() => onTileHover(tile.reaction)}
-            onMouseEnter={() => onTileHover(tile.reaction)}
-            tabIndex={open ? 0 : -1}
-          >
-            <span className="launcher-icon" aria-hidden="true">
-              <LauncherIcon iconKey={tile.iconKey} />
-            </span>
-            <span className="launcher-copy">
-              <strong>{tile.label}</strong>
-              <small>{tile.summary}</small>
-            </span>
-            <span className="launcher-category">{tile.category}</span>
-          </a>
-        ))}
+        {tiles.map((tile) =>
+          tile.active ? (
+            <a
+              className="launcher-tile launcher-tile-active"
+              data-launcher-tile
+              data-launcher-active="true"
+              href={tile.href}
+              key={tile.id}
+              aria-label={`${tile.label}: ${tile.summary}`}
+              data-category={tile.category}
+              onClick={(event) => onTileSelect(tile, event)}
+              onFocus={() => onTileHover(tile.reaction)}
+              onMouseEnter={() => onTileHover(tile.reaction)}
+              tabIndex={open ? 0 : -1}
+            >
+              <TileContent tile={tile} />
+            </a>
+          ) : (
+            <button
+              className="launcher-tile launcher-tile-placeholder"
+              data-launcher-tile
+              data-launcher-active="false"
+              type="button"
+              key={tile.id}
+              aria-label={`${tile.label}: Coming soon`}
+              aria-disabled="true"
+              data-category={tile.category}
+              onClick={(event) => onTileSelect(tile, event)}
+              onMouseEnter={() => onTileHover(tile.reaction)}
+              tabIndex={-1}
+            >
+              <TileContent tile={tile} />
+            </button>
+          )
+        )}
       </div>
     </nav>
+  );
+}
+
+function TileContent({ tile }: { tile: LauncherTile }) {
+  return (
+    <>
+      <span className="launcher-icon" aria-hidden="true">
+        <LauncherIcon iconKey={tile.iconKey} />
+      </span>
+      <span className="launcher-copy">
+        <strong>{tile.label}</strong>
+        <small>{tile.summary}</small>
+      </span>
+      <span className="launcher-category">{tile.category}</span>
+    </>
   );
 }
 
