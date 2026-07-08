@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
 import type { LauncherTile } from "../data/tiles";
 import { blinkEyes, shiftFaceLogo, runFacePress } from "../scripts/motion/faceMotion";
 import { revealLauncher } from "../scripts/motion/launcherMotion";
@@ -45,6 +45,7 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
     if (window.location.hash && window.location.hash !== "#top") {
       document.body.classList.add("content-active", "face-docked");
       setContentActive(true);
+      updateFlowBarDockState();
     }
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     const onMotionChange = () => {
@@ -60,6 +61,35 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
       media.removeEventListener("change", onMotionChange);
     };
   }, []);
+
+  useEffect(() => {
+    if (!contentActive) {
+      document.body.classList.remove("flow-bar-docked");
+      return;
+    }
+    updateFlowBarDockState();
+    const onScroll = () => updateFlowBarDockState();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [contentActive]);
+
+  useEffect(() => {
+    const onReturnHome = (event: globalThis.MouseEvent) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const control = target.closest("[data-nexa-return-home]");
+      if (!control) return;
+      event.preventDefault();
+      if (rootRef.current) runFacePress(rootRef.current, face.reducedMotion);
+      returnHome();
+    };
+    document.addEventListener("click", onReturnHome);
+    return () => document.removeEventListener("click", onReturnHome);
+  }, [face.reducedMotion]);
 
   useEffect(() => {
     if (!face.launcherOpen) return;
@@ -125,7 +155,7 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
   function returnHome() {
     window.clearTimeout(stateResetRef.current);
     closeLauncher(false);
-    document.body.classList.remove("content-active", "face-docked");
+    document.body.classList.remove("content-active", "face-docked", "flow-bar-docked");
     setContentActive(false);
     window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}`);
     window.scrollTo({ top: 0, behavior: face.reducedMotion ? "auto" : "smooth" });
@@ -154,7 +184,7 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
     send(event);
   }
 
-  function onTileSelect(tile: LauncherTile, event: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) {
+  function onTileSelect(tile: LauncherTile, event: ReactMouseEvent<HTMLAnchorElement | HTMLButtonElement>) {
     event.preventDefault();
     if (!tile.active) {
       send(tile.reaction);
@@ -163,6 +193,7 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
     send("smile", false);
     closeLauncher(false);
     document.body.classList.add("content-active", "face-docked");
+    document.body.classList.remove("flow-bar-docked");
     setContentActive(true);
     window.setTimeout(() => {
       const target = document.getElementById(tile.targetId);
@@ -212,6 +243,11 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
   );
 }
 
+function updateFlowBarDockState() {
+  const shouldDock = window.scrollY > Math.max(180, window.innerHeight * 0.28);
+  document.body.classList.toggle("flow-bar-docked", shouldDock);
+}
+
 function smilePath(state: FaceState) {
   if (state === "focused" || state === "squint" || state === "sleepy") return "M118 258 C148 282, 212 282, 242 258";
   if (state === "laugh" || state === "smile" || state === "surprised") return "M110 248 C142 306, 218 306, 250 248";
@@ -227,9 +263,8 @@ const faceStyles = `
     min-height: 0;
     place-items: center;
     isolation: isolate;
-    --launcher-radius: clamp(128px, min(31vw, 27svh), 295px);
-    --tile-width: clamp(82px, min(18vw, 15svh), 156px);
-    --tile-height: clamp(58px, min(11vw, 9.2svh), 98px);
+    --launcher-radius: clamp(136px, min(32vw, 34svh), 300px);
+    --tile-size: clamp(88px, min(13vw, 14svh), 128px);
   }
 
   .nexa-system::before {
@@ -262,9 +297,7 @@ const faceStyles = `
     cursor: pointer;
     outline-offset: 14px;
     touch-action: manipulation;
-    transition:
-      width 320ms ease,
-      filter 220ms ease;
+    transition: filter 220ms ease;
   }
 
   #nexa-launcher {
@@ -275,7 +308,12 @@ const faceStyles = `
 
   .face-control.face-control-open {
     z-index: 7;
-    width: clamp(104px, min(18vw, 24svh), 158px) !important;
+    width: clamp(74px, min(12vw, 17svh), 104px) !important;
+  }
+
+  .nexa-system[data-launcher-open="true"] .face-control {
+    z-index: 7;
+    width: clamp(74px, min(12vw, 17svh), 104px) !important;
   }
 
   .face-control.face-control-docked {
@@ -298,6 +336,20 @@ const faceStyles = `
   .face-control.face-control-docked:hover,
   .face-control.face-control-docked:focus-visible {
     box-shadow: var(--shadow-focus);
+  }
+
+  body.content-active .face-control.face-control-docked {
+    transition:
+      opacity 220ms ease,
+      transform 220ms ease,
+      filter 220ms ease;
+  }
+
+  body.content-active.flow-bar-docked .face-control.face-control-docked {
+    opacity: 0;
+    pointer-events: none;
+    filter: blur(4px);
+    transform: translate(42vw, -8px) scale(0.88);
   }
 
   .face-svg {
@@ -414,23 +466,32 @@ const faceStyles = `
     top: 50%;
     left: 50%;
     display: grid;
-    width: var(--tile-width);
-    height: var(--tile-height);
+    width: var(--tile-size);
+    height: var(--tile-size);
     min-height: 0;
-    grid-template-columns: auto 1fr;
+    aspect-ratio: 1 / 1;
+    grid-template-columns: 1fr;
     grid-template-areas:
-      "icon copy"
-      "meta meta";
+      "icon"
+      "copy";
+    place-items: center;
     align-content: center;
-    gap: 8px 10px;
+    justify-content: center;
+    gap: clamp(5px, 0.9vw, 9px);
     overflow: hidden;
-    padding: clamp(8px, 1.4vw, 14px);
-    border: 1px solid var(--color-line);
+    padding: clamp(11px, 1.5vw, 18px);
+    border: 1px solid rgba(216, 231, 247, 0.18);
     border-radius: 999px;
     background:
-      linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.035)),
-      rgba(8, 13, 21, 0.82);
-    box-shadow: var(--shadow-glass);
+      radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 0.22), transparent 28%),
+      radial-gradient(circle at 62% 74%, rgba(116, 240, 227, 0.13), transparent 46%),
+      linear-gradient(145deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.026)),
+      rgba(7, 12, 21, 0.86);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      inset 0 -18px 34px rgba(0, 0, 0, 0.24),
+      0 18px 44px rgba(0, 0, 0, 0.38),
+      0 0 28px rgba(116, 240, 227, 0.08);
     color: var(--color-text);
     text-decoration: none;
     backdrop-filter: blur(20px);
@@ -441,21 +502,30 @@ const faceStyles = `
       border-color 180ms ease,
       box-shadow 180ms ease,
       translate 180ms ease,
-      background 180ms ease;
+      background 180ms ease,
+      opacity 180ms ease,
+      filter 180ms ease;
   }
 
   .launcher-tile-placeholder {
     cursor: default;
-    opacity: 0.52;
-    filter: saturate(0.68);
+    opacity: 0.7;
+    filter: saturate(0.72) brightness(0.82);
   }
 
   .launcher-tile-active {
-    border-color: rgba(116, 240, 227, 0.58);
+    border-color: rgba(116, 240, 227, 0.72);
+    background:
+      radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 0.31), transparent 30%),
+      radial-gradient(circle at 50% 70%, rgba(116, 240, 227, 0.28), transparent 52%),
+      linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04)),
+      rgba(8, 19, 29, 0.92);
     box-shadow:
-      var(--shadow-glass),
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      inset 0 -18px 36px rgba(0, 0, 0, 0.22),
       0 0 0 1px rgba(116, 240, 227, 0.18),
-      0 0 34px rgba(116, 240, 227, 0.22);
+      0 22px 50px rgba(0, 0, 0, 0.42),
+      0 0 38px rgba(116, 240, 227, 0.3);
   }
 
   .launcher-tile::before {
@@ -464,9 +534,9 @@ const faceStyles = `
     pointer-events: none;
     content: "";
     background:
-      linear-gradient(120deg, rgba(255, 255, 255, 0.18), transparent 32%),
-      radial-gradient(circle at 20% 12%, rgba(116, 240, 227, 0.13), transparent 28%);
-    opacity: 0.75;
+      radial-gradient(circle at 31% 21%, rgba(255, 255, 255, 0.34), transparent 16%),
+      linear-gradient(132deg, rgba(255, 255, 255, 0.14), transparent 42%);
+    opacity: 0.62;
   }
 
   .launcher-tile:nth-child(1) { transform: translate(-50%, -50%) rotate(-90deg) translateX(var(--launcher-radius)) rotate(90deg); }
@@ -483,20 +553,21 @@ const faceStyles = `
   .launcher-icon {
     position: relative;
     display: grid;
-    width: clamp(28px, 4.5vw, 38px);
-    height: clamp(28px, 4.5vw, 38px);
+    width: clamp(27px, 4vw, 40px);
+    height: clamp(27px, 4vw, 40px);
     grid-area: icon;
     place-items: center;
-    border: 1px solid rgba(216, 231, 247, 0.2);
+    border: 1px solid rgba(216, 231, 247, 0.16);
     border-radius: 999px;
     background:
-      linear-gradient(145deg, rgba(116, 240, 227, 0.14), rgba(255, 255, 255, 0.045)),
-      rgba(255, 255, 255, 0.04);
+      radial-gradient(circle at 38% 24%, rgba(255, 255, 255, 0.18), transparent 36%),
+      linear-gradient(145deg, rgba(116, 240, 227, 0.16), rgba(255, 255, 255, 0.04)),
+      rgba(255, 255, 255, 0.035);
   }
 
   .launcher-icon svg {
-    width: 22px;
-    height: 22px;
+    width: clamp(17px, 2.8vw, 22px);
+    height: clamp(17px, 2.8vw, 22px);
     fill: none;
     stroke: var(--color-soft);
     stroke-linecap: round;
@@ -508,37 +579,29 @@ const faceStyles = `
     position: relative;
     display: grid;
     grid-area: copy;
-    gap: 5px;
+    justify-items: center;
+    gap: 0;
     min-width: 0;
+    width: 100%;
+    text-align: center;
   }
 
   .launcher-copy strong {
-    font-size: 0.9rem;
-    font-weight: 760;
-    line-height: 1.16;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    color: rgba(246, 252, 255, 0.94);
+    font-size: clamp(0.68rem, 1.25vw, 0.86rem);
+    font-weight: 780;
+    line-height: 1.04;
+    text-wrap: balance;
   }
 
   .launcher-copy small {
-    display: -webkit-box;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    color: var(--color-muted);
-    font-size: clamp(0.58rem, 1.1vw, 0.75rem);
-    line-height: 1.35;
+    display: none;
   }
 
   .launcher-category {
-    position: relative;
-    width: fit-content;
-    grid-area: meta;
-    padding: 4px 8px;
-    border: 1px solid rgba(216, 231, 247, 0.16);
-    border-radius: 999px;
-    color: var(--color-soft);
-    font-size: 0.68rem;
-    font-weight: 700;
-    line-height: 1;
+    display: none;
   }
 
   .launcher-tile:hover,
@@ -553,8 +616,12 @@ const faceStyles = `
   }
 
   .launcher-tile-placeholder:hover {
-    border-color: var(--color-line);
-    box-shadow: var(--shadow-glass);
+    border-color: rgba(216, 231, 247, 0.18);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      inset 0 -18px 34px rgba(0, 0, 0, 0.24),
+      0 18px 44px rgba(0, 0, 0, 0.38),
+      0 0 28px rgba(116, 240, 227, 0.08);
     translate: 0;
   }
 
@@ -564,9 +631,8 @@ const faceStyles = `
 
   @media (max-width: 900px) {
     .nexa-system {
-      --launcher-radius: clamp(120px, min(33vw, 25svh), 225px);
-      --tile-width: clamp(72px, 17vw, 118px);
-      --tile-height: clamp(50px, 9.5svh, 78px);
+      --launcher-radius: clamp(118px, min(33vw, 25svh), 228px);
+      --tile-size: clamp(70px, min(18vw, 11svh), 106px);
     }
 
     .system-launcher {
@@ -579,15 +645,7 @@ const faceStyles = `
     }
 
     .launcher-tile {
-      grid-template-columns: 1fr;
-      grid-template-areas:
-        "copy"
-        "meta";
       text-align: center;
-    }
-
-    .launcher-icon {
-      display: none;
     }
   }
 
@@ -595,9 +653,8 @@ const faceStyles = `
     .nexa-system {
       width: 100%;
       justify-items: center;
-      --launcher-radius: clamp(112px, min(34vw, 24svh), 148px);
-      --tile-width: clamp(62px, 18vw, 76px);
-      --tile-height: clamp(46px, 9svh, 58px);
+      --launcher-radius: clamp(118px, min(40vw, 24svh), 172px);
+      --tile-size: clamp(54px, 17vw, 74px);
     }
 
     .face-control {
@@ -605,7 +662,7 @@ const faceStyles = `
     }
 
     .nexa-system[data-launcher-open="true"] .face-control {
-      width: min(28vw, 104px);
+      width: clamp(62px, 19vw, 76px) !important;
     }
 
     body.face-docked .nexa-system[data-launcher-open="false"] .face-control {
@@ -613,20 +670,23 @@ const faceStyles = `
     }
 
     .launcher-tile {
-      padding: 6px;
+      gap: 3px;
+      padding: clamp(7px, 2vw, 9px);
     }
 
-    .launcher-category {
-      display: none;
+    .launcher-icon {
+      width: clamp(20px, 6vw, 25px);
+      height: clamp(20px, 6vw, 25px);
+    }
+
+    .launcher-icon svg {
+      width: clamp(14px, 4vw, 17px);
+      height: clamp(14px, 4vw, 17px);
     }
 
     .launcher-copy strong {
-      font-size: clamp(0.58rem, 2.35vw, 0.72rem);
-    }
-
-    .launcher-copy small {
-      -webkit-line-clamp: 1;
-      font-size: clamp(0.48rem, 2vw, 0.6rem);
+      font-size: clamp(0.5rem, 2.25vw, 0.62rem);
+      line-height: 1;
     }
   }
 

@@ -111,7 +111,7 @@ const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
   "nexa-rove": {
     eyebrow: "Physical build",
     title: "NeXa RoVe",
-    intro: "NeXa RoVe is the first physical prototype and development vehicle for the wider NeXa system direction.",
+    intro: "NeXa RoVe is the first physical prototype shown publicly for the wider NeXa system direction.",
     points: [
       "A public showcase for selected robotics prototype progress.",
       "A practical bridge between interface design, sensing, and movement concepts.",
@@ -130,7 +130,7 @@ const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
       overview: {
         eyebrow: "Prototype status",
         title: "A physical development vehicle for NeXa",
-        body: "NeXa RoVe is shown here as a prototype, not a finished product. It gives the public site a concrete build to anchor the wider NeXa direction while keeping the deeper system work appropriately private.",
+        body: "NeXa RoVe is shown here as a prototype, not a finished product. It gives the public site a concrete build to anchor the wider NeXa direction while keeping deeper system work appropriately private.",
         highlights: [
           "First physical prototype for the NeXa public story.",
           "Useful for testing how a face-led interface can sit on real hardware.",
@@ -160,7 +160,7 @@ const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
       },
       media: {
         title: "Selected build media",
-        intro: "Optimized WebP images keep the content flow visual without placing full-size media on the initial home load."
+        intro: "A focused gallery shows the current prototype views with optimized images, while video remains a deliberate user action."
       },
       videoIntent: {
         title: "Demo video",
@@ -184,7 +184,7 @@ const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
         text: "The public software story centers on command routing, a safe local interface, a visual shell, prototype control, and diagnostic reporting. The example below is intentionally small and readable."
       },
       timeline: {
-        title: "Build history",
+        title: "Selected build history",
         items: [
           { label: "Early visual prototype", text: "Initial public direction used a visual NeXa face to establish a recognizable interaction point." },
           { label: "Public demo shell", text: "Safe example flows framed the project without exposing private runtime files." },
@@ -195,11 +195,11 @@ const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
         ]
       },
       roadmap: {
-        title: "Roadmap",
+        title: "Development direction",
         groups: [
           {
             label: "Near term",
-            items: ["Content polish", "Deployment migration planning", "Better public navigation", "Richer demo media"]
+            items: ["Content polish", "Deployment migration planning", "Clearer public navigation", "Richer demo media"]
           },
           {
             label: "Future",
@@ -226,14 +226,14 @@ const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
       {
         src: publicPath("/generated/rove/nexa-rove-main-720.webp"),
         alt: "Current NeXa RoVe setup",
-        caption: "Current public build setup for the prototype.",
+        caption: "Current public build setup, shown as a complete portrait image.",
         width: 720,
         height: 960
       },
       {
         src: publicPath("/generated/rove/front-720.webp"),
         alt: "Front view of the NeXa RoVe prototype",
-        caption: "Front display and physical layout.",
+        caption: "Front display and physical layout, preserved without cropping.",
         width: 720,
         height: 960
       },

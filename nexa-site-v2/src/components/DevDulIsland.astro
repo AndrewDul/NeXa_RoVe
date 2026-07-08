@@ -26,4 +26,18 @@
     font-size: 0.86rem;
     font-weight: 750;
   }
+
+  body.content-active .devdul-island {
+    transition:
+      opacity 220ms ease,
+      transform 220ms ease,
+      filter 220ms ease;
+  }
+
+  body.content-active.flow-bar-docked .devdul-island {
+    opacity: 0;
+    pointer-events: none;
+    filter: blur(4px);
+    transform: translate(-42vw, -8px) scale(0.92);
+  }
 </style>

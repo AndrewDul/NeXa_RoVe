@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import DevDulIsland from "../components/DevDulIsland.astro";
 import NexaFace from "../components/NexaFace";
+import RoveImageCarousel from "../components/RoveImageCarousel";
 import SectionShell from "../components/SectionShell.astro";
 import { launcherTiles } from "../data/tiles";
 import { sections } from "../data/sections";
@@ -26,11 +27,23 @@ import { sections } from "../data/sections";
               <div class="rove-section">
                 {section.rove && (
                   <>
-                    <nav class="rove-internal-nav" aria-label="NeXa RoVe flow navigation">
-                      {section.rove.nav.map((link) => (
-                        <a href={link.href}>{link.label}</a>
-                      ))}
-                    </nav>
+                    <div class="rove-sticky-bar" data-testid="rove-sticky-bar">
+                      <a class="rove-sticky-devdul" href="#top" aria-label="DevDul home" data-nexa-return-home data-testid="rove-sticky-devdul">
+                        DevDul
+                      </a>
+                      <nav class="rove-internal-nav" aria-label="NeXa RoVe flow navigation">
+                        {section.rove.nav.map((link) => (
+                          <a href={link.href}>{link.label}</a>
+                        ))}
+                      </nav>
+                      <button class="rove-sticky-face" type="button" aria-label="Return to NeXa home" data-nexa-return-home data-testid="rove-sticky-face">
+                        <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+                          <rect class="rove-sticky-face-eye" x="34" y="24" width="14" height="42" rx="7" />
+                          <rect class="rove-sticky-face-eye" x="72" y="24" width="14" height="42" rx="7" />
+                          <path class="rove-sticky-face-smile" d="M34 78 C46 94, 74 94, 86 78" />
+                        </svg>
+                      </button>
+                    </div>
 
                     <section class="rove-panel rove-overview-panel" id="rove-overview" aria-labelledby="rove-overview-title">
                       <div>
@@ -64,41 +77,29 @@ import { sections } from "../data/sections";
                         <h3 id="rove-media-title">{section.rove.media.title}</h3>
                         <p>{section.rove.media.intro}</p>
                       </header>
-                      <div class="rove-photo-grid" aria-label="NeXa RoVe public photos">
-                        {section.photos?.map((photo) => (
-                          <figure class="rove-photo">
-                            <img
-                              src={photo.src}
-                              alt={photo.alt}
-                              width={photo.width}
-                              height={photo.height}
-                              loading="lazy"
-                              decoding="async"
-                            />
-                            <figcaption>{photo.caption}</figcaption>
+                      <div class="rove-media-layout">
+                        {section.photos && <RoveImageCarousel client:load images={section.photos} />}
+                        {section.video && (
+                          <figure class="rove-video-card" aria-label="NeXa RoVe public video">
+                            <a class="rove-video-poster" href={section.video.src} data-testid="rove-video-intent">
+                              <img
+                                src={section.video.poster}
+                                alt="Video preview for the NeXa RoVe public demo"
+                                width={section.video.posterWidth}
+                                height={section.video.posterHeight}
+                                loading="lazy"
+                                decoding="async"
+                              />
+                              <span>{section.rove.videoIntent.linkLabel}</span>
+                            </a>
+                            <figcaption>
+                              <strong>{section.rove.videoIntent.title}</strong>
+                              <span>{section.rove.videoIntent.text}</span>
+                              <span>{section.video.caption}</span>
+                            </figcaption>
                           </figure>
-                        ))}
+                        )}
                       </div>
-                      {section.video && (
-                        <figure class="rove-video-card" aria-label="NeXa RoVe public video">
-                          <a class="rove-video-poster" href={section.video.src} data-testid="rove-video-intent">
-                            <img
-                              src={section.video.poster}
-                              alt="Video preview for the NeXa RoVe public demo"
-                              width={section.video.posterWidth}
-                              height={section.video.posterHeight}
-                              loading="lazy"
-                              decoding="async"
-                            />
-                            <span>{section.rove.videoIntent.linkLabel}</span>
-                          </a>
-                          <figcaption>
-                            <strong>{section.rove.videoIntent.title}</strong>
-                            <span>{section.rove.videoIntent.text}</span>
-                            <span>{section.video.caption}</span>
-                          </figcaption>
-                        </figure>
-                      )}
                     </section>
 
                     <section class="rove-subsection" id="rove-hardware" aria-labelledby="rove-hardware-title">
