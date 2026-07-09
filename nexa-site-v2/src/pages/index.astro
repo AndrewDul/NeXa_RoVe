@@ -78,7 +78,7 @@ import { sections } from "../data/sections";
                         <p>{section.rove.media.intro}</p>
                       </header>
                       <div class="rove-media-layout">
-                        {section.photos && <RoveImageCarousel client:load images={section.photos} />}
+                        {section.rove.mediaGroups && <RoveImageCarousel client:load groups={section.rove.mediaGroups} />}
                         {section.video && (
                           <figure class="rove-video-card" aria-label="NeXa RoVe public video">
                             <a class="rove-video-poster" href={section.video.src} data-testid="rove-video-intent">
@@ -99,6 +99,32 @@ import { sections } from "../data/sections";
                             </figcaption>
                           </figure>
                         )}
+                      </div>
+                    </section>
+
+                    <section class="rove-subsection" id="rove-diagrams" aria-labelledby="rove-diagrams-title">
+                      <header class="rove-subheading">
+                        <h3 id="rove-diagrams-title">{section.rove.diagrams.title}</h3>
+                        <p>{section.rove.diagrams.intro}</p>
+                      </header>
+                      <div class="rove-diagram-grid" aria-label="NeXa RoVe public diagrams">
+                        {section.rove.diagrams.items.map((diagram) => (
+                          <figure class="rove-diagram-card" data-testid="rove-diagram-card">
+                            <img
+                              src={diagram.src}
+                              alt={diagram.alt}
+                              width={diagram.width}
+                              height={diagram.height}
+                              loading="lazy"
+                              decoding="async"
+                              data-testid="rove-diagram-image"
+                            />
+                            <figcaption>
+                              <strong>{diagram.title}</strong>
+                              <span>{diagram.caption}</span>
+                            </figcaption>
+                          </figure>
+                        ))}
                       </div>
                     </section>
 

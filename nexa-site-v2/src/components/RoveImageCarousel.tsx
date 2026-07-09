@@ -8,17 +8,33 @@ export interface RoveCarouselImage {
   height: number;
 }
 
-interface RoveImageCarouselProps {
+export interface RoveCarouselGroup {
+  id: string;
+  title: string;
+  description: string;
   images: RoveCarouselImage[];
 }
 
-export default function RoveImageCarousel({ images }: RoveImageCarouselProps) {
+interface RoveImageCarouselProps {
+  groups: RoveCarouselGroup[];
+}
+
+export default function RoveImageCarousel({ groups }: RoveImageCarouselProps) {
+  const usableGroups = groups.filter((group) => group.images.length);
+  const [selectedGroupIndex, setSelectedGroupIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const mainButtonRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const lastTriggerRef = useRef<HTMLElement | null>(null);
+  const selectedGroup = usableGroups[selectedGroupIndex] ?? usableGroups[0];
+  const images = selectedGroup?.images ?? [];
   const selected = images[selectedIndex];
+
+  function selectGroup(index: number) {
+    setSelectedGroupIndex(index);
+    setSelectedIndex(0);
+  }
 
   function selectImage(index: number) {
     setSelectedIndex((index + images.length) % images.length);
@@ -86,10 +102,43 @@ export default function RoveImageCarousel({ images }: RoveImageCarouselProps) {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [lightboxOpen, selectedIndex, images.length]);
 
-  if (!images.length || !selected) return null;
+  if (!usableGroups.length || !selectedGroup || !selected) return null;
 
   return (
     <div className="rove-carousel" data-testid="rove-carousel">
+      <div className="rove-carousel-tabs" role="tablist" aria-label="NeXa RoVe gallery categories">
+        {usableGroups.map((group, index) => (
+          <button
+            className={`rove-carousel-tab ${index === selectedGroupIndex ? "rove-carousel-tab-active" : ""}`}
+            type="button"
+            role="tab"
+            aria-selected={index === selectedGroupIndex}
+            aria-controls={`rove-gallery-panel-${group.id}`}
+            id={`rove-gallery-tab-${group.id}`}
+            key={group.id}
+            data-testid="rove-carousel-group-tab"
+            onClick={() => selectGroup(index)}
+          >
+            <span>{group.title}</span>
+            <small>{group.images.length} images</small>
+          </button>
+        ))}
+      </div>
+
+      <div
+        className="rove-carousel-group-panel"
+        role="tabpanel"
+        id={`rove-gallery-panel-${selectedGroup.id}`}
+        aria-labelledby={`rove-gallery-tab-${selectedGroup.id}`}
+        data-testid="rove-carousel-group-panel"
+      >
+        <div className="rove-carousel-group-copy">
+          <p className="micro-label">Gallery group</p>
+          <h4>{selectedGroup.title}</h4>
+          <p>{selectedGroup.description}</p>
+        </div>
+      </div>
+
       <figure className="rove-carousel-main">
         <button
           ref={mainButtonRef}
@@ -109,14 +158,14 @@ export default function RoveImageCarousel({ images }: RoveImageCarouselProps) {
           Previous
         </button>
         <span aria-live="polite">
-          {selectedIndex + 1} / {images.length}
+          {selectedGroup.title}: {selectedIndex + 1} / {images.length}
         </span>
         <button className="rove-carousel-step" type="button" aria-label="Next image" onClick={() => moveImage(1)}>
           Next
         </button>
       </div>
 
-      <div className="rove-carousel-thumbs" aria-label="NeXa RoVe image thumbnails">
+      <div className="rove-carousel-thumbs" aria-label={`${selectedGroup.title} image thumbnails`}>
         {images.map((image, index) => (
           <button
             className={`rove-carousel-thumb ${index === selectedIndex ? "rove-carousel-thumb-active" : ""}`}

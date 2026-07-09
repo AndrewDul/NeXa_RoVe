@@ -29,6 +29,12 @@ export interface SiteSection {
       title: string;
       intro: string;
     };
+    mediaGroups: MediaGroup[];
+    diagrams: {
+      title: string;
+      intro: string;
+      items: DiagramItem[];
+    };
     videoIntent: {
       title: string;
       text: string;
@@ -97,6 +103,232 @@ export interface SiteSection {
   }[];
 }
 
+interface MediaImage {
+  src: string;
+  alt: string;
+  caption: string;
+  width: number;
+  height: number;
+}
+
+interface MediaGroup {
+  id: string;
+  title: string;
+  description: string;
+  images: MediaImage[];
+}
+
+interface DiagramItem {
+  src: string;
+  alt: string;
+  title: string;
+  caption: string;
+  width: number;
+  height: number;
+}
+
+const nexaAppearanceImages: MediaImage[] = [
+  {
+    src: publicPath("/media/images/Presentation/nexa-rove-main-photo.jpg"),
+    alt: "Current NeXa RoVe prototype setup",
+    caption: "Current public prototype setup shown as a full portrait.",
+    width: 1536,
+    height: 2048
+  },
+  {
+    src: publicPath("/media/images/Presentation/front.jpeg"),
+    alt: "Front view of the NeXa RoVe prototype",
+    caption: "Front view of the display, body, and sensor-facing layout.",
+    width: 1536,
+    height: 2048
+  },
+  {
+    src: publicPath("/media/images/Presentation/front_menu.jpeg"),
+    alt: "NeXa RoVe front view with interface menu visible",
+    caption: "Prototype front with the public interface menu visible.",
+    width: 1536,
+    height: 2048
+  },
+  {
+    src: publicPath("/media/images/Presentation/inside.jpeg"),
+    alt: "Inside view of the NeXa RoVe prototype",
+    caption: "Interior build view presented without wiring-level detail.",
+    width: 1536,
+    height: 2048
+  },
+  {
+    src: publicPath("/media/images/Presentation/rear.jpeg"),
+    alt: "Rear view of the NeXa RoVe prototype",
+    caption: "Rear view showing the prototype body from another angle.",
+    width: 1536,
+    height: 2048
+  },
+  {
+    src: publicPath("/media/images/Presentation/top.jpeg"),
+    alt: "Top view of the NeXa RoVe prototype",
+    caption: "Top view of the public physical arrangement.",
+    width: 1536,
+    height: 2048
+  },
+  {
+    src: publicPath("/media/images/Presentation/nexa-ui-preview.png"),
+    alt: "NeXa interface preview on the prototype display",
+    caption: "Public UI preview used to show the face-led shell direction.",
+    width: 1200,
+    height: 1600
+  }
+];
+
+const hardwareBuildImages: MediaImage[] = [
+  {
+    src: publicPath("/media/images/Hardware/nexa-build-progress.jpg"),
+    alt: "NeXa RoVe build progress hardware photo",
+    caption: "Build progress view used to show prototype assembly work.",
+    width: 1536,
+    height: 2048
+  },
+  {
+    src: publicPath("/media/images/Hardware/nexa-hardware-preview.jpg"),
+    alt: "NeXa RoVe hardware preview photo",
+    caption: "Hardware preview showing selected build components together.",
+    width: 1536,
+    height: 2048
+  },
+  {
+    src: publicPath("/media/images/Hardware/Raspberry_Pi_5.jpeg"),
+    alt: "Raspberry Pi 5 hardware component",
+    caption: "Raspberry Pi 5 compute board considered for local prototype work.",
+    width: 1320,
+    height: 1827
+  },
+  {
+    src: publicPath("/media/images/Hardware/AI_HAT_plus_2.jpeg"),
+    alt: "AI HAT Plus hardware component",
+    caption: "AI accelerator hardware photographed as part of the build set.",
+    width: 1320,
+    height: 1910
+  },
+  {
+    src: publicPath("/media/images/Hardware/OAK_D_LITE.jpeg"),
+    alt: "OAK-D Lite camera hardware component",
+    caption: "Depth camera component for public-level sensing discussion.",
+    width: 1320,
+    height: 1859
+  },
+  {
+    src: publicPath("/media/images/Hardware/Camera_Module_3_Wide.jpeg"),
+    alt: "Camera Module 3 Wide hardware component",
+    caption: "Wide camera module for visual input experiments.",
+    width: 1181,
+    height: 1600
+  },
+  {
+    src: publicPath("/media/images/Hardware/ReSpeaker_XMOSXVF800.jpeg"),
+    alt: "ReSpeaker XMOS XVF800 audio hardware component",
+    caption: "Microphone/audio interface hardware for voice-oriented prototypes.",
+    width: 1320,
+    height: 1886
+  },
+  {
+    src: publicPath("/media/images/Hardware/speaker.jpeg"),
+    alt: "Speaker hardware component",
+    caption: "Speaker component for prototype audio output.",
+    width: 1320,
+    height: 1686
+  },
+  {
+    src: publicPath("/media/images/Hardware/8_HD_DSI.jpeg"),
+    alt: "Eight inch HD DSI display hardware component",
+    caption: "Display hardware for showing the NeXa face and public UI shell.",
+    width: 1320,
+    height: 1903
+  },
+  {
+    src: publicPath("/media/images/Hardware/6x4_Off_Road_UGV_ESP32_Driver.jpeg"),
+    alt: "6x4 off-road UGV platform with ESP32 driver",
+    caption: "Mobile base hardware used to explore physical prototype movement.",
+    width: 1320,
+    height: 1903
+  },
+  {
+    src: publicPath("/media/images/Hardware/pan_tilt.jpeg"),
+    alt: "Pan tilt hardware component",
+    caption: "Pan-tilt hardware for positioning a sensor or display element.",
+    width: 1320,
+    height: 1323
+  },
+  {
+    src: publicPath("/media/images/Hardware/orientation_DoF.jpeg"),
+    alt: "Orientation degrees-of-freedom sensor hardware component",
+    caption: "Orientation sensing component for prototype state awareness.",
+    width: 1320,
+    height: 1672
+  },
+  {
+    src: publicPath("/media/images/Hardware/ToF_8x8.jpeg"),
+    alt: "8x8 time-of-flight sensor hardware component",
+    caption: "Time-of-flight sensing component for distance-aware experiments.",
+    width: 1320,
+    height: 1896
+  },
+  {
+    src: publicPath("/media/images/Hardware/BME688_Quality.jpeg"),
+    alt: "BME688 environmental quality sensor hardware component",
+    caption: "Environmental sensing component included in the hardware set.",
+    width: 1320,
+    height: 1892
+  },
+  {
+    src: publicPath("/media/images/Hardware/PCAS_9548.jpeg"),
+    alt: "PCA9548 I2C multiplexer hardware component",
+    caption: "I2C expansion hardware photographed for the build inventory.",
+    width: 1320,
+    height: 1927
+  },
+  {
+    src: publicPath("/media/images/Hardware/USB_3_HUB.jpeg"),
+    alt: "USB 3 hub hardware component",
+    caption: "USB hub hardware for connecting prototype peripherals.",
+    width: 1320,
+    height: 1931
+  },
+  {
+    src: publicPath("/media/images/Hardware/ssd.jpeg"),
+    alt: "SSD storage hardware component",
+    caption: "Storage hardware for local prototype development work.",
+    width: 1320,
+    height: 1329
+  },
+  {
+    src: publicPath("/media/images/Hardware/SupTronics_X1206_4Cell.jpeg"),
+    alt: "SupTronics X1206 four cell power hardware",
+    caption: "Power hardware photographed as part of the prototype build set.",
+    width: 1320,
+    height: 1945
+  },
+  {
+    src: publicPath("/media/images/Hardware/TallentCell.jpeg"),
+    alt: "TalentCell battery hardware component",
+    caption: "Battery hardware considered for prototype power testing.",
+    width: 1320,
+    height: 1238
+  },
+  {
+    src: publicPath("/media/images/Hardware/21700_Cell.jpeg"),
+    alt: "21700 battery cell hardware component",
+    caption: "21700 cell shown as part of the power component inventory.",
+    width: 1320,
+    height: 1901
+  },
+  {
+    src: publicPath("/media/images/Hardware/18650_CELL.jpeg"),
+    alt: "18650 battery cell hardware component",
+    caption: "18650 cell shown as part of the power component inventory.",
+    width: 1320,
+    height: 1949
+  }
+];
+
 const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
   "system-preview": {
     eyebrow: "NeXa",
@@ -121,6 +353,7 @@ const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
       nav: [
         { label: "Overview", href: "#rove-overview" },
         { label: "Media", href: "#rove-media" },
+        { label: "Diagrams", href: "#rove-diagrams" },
         { label: "Hardware", href: "#rove-hardware" },
         { label: "Software", href: "#rove-software" },
         { label: "Build History", href: "#rove-build-history" },
@@ -159,8 +392,52 @@ const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
         ]
       },
       media: {
-        title: "Selected build media",
-        intro: "A focused gallery shows the current prototype views with optimized images, while video remains a deliberate user action."
+        title: "Prototype media gallery",
+        intro: "The gallery separates public prototype views from the hardware and build equipment used around NeXa RoVe. Images are shown whole, with letterboxing where needed, so the original framing remains visible."
+      },
+      mediaGroups: [
+        {
+          id: "nexa-appearance",
+          title: "NeXa appearance",
+          description: "Public views of the NeXa RoVe prototype, including front, rear, top, interior, and interface preview photos.",
+          images: nexaAppearanceImages
+        },
+        {
+          id: "hardware-build",
+          title: "Hardware used in the build",
+          description: "Components, power hardware, sensing hardware, audio/display parts, and build-progress photos used to explain the prototype at a public level.",
+          images: hardwareBuildImages
+        }
+      ],
+      diagrams: {
+        title: "Public system diagrams",
+        intro: "These diagrams give a simple public-level view of how the prototype is framed. They avoid private runtime details and keep claims limited to the public build story.",
+        items: [
+          {
+            src: publicPath("/diagrams/nexa-rove-public-system-overview.svg"),
+            alt: "Public system overview diagram for NeXa RoVe",
+            title: "Public system overview",
+            caption: "A high-level map of the prototype surface, public interface shell, and physical build categories.",
+            width: 1200,
+            height: 760
+          },
+          {
+            src: publicPath("/diagrams/hardware-media-control-flow.svg"),
+            alt: "Hardware media and control flow diagram for NeXa RoVe",
+            title: "Hardware, media, and control flow",
+            caption: "A public-safe flow showing media capture, interface feedback, and cautious prototype control without private routing detail.",
+            width: 1200,
+            height: 760
+          },
+          {
+            src: publicPath("/diagrams/local-first-public-boundary.svg"),
+            alt: "Local-first and public-safe boundary diagram for NeXa RoVe",
+            title: "Local-first public boundary",
+            caption: "A boundary view that separates public showcase content from private development records and runtime internals.",
+            width: 1200,
+            height: 760
+          }
+        ]
       },
       videoIntent: {
         title: "Demo video",
@@ -222,29 +499,6 @@ const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
         ]
       }
     },
-    photos: [
-      {
-        src: publicPath("/generated/rove/nexa-rove-main-720.webp"),
-        alt: "Current NeXa RoVe setup",
-        caption: "Current public build setup, shown as a complete portrait image.",
-        width: 720,
-        height: 960
-      },
-      {
-        src: publicPath("/generated/rove/front-720.webp"),
-        alt: "Front view of the NeXa RoVe prototype",
-        caption: "Front display and physical layout, preserved without cropping.",
-        width: 720,
-        height: 960
-      },
-      {
-        src: publicPath("/generated/rove/inside-720.webp"),
-        alt: "Inside view of the NeXa RoVe hardware layout",
-        caption: "Internal hardware arrangement shown at a public level.",
-        width: 720,
-        height: 960
-      }
-    ],
     codePreview: {
       title: "Public-safe routing sketch",
       command: "python3 examples/public_demo/demo_app.py",
@@ -283,6 +537,7 @@ const sectionCopy: Record<string, Omit<SiteSection, "id">> = {
     related: [
       { label: "Overview", href: "#rove-overview" },
       { label: "Media", href: "#rove-media" },
+      { label: "Diagrams", href: "#rove-diagrams" },
       { label: "Hardware", href: "#rove-hardware" },
       { label: "Software", href: "#rove-software" },
       { label: "Roadmap", href: "#rove-roadmap" }

@@ -169,6 +169,13 @@ body.content-active .scroll-guide {
   transform: translateY(0);
 }
 
+#nexa-rove.section-shell {
+  contain: none;
+  contain-intrinsic-block-size: auto;
+  content-visibility: visible;
+  transform: none;
+}
+
 .section-shell:nth-child(even) {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.026), rgba(255, 255, 255, 0.012)),
@@ -272,7 +279,7 @@ body.content-active .scroll-guide {
   position: fixed;
   top: 0;
   left: 50%;
-  z-index: 40;
+  z-index: 60;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
@@ -281,22 +288,25 @@ body.content-active .scroll-guide {
   min-height: 64px;
   max-width: 100%;
   margin-bottom: 4px;
-  padding: 8px;
-  border: 1px solid rgba(216, 231, 247, 0.17);
+  padding: 6px;
+  border: 1px solid rgba(216, 231, 247, 0.24);
   border-radius: 0 0 var(--radius-sm) var(--radius-sm);
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.026)),
-    rgba(4, 8, 14, 0.88);
+    linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.035)),
+    linear-gradient(180deg, rgba(5, 9, 16, 0.94), rgba(3, 6, 12, 0.88));
   box-shadow:
-    var(--shadow-soft),
-    0 0 34px rgba(116, 240, 227, 0.08);
-  backdrop-filter: blur(20px);
+    0 18px 54px rgba(0, 0, 0, 0.42),
+    0 0 44px rgba(116, 240, 227, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(24px) saturate(132%);
+  pointer-events: none;
   transform: translateX(-50%);
 }
 
 .rove-sticky-face,
 .rove-sticky-devdul {
   position: relative;
+  z-index: 1;
   display: inline-grid;
   min-width: 52px;
   min-height: 48px;
@@ -313,20 +323,17 @@ body.content-active .scroll-guide {
   backdrop-filter: blur(14px);
   opacity: 0;
   pointer-events: none;
-  transform: translateY(-10px) scale(0.94);
   transition:
-    opacity 220ms ease,
-    transform 220ms ease,
+    opacity 120ms ease,
     border-color 180ms ease,
     box-shadow 180ms ease,
-    filter 220ms ease;
+    filter 120ms ease;
 }
 
 body.flow-bar-docked .rove-sticky-face,
 body.flow-bar-docked .rove-sticky-devdul {
   opacity: 1;
   pointer-events: auto;
-  transform: translateY(0) scale(1);
 }
 
 .rove-sticky-face {
@@ -371,11 +378,14 @@ body.flow-bar-docked .rove-sticky-devdul {
 
 .rove-internal-nav {
   display: flex;
+  position: relative;
+  z-index: 1;
   min-width: 0;
   max-width: 100%;
   gap: 8px;
   overflow-x: auto;
   padding: 0 2px;
+  pointer-events: auto;
   scrollbar-width: thin;
 }
 
@@ -395,9 +405,10 @@ body.flow-bar-docked .rove-sticky-devdul {
 
 .rove-internal-nav a {
   padding: 10px 13px;
-  border: 1px solid transparent;
+  border: 1px solid rgba(216, 231, 247, 0.08);
   border-radius: var(--radius-sm);
-  color: var(--color-soft);
+  background: rgba(255, 255, 255, 0.035);
+  color: rgba(245, 251, 255, 0.9);
   font-size: 0.84rem;
   font-weight: 760;
 }
@@ -414,7 +425,7 @@ body.flow-bar-docked .rove-sticky-devdul {
 .rove-panel,
 .rove-subsection,
 .rove-boundaries-panel {
-  scroll-margin-top: 104px;
+  scroll-margin-top: 112px;
 }
 
 .rove-panel,
@@ -425,6 +436,7 @@ body.flow-bar-docked .rove-sticky-devdul {
 .rove-roadmap article,
 .code-preview,
 .rove-video-card,
+.rove-diagram-card,
 .rove-photo {
   border: 1px solid rgba(216, 231, 247, 0.16);
   border-radius: var(--radius-sm);
@@ -526,6 +538,81 @@ body.flow-bar-docked .rove-sticky-devdul {
   gap: 16px;
 }
 
+.rove-carousel-tabs {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: thin;
+}
+
+.rove-carousel-tab {
+  display: grid;
+  min-width: min(250px, 78vw);
+  gap: 4px;
+  padding: 13px 15px;
+  border: 1px solid rgba(216, 231, 247, 0.15);
+  border-radius: var(--radius-sm);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.022)),
+    rgba(7, 11, 18, 0.72);
+  color: var(--color-text);
+  cursor: pointer;
+  text-align: left;
+  backdrop-filter: blur(14px);
+}
+
+.rove-carousel-tab span {
+  font-size: 0.92rem;
+  font-weight: 780;
+}
+
+.rove-carousel-tab small {
+  color: var(--color-muted);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.rove-carousel-tab-active {
+  border-color: rgba(116, 240, 227, 0.72);
+  box-shadow:
+    0 0 0 1px rgba(116, 240, 227, 0.14),
+    0 0 28px rgba(116, 240, 227, 0.16);
+}
+
+.rove-carousel-tab:hover,
+.rove-carousel-tab:focus-visible {
+  border-color: var(--color-line-strong);
+  box-shadow: var(--shadow-focus);
+}
+
+.rove-carousel-group-panel {
+  min-width: 0;
+}
+
+.rove-carousel-group-copy {
+  display: grid;
+  gap: 6px;
+  padding: 16px;
+  border: 1px solid rgba(216, 231, 247, 0.14);
+  border-radius: var(--radius-sm);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02)),
+    rgba(7, 11, 18, 0.7);
+}
+
+.rove-carousel-group-copy h4 {
+  margin: 0;
+  font-size: 1.02rem;
+}
+
+.rove-carousel-group-copy p:not(.micro-label) {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
 .rove-carousel-main {
   position: relative;
   min-width: 0;
@@ -614,7 +701,7 @@ body.flow-bar-docked .rove-sticky-devdul {
 
 .rove-carousel-thumbs {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 136px), 1fr));
   gap: 12px;
 }
 
@@ -677,9 +764,44 @@ body.flow-bar-docked .rove-sticky-devdul {
 
 .rove-media-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.65fr);
+  grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.55fr);
   align-items: start;
   gap: clamp(14px, 3vw, 22px);
+}
+
+.rove-diagram-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 14px;
+}
+
+.rove-diagram-card {
+  display: grid;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.rove-diagram-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  background: rgba(1, 4, 9, 0.72);
+}
+
+.rove-diagram-card figcaption {
+  display: grid;
+  gap: 6px;
+  padding: 14px 16px;
+  border-top: 1px solid rgba(216, 231, 247, 0.11);
+  color: var(--color-muted);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.rove-diagram-card figcaption strong {
+  color: var(--color-text);
 }
 
 .rove-lightbox {
@@ -964,7 +1086,7 @@ body.flow-bar-docked .rove-sticky-devdul {
   }
 
   .rove-sticky-bar {
-    grid-template-columns: 48px minmax(0, 1fr) auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     min-height: 58px;
     padding: 6px;
   }

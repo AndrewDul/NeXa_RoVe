@@ -244,7 +244,9 @@ export default function NexaFace({ tiles }: NexaFaceProps) {
 }
 
 function updateFlowBarDockState() {
-  const shouldDock = window.scrollY > Math.max(180, window.innerHeight * 0.28);
+  const flowStart = document.getElementById("nexa-rove")?.offsetTop ?? 0;
+  const flowScroll = Math.max(0, window.scrollY - flowStart);
+  const shouldDock = flowScroll > 8;
   document.body.classList.toggle("flow-bar-docked", shouldDock);
 }
 
